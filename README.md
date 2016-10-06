@@ -1,6 +1,5 @@
 # react-native-animated-modal
-A common modal component that I used in several react-native projects.  
-<br/>
+A simple modal component that I used in several react-native projects.  
 <br/>
 
 ## Description
@@ -45,9 +44,9 @@ export default class AnimatedModalTester extends Component {
 <br/>
 
 # Gifs!
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-android.gif">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif">  
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-android.gif" height="300">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300">
 
 ## Available props
 | Name | Type| Default | Description |
