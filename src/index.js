@@ -5,14 +5,24 @@ import { View } from 'react-native-animatable'
 
 import styles from './index.style.js'
 
-export class Backdrop extends Component {
+export class BackdropModal extends Component {
   static propTypes = {
-    isVisible: PropTypes.bool,
-    children: PropTypes.node,
+    animationInTiming: PropTypes.number,
+    animationOutTiming: PropTypes.number,
+    backdropColor: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    onModalShow: PropTypes.func,
+    onModalHide: PropTypes.func,
     style: PropTypes.any
   }
 
   static defaultProps = {
+    animationInTiming: 300,
+    animationOutTiming: 300,
+    backdropColor: 'black',
+    onModalShow: () => null,
+    onModalHide: () => null,
     isVisible: false
   }
 
@@ -21,34 +31,40 @@ export class Backdrop extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!this.state.visible && nextProps.visible) {
+    if (!this.state.isVisible && nextProps.isVisible) {
       this.setState({ isVisible: true })
     }
   }
 
   componentDidUpdate (prevProps, prevState) {
     // On modal open request slide the view up and fade in the backdrop
-    if (this.state.visible && !prevState.visible) {
+    if (this.state.isVisible && !prevState.isVisible) {
       this._open()
     // On modal close request slide the view down and fade out the backdrop
-    } else if (!this.props.visible && prevProps.visible) {
+    } else if (!this.props.isVisible && prevProps.isVisible) {
       this._close()
     }
   }
 
   _open = () => {
     this.backdropRef.transitionTo({ opacity: 0.70 })
-    this.contentRef.slideInUp(300)
+    this.contentRef.slideInUp(this.props.animationInTiming)
+      .then(() => {
+        this.props.onModalShow()
+      })
   }
 
   _close = async () => {
     this.backdropRef.transitionTo({ opacity: 0 })
-    this.contentRef.slideOutDown(300)
-      .then(() => this.setState({ isVisible: false }))
+    this.contentRef.slideOutDown(this.props.animationOutTiming)
+      .then(() => {
+        this.setState({ isVisible: false })
+        this.props.onModalHide()
+      })
   }
 
   render () {
-    const { children, style, ...otherProps } = this.props
+    const { children, style, backdropColor, ...otherProps } = this.props
     const { isVisible } = this.state
     return (
       <Modal
@@ -56,7 +72,10 @@ export class Backdrop extends Component {
         animationType={'none'}
         visible={isVisible}
       >
-        <View ref={(ref) => this.backdropRef = ref} style={styles.backdrop} />
+        <View
+          ref={(ref) => this.backdropRef = ref}
+          style={[styles.backdrop, { backgroundColor: backdropColor }]}
+        />
         <View ref={(ref) => this.contentRef = ref} style={[styles.content, style]} {...otherProps}>
           {children}
         </View>
@@ -65,4 +84,4 @@ export class Backdrop extends Component {
   }
 }
 
-export default Backdrop
+export default BackdropModal

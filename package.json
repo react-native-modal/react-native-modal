@@ -1,6 +1,6 @@
 {
   "name": "react-native-backdrop-modal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An animated backdrop for modals/dialog",
   "main": "src/index.js",
   "scripts": {
