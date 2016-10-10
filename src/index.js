@@ -12,6 +12,7 @@ export class BackdropModal extends Component {
     animationOut: PropTypes.string,
     animationOutTiming: PropTypes.number,
     backdropColor: PropTypes.string,
+    backdropOpacity: PropTypes.number,
     children: PropTypes.node.isRequired,
     isVisible: PropTypes.bool.isRequired,
     onModalShow: PropTypes.func,
@@ -25,6 +26,7 @@ export class BackdropModal extends Component {
     animationOut: 'slideOutDown',
     animationOutTiming: 300,
     backdropColor: 'black',
+    backdropOpacity: 0.70,
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false
@@ -51,7 +53,7 @@ export class BackdropModal extends Component {
   }
 
   _open = () => {
-    this.backdropRef.transitionTo({ opacity: 0.70 })
+    this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity })
     const contentInAnimation = this.contentRef[this.props.animationIn]
     contentInAnimation(this.props.animationInTiming)
       .then(() => {
