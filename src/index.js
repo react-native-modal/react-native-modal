@@ -7,7 +7,9 @@ import styles from './index.style.js'
 
 export class BackdropModal extends Component {
   static propTypes = {
+    animationIn: PropTypes.string,
     animationInTiming: PropTypes.number,
+    animationOut: PropTypes.string,
     animationOutTiming: PropTypes.number,
     backdropColor: PropTypes.string,
     children: PropTypes.node.isRequired,
@@ -18,7 +20,9 @@ export class BackdropModal extends Component {
   }
 
   static defaultProps = {
+    animationIn: 'slideInUp',
     animationInTiming: 300,
+    animationOut: 'slideOutDown',
     animationOutTiming: 300,
     backdropColor: 'black',
     onModalShow: () => null,
@@ -48,7 +52,8 @@ export class BackdropModal extends Component {
 
   _open = () => {
     this.backdropRef.transitionTo({ opacity: 0.70 })
-    this.contentRef.slideInUp(this.props.animationInTiming)
+    const contentInAnimation = this.contentRef[this.props.animationIn]
+    contentInAnimation(this.props.animationInTiming)
       .then(() => {
         this.props.onModalShow()
       })
@@ -56,7 +61,8 @@ export class BackdropModal extends Component {
 
   _close = async () => {
     this.backdropRef.transitionTo({ opacity: 0 })
-    this.contentRef.slideOutDown(this.props.animationOutTiming)
+    const contentOutAnimation = this.contentRef[this.props.animationOut]
+    contentOutAnimation(this.props.animationOutTiming)
       .then(() => {
         this.setState({ isVisible: false })
         this.props.onModalHide()
