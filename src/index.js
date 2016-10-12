@@ -5,7 +5,7 @@ import { View } from 'react-native-animatable'
 
 import styles from './index.style.js'
 
-export class BackdropModal extends Component {
+export class AnimatedModal extends Component {
   static propTypes = {
     animationIn: PropTypes.string,
     animationInTiming: PropTypes.number,
@@ -13,6 +13,8 @@ export class BackdropModal extends Component {
     animationOutTiming: PropTypes.number,
     backdropColor: PropTypes.string,
     backdropOpacity: PropTypes.number,
+    backdropTransitionInTiming: PropTypes.number,
+    backdropTransitionOutTiming: PropTypes.number,
     children: PropTypes.node.isRequired,
     isVisible: PropTypes.bool.isRequired,
     onModalShow: PropTypes.func,
@@ -27,6 +29,8 @@ export class BackdropModal extends Component {
     animationOutTiming: 300,
     backdropColor: 'black',
     backdropOpacity: 0.70,
+    backdropTransitionInTiming: 300,
+    backdropTransitionOutTiming: 300,
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false
@@ -53,18 +57,16 @@ export class BackdropModal extends Component {
   }
 
   _open = () => {
-    this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity })
-    const contentInAnimation = this.contentRef[this.props.animationIn]
-    contentInAnimation(this.props.animationInTiming)
+    this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity }, this.props.backdropTransitionInTiming)
+    this.contentRef[this.props.animationIn](this.props.animationInTiming)
       .then(() => {
         this.props.onModalShow()
       })
   }
 
   _close = async () => {
-    this.backdropRef.transitionTo({ opacity: 0 })
-    const contentOutAnimation = this.contentRef[this.props.animationOut]
-    contentOutAnimation(this.props.animationOutTiming)
+    this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming)
+    this.contentRef[this.props.animationOut](this.props.animationOutTiming)
       .then(() => {
         this.setState({ isVisible: false })
         this.props.onModalHide()
@@ -92,4 +94,4 @@ export class BackdropModal extends Component {
   }
 }
 
-export default BackdropModal
+export default AnimatedModal

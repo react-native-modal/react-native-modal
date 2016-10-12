@@ -8,3 +8,5 @@ npm-debug.log
 
 # Images and extras
 extras/
+example/
+.eslintrc
