@@ -27,7 +27,7 @@ export default class AnimatedModalTester extends Component {
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <TouchableOpacity onPress={_showModal}>
+        <TouchableOpacity onPress={this._showModal}>
           <Text>Show Modal</Text>
         </TouchableOpacity>
         <Modal visible={this.state.isModalVisible}>
@@ -41,6 +41,7 @@ export default class AnimatedModalTester extends Component {
 
 }
 ```
+For a more complex example take a look at the /example directory.
 <br/>
 
 # Gifs!
@@ -50,9 +51,14 @@ export default class AnimatedModalTester extends Component {
 ## Available props
 | Name | Type| Default | Description |
 | --- | --- | --- | --- |
+| animationIn | string | 'slideInUp' | Modal show animation |
 | animationInTiming | number | 300 | Timing for the modal show animation (in ms) |
+| animationOut | string | 'slideOutDown' | Modal hide animation |
 | animationOutTiming | number | 300 | Timing for the modal hide animation (in ms) |
 | backdropColor | string | 'black' | The backdrop background color |
+| backdropOpacity | number | 0.70 | The backdrop opacity when the modal is visible |
+| backdropTransitionInTiming | number | 300 | The backdrop show timing (in ms) |
+| backdropTransitionOutTiming | number | 300 | The backdrop hide timing (in ms) |
 | isVisible | bool | **REQUIRED** | Show the modal? |
 | children | node | **REQUIRED** | The modal content |
 | onModalShow | func | () => null | Called when the modal is completely visible |
