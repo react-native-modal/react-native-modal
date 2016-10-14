@@ -1,6 +1,6 @@
-/* eslint-disable no-return-assign */
+/* eslint-disable no-return-assign, no-unused-vars */
 import React, { Component, PropTypes } from 'react'
-import { Modal } from 'react-native'
+import { Dimensions, Modal } from 'react-native'
 import { View } from 'react-native-animatable'
 
 import styles from './index.style.js'
@@ -37,7 +37,9 @@ export class AnimatedModal extends Component {
   }
 
   state = {
-    isVisible: false
+    isVisible: false,
+    deviceWidth: Dimensions.get('window').width,
+    deviceHeight: Dimensions.get('window').height
   }
 
   componentWillReceiveProps (nextProps) {
@@ -73,20 +75,40 @@ export class AnimatedModal extends Component {
       })
   }
 
+  _handleLayout = (event) => {
+    const deviceWidth = Dimensions.get('window').width
+    const deviceHeight = Dimensions.get('window').height
+    if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
+      this.setState({ deviceWidth, deviceHeight })
+    }
+  }
+
   render () {
-    const { children, style, backdropColor, ...otherProps } = this.props
-    const { isVisible } = this.state
+    const { animationIn, animationInTiming, animationOut, animationOutTiming, backdropColor,
+      backdropOpacity, backdropTransitionInTiming, backdropTransitionOutTiming, children, isVisible,
+      onModalShow, onModalHide, style, ...otherProps } = this.props
+    const { deviceWidth, deviceHeight } = this.state
     return (
       <Modal
         transparent={true}
         animationType={'none'}
-        visible={isVisible}
+        visible={this.state.isVisible}
+        onRequestClose={() => null}
+        {...otherProps}
       >
         <View
+          onLayout={this._handleLayout}
           ref={(ref) => this.backdropRef = ref}
-          style={[styles.backdrop, { backgroundColor: backdropColor }]}
+          style={[
+            styles.backdrop,
+            { backgroundColor: backdropColor, width: deviceWidth, height: deviceHeight }
+          ]}
         />
-        <View ref={(ref) => this.contentRef = ref} style={[styles.content, style]} {...otherProps}>
+        <View
+          ref={(ref) => this.contentRef = ref}
+          style={[{ margin: deviceWidth * 0.05 }, styles.content, style]}
+          {...otherProps}
+        >
           {children}
         </View>
       </Modal>

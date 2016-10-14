@@ -1,7 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native'
-
-const DEVICE_WIDTH = Dimensions.get('window').width
-const DEVICE_HEIGHT = Dimensions.get('window').height
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   backdrop: {
@@ -10,14 +7,11 @@ export default StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: DEVICE_HEIGHT,
-    width: DEVICE_WIDTH,
     opacity: 0,
     backgroundColor: 'black'
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
-    margin: DEVICE_WIDTH * 0.05
+    justifyContent: 'center'
   }
 })
