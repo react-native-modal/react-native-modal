@@ -1,6 +1,6 @@
 {
   "name": "react-native-animated-modal",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple React-Native animated modal",
   "main": "src/index.js",
   "scripts": {
