@@ -1,4 +1,3 @@
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/logo.png" width="120" align="left">
 # react-native-animated-modal
 A customizable react-native animated modal.
 <br/>
