@@ -3,6 +3,12 @@ A customizable react-native animated modal.
 <br/>
 <br/>
 
+# Gifs!
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300">
+<br/>
+
 ## Description
 This component enhances the original react-native modal by adding animations and a lot of possible customizations  while still providing nice defaults:  
 - You can customize the backdrop opacity, color, animation type and animation timing.  
@@ -49,11 +55,6 @@ export default class AnimatedModalTester extends Component {
 ```
 For a more complex example take a look at the `/example` directory.
 <br/>
-
-# Gifs!
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300">
 
 ## Available props
 | Name | Type| Default | Description |
