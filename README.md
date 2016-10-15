@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/logo.png" width="110" align="left">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/logo.png" width="120" align="left">
 # react-native-animated-modal
 A customizable react-native animated modal.
 <br/>
@@ -54,7 +54,7 @@ For a more complex example take a look at the `/example` directory.
 # Gifs!
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300">
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/imgs/example-modal.gif" height="300">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300">
 
 ## Available props
 | Name | Type| Default | Description |
