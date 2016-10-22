@@ -10,7 +10,7 @@ A customizable react-native animated modal.
 <br/>
 
 ## Description
-This component enhances the original react-native modal by adding animations and a lot of possible customizations  while still providing nice defaults:  
+This component enhances the original react-native modal by adding animations and many possible customizations while still providing nice defaults:  
 - You can customize the backdrop opacity, color, animation type and animation timing.  
 - You can provide your own content and customize its animation type and animation timing.
 - You'll know when the animations end thanks to `onModalShow` and `onModalHide`  
