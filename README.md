@@ -73,7 +73,7 @@ For a more complex example take a look at the `/example` directory.
 | onModalHide | func | () => null | Called when the modal is completely hidden |
 | style | any | null | Style applied to the modal |
 
-## Avaliable animation
+## Avaliable animations
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) for available animations.     
 
 P.S.: Thanks @oblador for react-native-animatable!
