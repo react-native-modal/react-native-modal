@@ -42,7 +42,7 @@ export default class AnimatedModalTester extends Component {
         <TouchableOpacity onPress={this._showModal}>
           <Text>Show Modal</Text>
         </TouchableOpacity>
-        <Modal visible={this.state.isModalVisible}>
+        <Modal isVisible={this.state.isModalVisible}>
           <View style={{ flex: 1 }}>
             <Text>Hello!</Text>
           </View>
