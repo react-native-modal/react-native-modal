@@ -19,6 +19,7 @@ export class AnimatedModal extends Component {
     isVisible: PropTypes.bool.isRequired,
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
+    hideOnBack: PropTypes.bool,
     style: PropTypes.any
   }
 
@@ -33,7 +34,8 @@ export class AnimatedModal extends Component {
     backdropTransitionOutTiming: 300,
     onModalShow: () => null,
     onModalHide: () => null,
-    isVisible: false
+    isVisible: false,
+    hideOnBack: true,
   }
 
   state = {
@@ -75,6 +77,12 @@ export class AnimatedModal extends Component {
       })
   }
 
+  _closeOnBack = () => {
+      if (this.props.hideOnBack) {
+        this._close();
+      }
+  }
+
   _handleLayout = (event) => {
     const deviceWidth = Dimensions.get('window').width
     const deviceHeight = Dimensions.get('window').height
@@ -93,7 +101,7 @@ export class AnimatedModal extends Component {
         transparent={true}
         animationType={'none'}
         visible={this.state.isVisible}
-        onRequestClose={() => null}
+        onRequestClose={this._closeOnBack}
         {...otherProps}
       >
         <View
