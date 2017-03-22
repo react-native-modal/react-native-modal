@@ -1,13 +1,10 @@
 # react-native-animated-modal
 A customizable react-native animated modal.
-<br/>
-<br/>
 
 # Gifs!
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300">
-<br/>
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300" />
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300" />
 
 ## Description
 This component enhances the original react-native modal by adding animations and many possible customizations while still providing nice defaults:  
@@ -16,7 +13,6 @@ This component enhances the original react-native modal by adding animations and
 - You'll know when the animations end thanks to `onModalShow` and `onModalHide`  
 
 P.S.: The modal will resize itself correctly on device rotation.  
-<br/>
 
 ## Setup
 This library is available on npm, install it with: `npm install --save react-native-animated-modal`.  
@@ -54,7 +50,6 @@ export default class AnimatedModalTester extends Component {
 }
 ```
 For a more complex example take a look at the `/example` directory.
-<br/>
 
 ## Available props
 | Name | Type| Default | Description |
