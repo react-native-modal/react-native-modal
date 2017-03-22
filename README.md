@@ -2,9 +2,11 @@
 A customizable react-native animated modal.
 
 # Gifs!
+<p align="center">
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300" />
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300" />
+</p>
 
 ## Description
 This component enhances the original react-native modal by adding animations and many possible customizations while still providing nice defaults:  
