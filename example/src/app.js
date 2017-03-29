@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import Modal from 'react-native-animated-modal'
+import React, { Component } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import Modal from 'react-native-animated-modal';
 
-import styles from './app.style'
+import styles from './app.style';
 
 export default class Example extends Component {
   state = {
-    visibleModal: null
-  }
+    visibleModal: null,
+  };
 
   _renderButton = (text, onPress) => (
     <TouchableOpacity onPress={onPress}>
@@ -15,16 +15,16 @@ export default class Example extends Component {
         <Text>{text}</Text>
       </View>
     </TouchableOpacity>
-  )
+  );
 
   _renderModalContent = () => (
     <View style={styles.modalContent}>
       <Text>Hello!</Text>
       {this._renderButton('Close', () => this.setState({ visibleModal: null }))}
     </View>
-  )
+  );
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         {this._renderButton('Default modal', () => this.setState({ visibleModal: 1 }))}
@@ -68,6 +68,6 @@ export default class Example extends Component {
           {this._renderModalContent()}
         </Modal>
       </View>
-    )
+    );
   }
 }
