@@ -49,6 +49,13 @@ export class AnimatedModal extends Component {
     }
   }
 
+  componentWillMount() {
+    if (this.props.isVisible) {
+      this.setState({ isVisible: true });
+      this._open();
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     // On modal open request slide the view up and fade in the backdrop
     if (this.state.isVisible && !prevState.isVisible) {
