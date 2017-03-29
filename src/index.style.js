@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   backdrop: {
@@ -8,10 +8,10 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     opacity: 0,
-    backgroundColor: 'black'
+    backgroundColor: 'black',
   },
   content: {
     flex: 1,
-    justifyContent: 'center'
-  }
-})
+    justifyContent: 'center',
+  },
+});

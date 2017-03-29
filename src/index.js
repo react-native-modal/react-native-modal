@@ -1,9 +1,8 @@
-/* eslint-disable no-return-assign, no-unused-vars */
-import React, { Component, PropTypes } from 'react'
-import { Dimensions, Modal } from 'react-native'
-import { View } from 'react-native-animatable'
+import React, { Component, PropTypes } from 'react';
+import { Dimensions, Modal } from 'react-native';
+import { View } from 'react-native-animatable';
 
-import styles from './index.style.js'
+import styles from './index.style.js';
 
 export class AnimatedModal extends Component {
   static propTypes = {
@@ -20,8 +19,8 @@ export class AnimatedModal extends Component {
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
     hideOnBack: PropTypes.bool,
-    style: PropTypes.any
-  }
+    style: PropTypes.any,
+  };
 
   static defaultProps = {
     animationIn: 'slideInUp',
@@ -36,66 +35,80 @@ export class AnimatedModal extends Component {
     onModalHide: () => null,
     isVisible: false,
     hideOnBack: true,
-  }
+  };
 
   state = {
     isVisible: false,
     deviceWidth: Dimensions.get('window').width,
-    deviceHeight: Dimensions.get('window').height
-  }
+    deviceHeight: Dimensions.get('window').height,
+  };
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
-      this.setState({ isVisible: true })
+      this.setState({ isVisible: true });
     }
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     // On modal open request slide the view up and fade in the backdrop
     if (this.state.isVisible && !prevState.isVisible) {
-      this._open()
-    // On modal close request slide the view down and fade out the backdrop
+      this._open();
+      // On modal close request slide the view down and fade out the backdrop
     } else if (!this.props.isVisible && prevProps.isVisible) {
-      this._close()
+      this._close();
     }
   }
 
   _open = () => {
-    this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity }, this.props.backdropTransitionInTiming)
-    this.contentRef[this.props.animationIn](this.props.animationInTiming)
-      .then(() => {
-        this.props.onModalShow()
-      })
-  }
+    this.backdropRef.transitionTo(
+      { opacity: this.props.backdropOpacity },
+      this.props.backdropTransitionInTiming,
+    );
+    this.contentRef[this.props.animationIn](this.props.animationInTiming).then(() => {
+      this.props.onModalShow();
+    });
+  };
 
   _close = async () => {
-    this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming)
-    this.contentRef[this.props.animationOut](this.props.animationOutTiming)
-      .then(() => {
-        this.setState({ isVisible: false })
-        this.props.onModalHide()
-      })
-  }
+    this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming);
+    this.contentRef[this.props.animationOut](this.props.animationOutTiming).then(() => {
+      this.setState({ isVisible: false });
+      this.props.onModalHide();
+    });
+  };
 
   _closeOnBack = () => {
-      if (this.props.hideOnBack) {
-        this._close();
-      }
-  }
-
-  _handleLayout = (event) => {
-    const deviceWidth = Dimensions.get('window').width
-    const deviceHeight = Dimensions.get('window').height
-    if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
-      this.setState({ deviceWidth, deviceHeight })
+    if (this.props.hideOnBack) {
+      this._close();
     }
-  }
+  };
 
-  render () {
-    const { animationIn, animationInTiming, animationOut, animationOutTiming, backdropColor,
-      backdropOpacity, backdropTransitionInTiming, backdropTransitionOutTiming, children, isVisible,
-      onModalShow, onModalHide, style, ...otherProps } = this.props
-    const { deviceWidth, deviceHeight } = this.state
+  _handleLayout = event => {
+    const deviceWidth = Dimensions.get('window').width;
+    const deviceHeight = Dimensions.get('window').height;
+    if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
+      this.setState({ deviceWidth, deviceHeight });
+    }
+  };
+
+  render() {
+    const {
+      animationIn,
+      animationInTiming,
+      animationOut,
+      animationOutTiming,
+      backdropColor,
+      backdropOpacity,
+      backdropTransitionInTiming,
+      backdropTransitionOutTiming,
+      children,
+      isVisible,
+      onModalShow,
+      onModalHide,
+      style,
+      ...otherProps
+    } = this.props;
+    const { deviceWidth, deviceHeight } = this.state;
     return (
       <Modal
         transparent={true}
@@ -106,22 +119,22 @@ export class AnimatedModal extends Component {
       >
         <View
           onLayout={this._handleLayout}
-          ref={(ref) => this.backdropRef = ref}
+          ref={ref => this.backdropRef = ref}
           style={[
             styles.backdrop,
-            { backgroundColor: backdropColor, width: deviceWidth, height: deviceHeight }
+            { backgroundColor: backdropColor, width: deviceWidth, height: deviceHeight },
           ]}
         />
         <View
-          ref={(ref) => this.contentRef = ref}
+          ref={ref => this.contentRef = ref}
           style={[{ margin: deviceWidth * 0.05 }, styles.content, style]}
           {...otherProps}
         >
           {children}
         </View>
       </Modal>
-    )
+    );
   }
 }
 
-export default AnimatedModal
+export default AnimatedModal;

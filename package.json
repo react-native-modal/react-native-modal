@@ -12,10 +12,12 @@
     "react-native",
     "react",
     "native",
+    "modal",
+    "android",
+    "ios",
     "backdrop",
     "simple",
-    "animated",
-    "modal"
+    "animated"
   ],
   "author": "Mazzarolo Matteo",
   "license": "ISC",
@@ -25,10 +27,9 @@
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "eslint": "^3.5.0",
-    "eslint-config-mostaza-react": "^1.11.2",
-    "eslint-plugin-import": "^1.15.0",
-    "eslint-plugin-jsx-a11y": "^2.2.2",
-    "eslint-plugin-react": "^6.2.1",
+    "eslint-plugin-prettier": "^2.0.0",
+    "eslint-plugin-react-app": "^1.0.2",
+    "prettier": "^0.18.0",
     "react": ">=15.0.0",
     "react-native": ">=0.24.0"
   }
