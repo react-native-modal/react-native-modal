@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
   },
   "keywords": [
     "react-native",
