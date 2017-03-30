@@ -1,5 +1,6 @@
-# react-native-animated-modal
-A customizable react-native animated modal.
+# react-native-modal
+An enhanced, animated and customizable react-native modal.  
+Previously known as `react-native-animated-modal`.  
 
 # Gifs!
 <p align="center">
@@ -9,7 +10,7 @@ A customizable react-native animated modal.
 </p>
 
 ## Description
-This component enhances the original react-native modal by adding animations and many possible customizations while still providing nice defaults:  
+This component enhances the original react-native modal by adding animations and many possible customization options while still providing nice defaults:  
 - You can customize the backdrop opacity, color, animation type and animation timing.  
 - You can provide your own content and customize its animation type and animation timing.
 - You'll know when the animations end thanks to `onModalShow` and `onModalHide`  
@@ -17,15 +18,15 @@ This component enhances the original react-native modal by adding animations and
 P.S.: The modal will resize itself correctly on device rotation.  
 
 ## Setup
-This library is available on npm, install it with: `npm install --save react-native-animated-modal`.  
+This library is available on npm, install it with: `npm install --save react-native-modal`.  
 
 ## Usage
 ```javascript
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import Modal from 'react-native-animated-modal'
+import Modal from 'react-native-modal'
 
-export default class AnimatedModalTester extends Component {
+export default class ModalTester extends Component {
   state = {
     isModalVisible: false
   }
@@ -72,5 +73,5 @@ For a more complex example take a look at the `/example` directory.
 
 ## Avaliable animations
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) for available animations.     
-Pull requests and suggestions are welcome!  
-P.S.: Thanks @oblador for react-native-animatable!
+Pull requests, feedbacks and suggestions are welcome!  
+P.S.: Thanks @oblador for react-native-animatable and @brentvatne for the npm namespace!  
