@@ -4,7 +4,7 @@ import { View } from 'react-native-animatable';
 
 import styles from './index.style.js';
 
-export class AnimatedModal extends Component {
+export class ReactNativeModal extends Component {
   static propTypes = {
     animationIn: PropTypes.string,
     animationInTiming: PropTypes.number,
@@ -144,4 +144,4 @@ export class AnimatedModal extends Component {
   }
 }
 
-export default AnimatedModal;
+export default ReactNativeModal;

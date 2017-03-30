@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import Modal from 'react-native-animated-modal';
+import Modal from 'react-native-modal';
 
 import styles from './app.style';
 

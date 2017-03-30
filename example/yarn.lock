@@ -1523,11 +1523,7 @@ dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
 
-domelementtype@1:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.0.tgz#b17aed82e8ab59e52dd9c19b1756e0fc187204c2"
-
-domelementtype@~1.1.1:
+domelementtype@1, domelementtype@~1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.1.3.tgz#bd28773e2642881aec51544924299c5cd822185b"
 
@@ -3801,9 +3797,9 @@ react-native-animatable@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.1.1.tgz#00ddc72985f62f62a11a505abb1a06e77a92cd8a"
 
-react-native-animated-modal@*:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-animated-modal/-/react-native-animated-modal-1.1.0.tgz#bdb62c7ec40ad6dc4af7259757ccaf623c2b898c"
+react-native-modal@*:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-2.0.0.tgz#03e0492227766e99812de4df934e5daf58f9c6d0"
   dependencies:
     react-native-animatable "^1.1.1"
 
