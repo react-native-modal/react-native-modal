@@ -52,6 +52,11 @@ export class ReactNativeModal extends Component {
   componentWillMount() {
     if (this.props.isVisible) {
       this.setState({ isVisible: true });
+    }
+  }
+
+  componentDidMount() {
+    if (this.state.isVisible) {
       this._open();
     }
   }
