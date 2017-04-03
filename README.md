@@ -1,11 +1,7 @@
 # react-native-modal
 An enhanced, animated and customizable react-native modal.  
 Previously known as `react-native-animated-modal`.  
-  
-# Warning
-This name was previously known as `react-native-animated-modal`.  
-Please upgrade your version to this new `react-native-modal`.  
-  
+
 # Gifs!
 <p align="center">
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
