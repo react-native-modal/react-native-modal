@@ -66,7 +66,7 @@ For a more complex example take a look at the `/example` directory.
 | backdropTransitionInTiming | number | 300 | The backdrop show timing (in ms) |
 | backdropTransitionOutTiming | number | 300 | The backdrop hide timing (in ms) |
 | hideOnBack  | bool | true | Hide the modal on back button press? |
-| onBackButton  | func | () => null | Called when the Android back button is pressed |
+| onBackButtonPressed  | func | () => null | Called when the Android back button is pressed |
 | isVisible | bool | **REQUIRED** | Show the modal? |
 | children | node | **REQUIRED** | The modal content |
 | onModalShow | func | () => null | Called when the modal is completely visible |
