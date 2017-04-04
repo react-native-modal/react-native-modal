@@ -19,7 +19,7 @@ export class ReactNativeModal extends Component {
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
     hideOnBack: PropTypes.bool,
-    onBackButtonPressed: PropTypes.func,
+    onBackButtonPress: PropTypes.func,
     style: PropTypes.any,
   };
 
@@ -36,7 +36,7 @@ export class ReactNativeModal extends Component {
     onModalHide: () => null,
     isVisible: false,
     hideOnBack: true,
-    onBackButtonPressed: () => null,
+    onBackButtonPress: () => null,
   };
 
   state = {
@@ -96,7 +96,7 @@ export class ReactNativeModal extends Component {
       this._close();
     }
 
-    this.props.onBackButtonPressed();
+    this.props.onBackButtonPress();
   };
 
   _handleLayout = event => {
