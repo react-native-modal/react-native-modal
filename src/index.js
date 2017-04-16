@@ -1,8 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Dimensions, Modal } from 'react-native';
-import { View } from 'react-native-animatable';
+import { View,initializeRegistryWithDefinitions } from 'react-native-animatable';
+import * as ANIMATION_DEFINITIONS from './animations';
 
 import styles from './index.style.js';
+
+// override default animations
+initializeRegistryWithDefinitions(ANIMATION_DEFINITIONS);
 
 export class ReactNativeModal extends Component {
   static propTypes = {
