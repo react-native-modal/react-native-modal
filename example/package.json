@@ -9,7 +9,7 @@
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
-    "react-native-modal": "^2.2.0"
+    "react-native-modal": "file:../"
   },
   "jest": {
     "preset": "jest-react-native"
