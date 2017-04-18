@@ -43,13 +43,13 @@ export class ReactNativeModal extends Component {
     onBackButtonPress: () => null,
   };
 
+  // We use an internal state for keeping track of the modal visibility: this allows us to keep
+  // the modal visibile during the exit animation, even if the user has already change the
+  // isVisible prop to false.
+  // We also store in the state the device width and height so that we can update the modal on
+  // device rotation.
   state = {
-    // We use an internal state for keeping track of the modal visibility: this allows us to keep 
-    // the modal visibile during the exit animation, even if the user has already change the 
-    // isVisible prop to false.
     isVisible: false,
-    // We also store in the state the device width and height so that we can update the modal on 
-    // device rotation.
     deviceWidth: Dimensions.get('window').width,
     deviceHeight: Dimensions.get('window').height,
   };
