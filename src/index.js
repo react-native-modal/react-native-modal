@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Dimensions, Modal } from 'react-native';
-import { View,initializeRegistryWithDefinitions } from 'react-native-animatable';
+import { View, initializeRegistryWithDefinitions } from 'react-native-animatable';
 import * as ANIMATION_DEFINITIONS from './animations';
 
 import styles from './index.style.js';
