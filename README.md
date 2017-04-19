@@ -2,7 +2,6 @@
 
 # react-native-modal
 An enhanced, animated and customizable react-native modal.  
-Previously known as `react-native-animated-modal`.  
 
 ## Description
 This component enhances the original react-native modal by adding animations and many possible customization options while still providing nice defaults:  
