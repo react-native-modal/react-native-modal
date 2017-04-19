@@ -1,13 +1,8 @@
+<img src="https://github.com/react-native-community/react-native-modal/raw/master/extras/react-native-modal-logo.png" width="130" align="left" /> 
+
 # react-native-modal
 An enhanced, animated and customizable react-native modal.  
 Previously known as `react-native-animated-modal`.  
-
-# Gifs!
-<p align="center">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300" />
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300" />
-</p>
 
 ## Description
 This component enhances the original react-native modal by adding animations and many possible customization options while still providing nice defaults:  
@@ -15,7 +10,14 @@ This component enhances the original react-native modal by adding animations and
 - You can provide your own content and customize its animation type and animation timing.
 - You'll know when the animations end thanks to `onModalShow` and `onModalHide`  
 
-P.S.: The modal will resize itself correctly on device rotation.  
+P.S.: The modal will resize itself correctly on device rotation. 
+
+## Gifs!
+<p align="center">
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300" />
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300" />
+</p>
 
 ## Setup
 This library is available on npm, install it with: `npm install --save react-native-modal`.  
