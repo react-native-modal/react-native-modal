@@ -1,8 +1,14 @@
+[![npm version](https://badge.fury.io/js/react-native-modal.svg)](https://badge.fury.io/js/react-native-modal)  
+&nbsp;  
+  
 <img src="https://github.com/react-native-community/react-native-modal/raw/master/extras/react-native-modal-logo.png" width="130" align="left" /> 
 
 # react-native-modal
 An enhanced, animated and customizable react-native modal.  
-
+  
+&nbsp; 
+&nbsp;   
+  
 ## Description
 This component enhances the original react-native modal by adding animations and many possible customization options while still providing nice defaults:  
 - You can customize the backdrop opacity, color, animation type and animation timing.  
