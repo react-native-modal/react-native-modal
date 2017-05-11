@@ -21,6 +21,11 @@
   ],
   "author": "Mazzarolo Matteo",
   "license": "ISC",
+  "homepage": "https://github.com/react-native-community/react-native-modal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-native-community/react-native-modal"
+  },
   "dependencies": {
     "react-native-animatable": "^1.1.1"
   },
