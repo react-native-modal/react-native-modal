@@ -27,6 +27,7 @@
     "url": "https://github.com/react-native-community/react-native-modal"
   },
   "dependencies": {
+    "prop-types": "15.5.10",
     "react-native-animatable": "^1.2.0"
   },
   "devDependencies": {
