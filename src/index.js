@@ -146,14 +146,14 @@ export class ReactNativeModal extends Component {
       >
         <View
           onLayout={this._handleLayout}
-          ref={ref => this.backdropRef = ref}
+          ref={ref => (this.backdropRef = ref)}
           style={[
             styles.backdrop,
             { backgroundColor: backdropColor, width: deviceWidth, height: deviceHeight },
           ]}
         />
         <View
-          ref={ref => this.contentRef = ref}
+          ref={ref => (this.contentRef = ref)}
           style={[{ margin: deviceWidth * 0.05 }, styles.content, style]}
           {...otherProps}
         >

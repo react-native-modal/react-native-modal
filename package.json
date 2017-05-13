@@ -7,6 +7,7 @@
     "lint": "eslint src",
     "precommit": "lint-staged",
     "test": "npm run lint",
+    "prettier": "prettier --write --print-width 100 --single-quote --trailing-comma all src/**/*.js",
     "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
   },
   "keywords": [
@@ -43,8 +44,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
-      "prettier --write --print-width 100 --single-quote --trailing-comma all",
+      "npm run test",
+      "npm run prettier",
       "git add"
     ]
   }
