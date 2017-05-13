@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src",
+    "precommit": "lint-staged",
     "test": "npm run lint",
     "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
   },
@@ -33,10 +34,16 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^3.5.0",
-    "eslint-plugin-prettier": "^2.0.0",
     "eslint-plugin-react-app": "^1.0.2",
     "prettier": "^1.3.1",
     "react": ">=15.0.0",
     "react-native": ">=0.24.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write --print-width 100 --single-quote --trailing-comma all",
+      "git add"
+    ]
   }
 }

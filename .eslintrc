@@ -1,11 +1,5 @@
 {
-  "extends": ["plugin:react-app/recommended"],
-  "plugins": ["prettier"],
-  "rules": {
-    "prettier/prettier": ["error", {
-      "printWidth": 100,
-      "trailingComma": true, 
-      "singleQuote": true
-    }]
-  }
+  "extends": [
+    "plugin:react-app/recommended"
+  ]
 }
