@@ -1,23 +1,20 @@
-[![npm version](https://badge.fury.io/js/react-native-modal.svg)](https://badge.fury.io/js/react-native-modal)  
-&nbsp;  
-  
-<img src="https://github.com/react-native-community/react-native-modal/raw/master/extras/react-native-modal-logo.png" width="130" align="left" /> 
-
 # react-native-modal
+
+[![npm version](https://badge.fury.io/js/react-native-modal.svg)](https://badge.fury.io/js/react-native-modal)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+ 
 An enhanced, animated and customizable react-native modal.  
-  
-&nbsp; 
-&nbsp;   
-  
-## Description
-This component enhances the original react-native modal by adding animations and many possible customization options while still providing nice defaults:  
-- You can customize the backdrop opacity, color, animation type and animation timing.  
-- You can provide your own content and customize its animation type and animation timing.
-- You'll know when the animations end thanks to `onModalShow` and `onModalHide`  
 
-P.S.: The modal will resize itself correctly on device rotation. 
+## Features
 
-## Gifs!
+- Smooth enter/exit animations
+- Plain simple and flexible APIs
+- Customizable backdrop opacity, color and timing
+- Listeners for the modal animations ending
+- Resize itself correctly on device rotation
+
+## Demo
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300" />
@@ -25,9 +22,11 @@ P.S.: The modal will resize itself correctly on device rotation.
 </p>
 
 ## Setup
-This library is available on npm, install it with: `npm install --save react-native-modal`.  
+
+This library is available on npm, install it with: `npm install --save react-native-modal` or `yarn add react-native-modal`.
 
 ## Usage
+
 ```javascript
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
@@ -83,4 +82,5 @@ For a more complex example take a look at the `/example` directory.
 ## Avaliable animations
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) for available animations.     
 Pull requests, feedbacks and suggestions are welcome!  
+  
 P.S.: Thanks [@oblador](https://github.com/oblador) for react-native-animatable and [@brentvatne](https://github.com/brentvatne) for the npm namespace!  
