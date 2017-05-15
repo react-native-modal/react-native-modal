@@ -61,6 +61,7 @@ export default class ModalTester extends Component {
 For a more complex example take a look at the `/example` directory.
 
 ## Available props
+
 | Name | Type| Default | Description |
 | --- | --- | --- | --- |
 | animationIn | string | 'slideInUp' | Modal show animation |
@@ -80,6 +81,7 @@ For a more complex example take a look at the `/example` directory.
 | style | any | null | Style applied to the modal |
 
 ## Avaliable animations
+
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) for available animations.     
 Pull requests, feedbacks and suggestions are welcome!  
   
