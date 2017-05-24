@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal } from 'react-native';
+import { Dimensions, Modal, DeviceEventEmitter } from 'react-native';
 import PropTypes from 'prop-types';
 import { View, initializeRegistryWithDefinitions } from 'react-native-animatable';
 import * as ANIMATION_DEFINITIONS from './animations';
@@ -71,6 +71,7 @@ export class ReactNativeModal extends Component {
     if (this.state.isVisible) {
       this._open();
     }
+    DeviceEventEmitter.addListener('didUpdateDimensions', this._handleDimensionsUpdate);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -82,6 +83,15 @@ export class ReactNativeModal extends Component {
       this._close();
     }
   }
+
+  _handleDimensionsUpdate = dimensionsUpdate => {
+    // Here we update the device dimensions in the state if the layout changed (triggering a render)
+    const deviceWidth = dimensionsUpdate.window.width;
+    const deviceHeight = dimensionsUpdate.window.height;
+    if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
+      this.setState({ deviceWidth, deviceHeight });
+    }
+  };
 
   _open = () => {
     this.backdropRef.transitionTo(
@@ -107,15 +117,6 @@ export class ReactNativeModal extends Component {
     }
 
     this.props.onBackButtonPress();
-  };
-
-  _handleLayout = event => {
-    // Here we update the device dimensions in the state if the layout changed (triggering a render)
-    const deviceWidth = Dimensions.get('window').width;
-    const deviceHeight = Dimensions.get('window').height;
-    if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
-      this.setState({ deviceWidth, deviceHeight });
-    }
   };
 
   render() {
@@ -145,7 +146,6 @@ export class ReactNativeModal extends Component {
         {...otherProps}
       >
         <View
-          onLayout={this._handleLayout}
           ref={ref => (this.backdropRef = ref)}
           style={[
             styles.backdrop,
