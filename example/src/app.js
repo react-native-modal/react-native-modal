@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import Modal from 'react-native-modal';
 
 import styles from './app.style';
@@ -32,6 +32,7 @@ export default class Example extends Component {
         {this._renderButton('A slower modal', () => this.setState({ visibleModal: 3 }))}
         {this._renderButton('Fancy modal!', () => this.setState({ visibleModal: 4 }))}
         {this._renderButton('Bottom half modal', () => this.setState({ visibleModal: 5 }))}
+        {this._renderButton('Touch to close anywhere on screen modal', () => this.setState({ visibleModal: 6 }))}
         <Modal isVisible={this.state.visibleModal === 1}>
           {this._renderModalContent()}
         </Modal>
@@ -67,6 +68,11 @@ export default class Example extends Component {
         <Modal isVisible={this.state.visibleModal === 5} style={styles.bottomModal}>
           {this._renderModalContent()}
         </Modal>
+        <TouchableWithoutFeedback onPress={() => this.setState({ visibleModal: null })}>
+          <Modal isVisible={this.state.visibleModal === 6} style={styles.bottomModal}>
+            {this._renderModalContent()}
+          </Modal>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
