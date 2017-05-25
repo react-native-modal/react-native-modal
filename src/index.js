@@ -86,8 +86,8 @@ export class ReactNativeModal extends Component {
 
   _handleDimensionsUpdate = dimensionsUpdate => {
     // Here we update the device dimensions in the state if the layout changed (triggering a render)
-    const deviceWidth = dimensionsUpdate.window.width;
-    const deviceHeight = dimensionsUpdate.window.height;
+    const deviceWidth = Dimensions.get('window').width;
+    const deviceHeight = Dimensions.get('window').height;
     if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
       this.setState({ deviceWidth, deviceHeight });
     }
