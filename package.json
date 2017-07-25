@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "prop-types": "15.5.10",
-    "react-native-animatable": "^1.2.0"
+    "react-native-animatable": "^1.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
