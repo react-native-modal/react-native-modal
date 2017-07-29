@@ -174,7 +174,6 @@ export class ReactNativeModal extends Component {
           style={[{ margin: deviceWidth * 0.05 }, styles.content, style]}
           pointerEvents="box-none"
           {...otherProps}
-
         >
           {children}
         </View>
