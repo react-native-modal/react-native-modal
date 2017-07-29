@@ -24,7 +24,7 @@ export class ReactNativeModal extends Component {
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
     hideOnBack: PropTypes.bool,
-    hideOnBackdrop: PropTypes.bool,
+    hideOnBackdropPress: PropTypes.bool,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
     style: PropTypes.any,
@@ -43,7 +43,7 @@ export class ReactNativeModal extends Component {
     onModalHide: () => null,
     isVisible: false,
     hideOnBack: true,
-    hideOnBackdrop: true,
+    hideOnBackdropPress: true,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
   };
@@ -124,7 +124,7 @@ export class ReactNativeModal extends Component {
   };
 
   _closeOnBackdrop = () => {
-    if (this.props.hideOnBackdrop) {
+    if (this.props.hideOnBackdropPress) {
       this._close()
     }
     this.props.onBackdropPress()
