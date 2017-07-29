@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, DeviceEventEmitter } from 'react-native';
+import { Dimensions, Modal, DeviceEventEmitter, TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 import { View, initializeRegistryWithDefinitions } from 'react-native-animatable';
 import * as ANIMATION_DEFINITIONS from './animations';
@@ -24,7 +24,9 @@ export class ReactNativeModal extends Component {
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
     hideOnBack: PropTypes.bool,
+    hideOnBackdrop: PropTypes.bool,
     onBackButtonPress: PropTypes.func,
+    onBackdropPress: PropTypes.func,
     style: PropTypes.any,
   };
 
@@ -41,6 +43,8 @@ export class ReactNativeModal extends Component {
     onModalHide: () => null,
     isVisible: false,
     hideOnBack: true,
+    hideOnBackdrop: true,
+    onBackdropPress: () => null,
     onBackButtonPress: () => null,
   };
 
@@ -119,6 +123,13 @@ export class ReactNativeModal extends Component {
     this.props.onBackButtonPress();
   };
 
+  _closeOnBackdrop = () => {
+    if (this.props.hideOnBackdrop) {
+      this._close()
+    }
+    this.props.onBackdropPress()
+  }
+
   render() {
     const {
       animationIn,
@@ -145,17 +156,25 @@ export class ReactNativeModal extends Component {
         onRequestClose={this._closeOnBack}
         {...otherProps}
       >
-        <View
-          ref={ref => (this.backdropRef = ref)}
-          style={[
-            styles.backdrop,
-            { backgroundColor: backdropColor, width: deviceWidth, height: deviceHeight },
-          ]}
-        />
+        <TouchableWithoutFeedback onPress={this._closeOnBackdrop}>
+          <View
+            ref={ref => (this.backdropRef = ref)}
+            style={[
+              styles.backdrop,
+              {
+                backgroundColor: backdropColor,
+                width: deviceWidth,
+                height: deviceHeight,
+              },
+            ]}
+          />
+        </TouchableWithoutFeedback>
         <View
           ref={ref => (this.contentRef = ref)}
           style={[{ margin: deviceWidth * 0.05 }, styles.content, style]}
+          pointerEvents="box-none"
           {...otherProps}
+
         >
           {children}
         </View>
