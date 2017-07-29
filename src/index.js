@@ -1,13 +1,21 @@
-import React, { Component } from 'react';
-import { Dimensions, Modal, DeviceEventEmitter } from 'react-native';
-import PropTypes from 'prop-types';
-import { View, initializeRegistryWithDefinitions } from 'react-native-animatable';
-import * as ANIMATION_DEFINITIONS from './animations';
+import React, { Component } from 'react'
+import {
+  Dimensions,
+  Modal,
+  DeviceEventEmitter,
+  TouchableWithoutFeedback,
+} from 'react-native'
+import PropTypes from 'prop-types'
+import {
+  View,
+  initializeRegistryWithDefinitions,
+} from 'react-native-animatable'
+import * as ANIMATION_DEFINITIONS from './animations'
 
-import styles from './index.style.js';
+import styles from './index.style.js'
 
 // Override default animations
-initializeRegistryWithDefinitions(ANIMATION_DEFINITIONS);
+initializeRegistryWithDefinitions(ANIMATION_DEFINITIONS)
 
 export class ReactNativeModal extends Component {
   static propTypes = {
@@ -24,9 +32,11 @@ export class ReactNativeModal extends Component {
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
     hideOnBack: PropTypes.bool,
+    hideOnBackdrop: PropTypes.bool,
+    onBackdropPress: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     style: PropTypes.any,
-  };
+  }
 
   static defaultProps = {
     animationIn: 'slideInUp',
@@ -34,15 +44,17 @@ export class ReactNativeModal extends Component {
     animationOut: 'slideOutDown',
     animationOutTiming: 300,
     backdropColor: 'black',
-    backdropOpacity: 0.70,
+    backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false,
     hideOnBack: true,
+    hideOnBackdrop: true,
+    onBackdropPress: () => null,
     onBackButtonPress: () => null,
-  };
+  }
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
   // the modal visibile during the exit animation, even if the user has already change the
@@ -53,71 +65,90 @@ export class ReactNativeModal extends Component {
     isVisible: false,
     deviceWidth: Dimensions.get('window').width,
     deviceHeight: Dimensions.get('window').height,
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
-      this.setState({ isVisible: true });
+      this.setState({ isVisible: true })
     }
   }
 
   componentWillMount() {
     if (this.props.isVisible) {
-      this.setState({ isVisible: true });
+      this.setState({ isVisible: true })
     }
   }
 
   componentDidMount() {
     if (this.state.isVisible) {
-      this._open();
+      this._open()
     }
-    DeviceEventEmitter.addListener('didUpdateDimensions', this._handleDimensionsUpdate);
+    DeviceEventEmitter.addListener(
+      'didUpdateDimensions',
+      this._handleDimensionsUpdate
+    )
   }
 
   componentDidUpdate(prevProps, prevState) {
     // On modal open request, we slide the view up and fade in the backdrop
     if (this.state.isVisible && !prevState.isVisible) {
-      this._open();
+      this._open()
       // On modal close request, we slide the view down and fade out the backdrop
     } else if (!this.props.isVisible && prevProps.isVisible) {
-      this._close();
+      this._close()
     }
   }
 
   _handleDimensionsUpdate = dimensionsUpdate => {
     // Here we update the device dimensions in the state if the layout changed (triggering a render)
-    const deviceWidth = Dimensions.get('window').width;
-    const deviceHeight = Dimensions.get('window').height;
-    if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
-      this.setState({ deviceWidth, deviceHeight });
+    const deviceWidth = Dimensions.get('window').width
+    const deviceHeight = Dimensions.get('window').height
+    if (
+      deviceWidth !== this.state.deviceWidth ||
+      deviceHeight !== this.state.deviceHeight
+    ) {
+      this.setState({ deviceWidth, deviceHeight })
     }
-  };
+  }
 
   _open = () => {
     this.backdropRef.transitionTo(
       { opacity: this.props.backdropOpacity },
-      this.props.backdropTransitionInTiming,
-    );
-    this.contentRef[this.props.animationIn](this.props.animationInTiming).then(() => {
-      this.props.onModalShow();
-    });
-  };
+      this.props.backdropTransitionInTiming
+    )
+    this.contentRef
+      [this.props.animationIn](this.props.animationInTiming)
+      .then(() => {
+        this.props.onModalShow()
+      })
+  }
 
   _close = async () => {
-    this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming);
-    this.contentRef[this.props.animationOut](this.props.animationOutTiming).then(() => {
-      this.setState({ isVisible: false });
-      this.props.onModalHide();
-    });
-  };
+    this.backdropRef.transitionTo(
+      { opacity: 0 },
+      this.props.backdropTransitionOutTiming
+    )
+    this.contentRef
+      [this.props.animationOut](this.props.animationOutTiming)
+      .then(() => {
+        this.setState({ isVisible: false })
+        this.props.onModalHide()
+      })
+  }
 
   _closeOnBack = () => {
     if (this.props.hideOnBack) {
-      this._close();
+      this._close()
     }
 
-    this.props.onBackButtonPress();
-  };
+    this.props.onBackButtonPress()
+  }
+  _closeOnBackdrop = () => {
+    if (this.props.hideOnBackdrop) {
+      this._close()
+    }
+    this.props.onBackdropPress()
+  }
 
   render() {
     const {
@@ -135,8 +166,8 @@ export class ReactNativeModal extends Component {
       onModalHide,
       style,
       ...otherProps
-    } = this.props;
-    const { deviceWidth, deviceHeight } = this.state;
+    } = this.props
+    const { deviceWidth, deviceHeight } = this.state
     return (
       <Modal
         transparent={true}
@@ -145,23 +176,30 @@ export class ReactNativeModal extends Component {
         onRequestClose={this._closeOnBack}
         {...otherProps}
       >
-        <View
-          ref={ref => (this.backdropRef = ref)}
-          style={[
-            styles.backdrop,
-            { backgroundColor: backdropColor, width: deviceWidth, height: deviceHeight },
-          ]}
-        />
+        <TouchableWithoutFeedback onPress={this._closeOnBackdrop}>
+          <View
+            ref={ref => (this.backdropRef = ref)}
+            style={[
+              styles.backdrop,
+              {
+                backgroundColor: backdropColor,
+                width: deviceWidth,
+                height: deviceHeight,
+              },
+            ]}
+          />
+        </TouchableWithoutFeedback>
         <View
           ref={ref => (this.contentRef = ref)}
           style={[{ margin: deviceWidth * 0.05 }, styles.content, style]}
           {...otherProps}
+          pointerEvents="box-none"
         >
           {children}
         </View>
       </Modal>
-    );
+    )
   }
 }
 
-export default ReactNativeModal;
+export default ReactNativeModal
