@@ -1,9 +1,9 @@
-### When reporting a bug, please be sure to check if the issue still persists with react-native's original modal:
+### When reporting a bug, please be sure to check if the issue still persists with react-native original modal:
 Under the hood `react-native-modal` uses react-native original [Modal component](https://facebook.github.io/react-native/docs/modal.html).  
-Before reporting a bug, try swapping `react-native-modal` with react-native own's Modal component to check if the problem persists.  
+Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component to check if the problem persists.  
 
 ### When reporting a bug, please be sure to include the following:
-- [ ] The outcome of the react-native-modal swap described above
+- [ ] The outcome of the `react-native-modal` swap described above
 - [ ] A descriptive title
 - [ ] An *isolated* way to reproduce the behavior (example: GitHub repository with code isolated to the issue that anyone can clone to observe the problem)
 - [ ] What version of `react-native-modal` you're using, and the platform(s) you're running it on (iOS, Android, device)
