@@ -171,7 +171,7 @@ export class ReactNativeModal extends Component {
         </TouchableWithoutFeedback>
         <View
           ref={ref => (this.contentRef = ref)}
-          style={[{ margin: deviceWidth * 0.05 }, styles.content, style]}
+          style={[{ margin: deviceWidth * 0.05, transform: [{translateY: 0}] }, styles.content, style]}
           pointerEvents="box-none"
           {...otherProps}
         >
