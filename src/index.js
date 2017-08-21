@@ -42,8 +42,8 @@ export class ReactNativeModal extends Component {
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false,
-    hideOnBack: true,
-    hideOnBackdropPress: true,
+    hideOnBack: false,
+    hideOnBackdropPress: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
   };
@@ -125,10 +125,10 @@ export class ReactNativeModal extends Component {
 
   _closeOnBackdrop = () => {
     if (this.props.hideOnBackdropPress) {
-      this._close()
+      this._close();
     }
-    this.props.onBackdropPress()
-  }
+    this.props.onBackdropPress();
+  };
 
   render() {
     const {
@@ -171,7 +171,11 @@ export class ReactNativeModal extends Component {
         </TouchableWithoutFeedback>
         <View
           ref={ref => (this.contentRef = ref)}
-          style={[{ margin: deviceWidth * 0.05, transform: [{translateY: 0}] }, styles.content, style]}
+          style={[
+            { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
+            styles.content,
+            style,
+          ]}
           pointerEvents="box-none"
           {...otherProps}
         >
