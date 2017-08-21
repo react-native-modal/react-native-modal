@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "An enhanced React-Native modal",
   "main": "src/index.js",
   "types": "src/index.d.ts",
