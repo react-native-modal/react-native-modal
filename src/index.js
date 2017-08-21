@@ -23,8 +23,6 @@ export class ReactNativeModal extends Component {
     isVisible: PropTypes.bool.isRequired,
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
-    hideOnBack: PropTypes.bool,
-    hideOnBackdropPress: PropTypes.bool,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
     style: PropTypes.any,
@@ -42,8 +40,6 @@ export class ReactNativeModal extends Component {
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false,
-    hideOnBack: false,
-    hideOnBackdropPress: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
   };
@@ -115,21 +111,6 @@ export class ReactNativeModal extends Component {
     });
   };
 
-  _closeOnBack = () => {
-    if (this.props.hideOnBack) {
-      this._close();
-    }
-
-    this.props.onBackButtonPress();
-  };
-
-  _closeOnBackdrop = () => {
-    if (this.props.hideOnBackdropPress) {
-      this._close();
-    }
-    this.props.onBackdropPress();
-  };
-
   render() {
     const {
       animationIn,
@@ -143,7 +124,8 @@ export class ReactNativeModal extends Component {
       children,
       isVisible,
       onModalShow,
-      onModalHide,
+      onBackdropPress,
+      onBackButtonPress,
       style,
       ...otherProps
     } = this.props;
@@ -153,10 +135,10 @@ export class ReactNativeModal extends Component {
         transparent={true}
         animationType={'none'}
         visible={this.state.isVisible}
-        onRequestClose={this._closeOnBack}
+        onRequestClose={onBackButtonPress}
         {...otherProps}
       >
-        <TouchableWithoutFeedback onPress={this._closeOnBackdrop}>
+        <TouchableWithoutFeedback onPress={onBackdropPress}>
           <View
             ref={ref => (this.backdropRef = ref)}
             style={[

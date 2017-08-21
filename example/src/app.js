@@ -32,6 +32,9 @@ export default class Example extends Component {
         {this._renderButton('A slower modal', () => this.setState({ visibleModal: 3 }))}
         {this._renderButton('Fancy modal!', () => this.setState({ visibleModal: 4 }))}
         {this._renderButton('Bottom half modal', () => this.setState({ visibleModal: 5 }))}
+        {this._renderButton('Modal that can be closed on backdrop press', () =>
+          this.setState({ visibleModal: 6 }),
+        )}
         <Modal isVisible={this.state.visibleModal === 1}>
           {this._renderModalContent()}
         </Modal>
@@ -65,6 +68,12 @@ export default class Example extends Component {
           {this._renderModalContent()}
         </Modal>
         <Modal isVisible={this.state.visibleModal === 5} style={styles.bottomModal}>
+          {this._renderModalContent()}
+        </Modal>
+        <Modal
+          isVisible={this.state.visibleModal === 6}
+          onBackdropPress={() => this.setState({ visibleModal: null })}
+        >
           {this._renderModalContent()}
         </Modal>
       </View>
