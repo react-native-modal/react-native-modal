@@ -72,8 +72,9 @@ For a more complex example take a look at the `/example` directory.
 | backdropOpacity | number | 0.70 | The backdrop opacity when the modal is visible |
 | backdropTransitionInTiming | number | 300 | The backdrop show timing (in ms) |
 | backdropTransitionOutTiming | number | 300 | The backdrop hide timing (in ms) |
-| hideOnBack | bool | true | Hide the modal on back button press? |
+| hideOnBack | bool | false | Hide the modal on back button press? |
 | onBackButtonPress | func | () => null | Called when the Android back button is pressed |
+| hideOnBackdropPress | bool | false | Hide the modal on backdrop press? |
 | onBackdropPress | func | () => null | Called when the backdrop is pressed |
 | isVisible | bool | **REQUIRED** | Show the modal? |
 | children | node | **REQUIRED** | The modal content |
