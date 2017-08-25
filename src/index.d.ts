@@ -15,8 +15,6 @@ declare module 'react-native-modal' {
     isVisible: boolean
     onModalShow?: () => void
     onModalHide?: () => void
-    hideOnBack?: boolean
-    hideOnBackdropPress?: boolean
     onBackButtonPress?: () => void
     onBackdropPress?: () => void
     style?: StyleProp<ViewStyle>
