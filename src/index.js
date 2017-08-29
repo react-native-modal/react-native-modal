@@ -74,6 +74,10 @@ export class ReactNativeModal extends Component {
     DeviceEventEmitter.addListener('didUpdateDimensions', this._handleDimensionsUpdate);
   }
 
+  componentWillUnmount() {
+    DeviceEventEmitter.removeListener('didUpdateDimensions', this._handleDimensionsUpdate);
+  }
+
   componentDidUpdate(prevProps, prevState) {
     // On modal open request, we slide the view up and fade in the backdrop
     if (this.state.isVisible && !prevState.isVisible) {
