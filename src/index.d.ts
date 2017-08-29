@@ -20,7 +20,7 @@ declare module 'react-native-modal' {
     style?: StyleProp<ViewStyle>
   }
 
-  declare class Modal extends Component<ModalProps> {}
+  class Modal extends Component<ModalProps> {}
 
   export default Modal
 }
