@@ -175,7 +175,14 @@ export class ReactNativeModal extends Component {
             ]}
           />
         </TouchableWithoutFeedback>
-        {avoidKeyboard && <KeyboardAvoidingView behavior={'padding'} pointerEvents="box-none" style={computedStyle.concat([{ margin: 0 }])}>{containerView}</KeyboardAvoidingView>}
+        
+        {avoidKeyboard && <KeyboardAvoidingView
+          behavior={'padding'}
+          pointerEvents="box-none"
+          style={computedStyle.concat([{ margin: 0 }])}>
+          {containerView}
+        </KeyboardAvoidingView>}
+
         {!avoidKeyboard && containerView}
       </Modal>
     );
