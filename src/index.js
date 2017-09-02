@@ -145,7 +145,7 @@ export class ReactNativeModal extends Component {
       style,
     ]
 
-    const containerView = (<View
+    let containerView = (<View
       ref={ref => (this.contentRef = ref)}
       style={computedStyle}
       pointerEvents="box-none"
@@ -175,7 +175,7 @@ export class ReactNativeModal extends Component {
             ]}
           />
         </TouchableWithoutFeedback>
-        {avoidKeyboard && <KeyboardAvoidingView behavior={'padding'} style={computedStyle}>{containerView}</KeyboardAvoidingView>}
+        {avoidKeyboard && <KeyboardAvoidingView behavior={'padding'} pointerEvents="box-none" style={computedStyle.concat([{ margin: 0 }])}>{containerView}</KeyboardAvoidingView>}
         {!avoidKeyboard && containerView}
       </Modal>
     );
