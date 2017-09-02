@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Modal, DeviceEventEmitter, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, Modal, DeviceEventEmitter, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import PropTypes from 'prop-types';
 import { View, initializeRegistryWithDefinitions } from 'react-native-animatable';
 import * as ANIMATION_DEFINITIONS from './animations';
@@ -15,6 +15,7 @@ export class ReactNativeModal extends Component {
     animationInTiming: PropTypes.number,
     animationOut: PropTypes.string,
     animationOutTiming: PropTypes.number,
+    avoidKeyboard: PropTypes.boolean,
     backdropColor: PropTypes.string,
     backdropOpacity: PropTypes.number,
     backdropTransitionInTiming: PropTypes.number,
@@ -33,6 +34,7 @@ export class ReactNativeModal extends Component {
     animationInTiming: 300,
     animationOut: 'slideOutDown',
     animationOutTiming: 300,
+    avoidKeyboard: false,
     backdropColor: 'black',
     backdropOpacity: 0.70,
     backdropTransitionInTiming: 300,
@@ -121,6 +123,7 @@ export class ReactNativeModal extends Component {
       animationInTiming,
       animationOut,
       animationOutTiming,
+      avoidKeyboard,
       backdropColor,
       backdropOpacity,
       backdropTransitionInTiming,
@@ -134,6 +137,23 @@ export class ReactNativeModal extends Component {
       ...otherProps
     } = this.props;
     const { deviceWidth, deviceHeight } = this.state;
+
+
+    const containerView = (
+      <View
+        ref={ref => (this.contentRef = ref)}
+        style={[
+          { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
+          styles.content,
+          style,
+        ]}
+        pointerEvents="box-none"
+        {...otherProps}
+      >
+        {children}
+      </View>
+    );
+
     return (
       <Modal
         transparent={true}
@@ -155,18 +175,8 @@ export class ReactNativeModal extends Component {
             ]}
           />
         </TouchableWithoutFeedback>
-        <View
-          ref={ref => (this.contentRef = ref)}
-          style={[
-            { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
-            styles.content,
-            style,
-          ]}
-          pointerEvents="box-none"
-          {...otherProps}
-        >
-          {children}
-        </View>
+        {avoidKeyboard && <KeyboardAvoidingView behavior={'padding'}>{containerView}</KeyboardAvoidingView>}
+        {!avoidKeyboard && containerView}
       </Modal>
     );
   }
