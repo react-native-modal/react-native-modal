@@ -2,10 +2,12 @@ declare module 'react-native-modal' {
   import { Component, ReactNode } from 'react'
   import { StyleProp, ViewStyle } from 'react-native'
 
+  type AnimationConfig = string | { from: Object, to: Object }
+
   export interface ModalProps {
-    animationIn?: string
+    animationIn?: AnimationConfig
     animationInTiming?: number
-    animationOut?: string
+    animationOut?: AnimationConfig
     animationOutTiming?: number
     backdropColor?: string
     backdropOpacity?: number
