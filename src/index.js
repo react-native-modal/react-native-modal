@@ -63,25 +63,28 @@ export class ReactNativeModal extends Component {
     deviceHeight: Dimensions.get('window').height,
   };
 
-  constructor(props) {
-    super(props);
-
-    const isObject = (obj) => obj !== null && typeof obj === 'object'
-    const makeAnimation = (name, obj) => registerAnimation(
+  _makeAnimation(name, obj) {
+    registerAnimation(
       name,
       createAnimation(obj)
     );
+  }
 
-    let animationIn = props.animationIn;
-    let animationOut = props.animationOut;
+  _isObject(obj) {
+    return obj !== null && typeof obj === 'object'; 
+  }
 
-    if (isObject(animationIn)) {
-        makeAnimation("animationIn", animationIn);
+  _buildAnimations() {
+    let animationIn = this.props.animationIn;
+    let animationOut = this.props.animationOut;
+
+    if (this._isObject(animationIn)) {
+        this._makeAnimation("animationIn", animationIn);
         animationIn = "animationIn";
     }
 
-    if (isObject(animationOut)) {
-        makeAnimation("animationOut", animationOut);
+    if (this._isObject(animationOut)) {
+        this._makeAnimation("animationOut", animationOut);
         animationOut = "animationOut";
     }
 
@@ -89,9 +92,19 @@ export class ReactNativeModal extends Component {
     this.animationOut = animationOut;
   }
 
+  constructor(props) {
+    super(props);
+
+    this._buildAnimations();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
       this.setState({ isVisible: true });
+    }
+    if ((this.props.animationIn !== nextProps.animationIn) ||
+        (this.props.animationOut !== nextProps.animationOut)) {
+      this._buildAnimations();
     }
   }
 
