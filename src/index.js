@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, Modal, DeviceEventEmitter, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import PropTypes from 'prop-types';
-import { View, initializeRegistryWithDefinitions } from 'react-native-animatable';
+import { View, initializeRegistryWithDefinitions, registerAnimation, createAnimation } from 'react-native-animatable';
 import * as ANIMATION_DEFINITIONS from './animations';
 
 import styles from './index.style.js';
@@ -11,9 +11,15 @@ initializeRegistryWithDefinitions(ANIMATION_DEFINITIONS);
 
 export class ReactNativeModal extends Component {
   static propTypes = {
-    animationIn: PropTypes.string,
+    animationIn: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]),
     animationInTiming: PropTypes.number,
-    animationOut: PropTypes.string,
+    animationOut: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]),
     animationOutTiming: PropTypes.number,
     avoidKeyboard: PropTypes.bool,
     backdropColor: PropTypes.string,
@@ -56,6 +62,32 @@ export class ReactNativeModal extends Component {
     deviceWidth: Dimensions.get('window').width,
     deviceHeight: Dimensions.get('window').height,
   };
+
+  constructor(props) {
+    super(props);
+
+    const isObject = (obj) => obj !== null && typeof obj === 'object'
+    const makeAnimation = (name, obj) => registerAnimation(
+      name,
+      createAnimation(obj)
+    );
+
+    let animationIn = props.animationIn;
+    let animationOut = props.animationOut;
+
+    if (isObject(animationIn)) {
+        makeAnimation("animationIn", animationIn);
+        animationIn = "animationIn";
+    }
+
+    if (isObject(animationOut)) {
+        makeAnimation("animationOut", animationOut);
+        animationOut = "animationOut";
+    }
+
+    this.animationIn = animationIn;
+    this.animationOut = animationOut;
+  }
 
   componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
@@ -104,14 +136,14 @@ export class ReactNativeModal extends Component {
       { opacity: this.props.backdropOpacity },
       this.props.backdropTransitionInTiming,
     );
-    this.contentRef[this.props.animationIn](this.props.animationInTiming).then(() => {
+    this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
       this.props.onModalShow();
     });
   };
 
   _close = async () => {
     this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming);
-    this.contentRef[this.props.animationOut](this.props.animationOutTiming).then(() => {
+    this.contentRef[this.animationOut](this.props.animationOutTiming).then(() => {
       this.setState({ isVisible: false });
       this.props.onModalHide();
     });
