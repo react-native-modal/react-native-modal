@@ -35,9 +35,7 @@ export default class Example extends Component {
         {this._renderButton('Modal that can be closed on backdrop press', () =>
           this.setState({ visibleModal: 6 }),
         )}
-        <Modal isVisible={this.state.visibleModal === 1}>
-          {this._renderModalContent()}
-        </Modal>
+        <Modal isVisible={this.state.visibleModal === 1}>{this._renderModalContent()}</Modal>
         <Modal
           isVisible={this.state.visibleModal === 2}
           animationIn={'slideInLeft'}

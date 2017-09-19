@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
   },
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
-    "react-native-modal": "file:../"
+    "react-native-modal": "3.1.0"
   },
   "jest": {
     "preset": "jest-react-native"
