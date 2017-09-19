@@ -15,7 +15,7 @@ export class ReactNativeModal extends Component {
     animationInTiming: PropTypes.number,
     animationOut: PropTypes.string,
     animationOutTiming: PropTypes.number,
-    avoidKeyboard: PropTypes.boolean,
+    avoidKeyboard: PropTypes.bool,
     backdropColor: PropTypes.string,
     backdropOpacity: PropTypes.number,
     backdropTransitionInTiming: PropTypes.number,
@@ -139,20 +139,20 @@ export class ReactNativeModal extends Component {
     const { deviceWidth, deviceHeight } = this.state;
 
 
-    const containerView = (
-      <View
-        ref={ref => (this.contentRef = ref)}
-        style={[
-          { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
-          styles.content,
-          style,
-        ]}
-        pointerEvents="box-none"
-        {...otherProps}
-      >
-        {children}
-      </View>
-    );
+    const computedStyle = [
+      { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
+      styles.content,
+      style,
+    ]
+
+    let containerView = (<View
+      ref={ref => (this.contentRef = ref)}
+      style={computedStyle}
+      pointerEvents="box-none"
+      {...otherProps}
+    >
+      {children}
+    </View>);
 
     return (
       <Modal
@@ -175,7 +175,14 @@ export class ReactNativeModal extends Component {
             ]}
           />
         </TouchableWithoutFeedback>
-        {avoidKeyboard && <KeyboardAvoidingView behavior={'padding'}>{containerView}</KeyboardAvoidingView>}
+        
+        {avoidKeyboard && <KeyboardAvoidingView
+          behavior={'padding'}
+          pointerEvents="box-none"
+          style={computedStyle.concat([{ margin: 0 }])}>
+          {containerView}
+        </KeyboardAvoidingView>}
+
         {!avoidKeyboard && containerView}
       </Modal>
     );

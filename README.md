@@ -68,7 +68,7 @@ For a more complex example take a look at the `/example` directory.
 | animationInTiming | number | 300 | Timing for the modal show animation (in ms) |
 | animationOut | string | 'slideOutDown' | Modal hide animation |
 | animationOutTiming | number | 300 | Timing for the modal hide animation (in ms) |
-| avoidKeyboard | boolean | false | Move the modal up if the keyboard is open |
+| avoidKeyboard | bool | false | Move the modal up if the keyboard is open |
 | backdropColor | string | 'black' | The backdrop background color |
 | backdropOpacity | number | 0.70 | The backdrop opacity when the modal is visible |
 | backdropTransitionInTiming | number | 300 | The backdrop show timing (in ms) |
