@@ -46,6 +46,7 @@ export class ReactNativeModal extends Component {
     onModalHide: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
+    useNativeDriver: PropTypes.bool,
     style: PropTypes.any,
   };
 
@@ -64,6 +65,7 @@ export class ReactNativeModal extends Component {
     isVisible: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
+    useNativeDriver: false,
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -202,6 +204,7 @@ export class ReactNativeModal extends Component {
       onModalShow,
       onBackdropPress,
       onBackButtonPress,
+      useNativeDriver,
       style,
       ...otherProps
     } = this.props;
@@ -218,6 +221,7 @@ export class ReactNativeModal extends Component {
         ref={ref => (this.contentRef = ref)}
         style={computedStyle}
         pointerEvents={'box-none'}
+        useNativeDriver={useNativeDriver}
         {...otherProps}
       >
         {children}
@@ -235,6 +239,7 @@ export class ReactNativeModal extends Component {
         <TouchableWithoutFeedback onPress={onBackdropPress}>
           <View
             ref={ref => (this.backdropRef = ref)}
+            useNativeDriver={useNativeDriver}
             style={[
               styles.backdrop,
               {

@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/react-native-modal.svg)](https://badge.fury.io/js/react-native-modal)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
- 
+
 An enhanced, animated and customizable react-native modal.  
 
 ## Features
@@ -75,6 +75,7 @@ For a more complex example take a look at the `/example` directory.
 | backdropTransitionOutTiming | number | 300 | The backdrop hide timing (in ms) |
 | onBackButtonPress | func | () => null | Called when the Android back button is pressed |
 | onBackdropPress | func | () => null | Called when the backdrop is pressed |
+| useNativeDriver | bool | false | Define if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
 | isVisible | bool | **REQUIRED** | Show the modal? |
 | children | node | **REQUIRED** | The modal content |
 | onModalShow | func | () => null | Called when the modal is completely visible |
@@ -86,5 +87,5 @@ For a more complex example take a look at the `/example` directory.
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
 
 Pull requests, feedbacks and suggestions are welcome!  
-  
+
 P.S.: Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!  
