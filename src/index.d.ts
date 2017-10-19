@@ -14,6 +14,7 @@ declare module 'react-native-modal' {
     backdropOpacity?: number
     backdropTransitionInTiming?: number
     backdropTransitionOutTiming?: number
+    useNativeDriver?: boolean
     children: ReactNode
     isVisible: boolean
     onModalShow?: () => void
