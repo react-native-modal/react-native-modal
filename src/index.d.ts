@@ -9,6 +9,7 @@ declare module 'react-native-modal' {
     animationInTiming?: number
     animationOut?: AnimationConfig
     animationOutTiming?: number
+    avoidKeyboard?: boolean
     backdropColor?: string
     backdropOpacity?: number
     backdropTransitionInTiming?: number
