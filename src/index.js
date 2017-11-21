@@ -45,6 +45,7 @@ export class ReactNativeModal extends Component {
     isVisible: PropTypes.bool.isRequired,
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
+    beforeModalShow: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
     useNativeDriver: PropTypes.bool,
@@ -63,6 +64,7 @@ export class ReactNativeModal extends Component {
     backdropTransitionOutTiming: 300,
     onModalShow: () => null,
     onModalHide: () => null,
+    beforeModalShow: () => null,
     isVisible: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
@@ -162,6 +164,8 @@ export class ReactNativeModal extends Component {
       { opacity: this.props.backdropOpacity },
       this.props.backdropTransitionInTiming,
     );
+
+    this.props.beforeModalShow();
     this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
       this.transitionLock = false;
       if (!this.props.isVisible) {
