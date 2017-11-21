@@ -80,6 +80,7 @@ For a more complex example take a look at the `/example` directory.
 | children | node | **REQUIRED** | The modal content |
 | onModalShow | func | () => null | Called when the modal is completely visible |
 | onModalHide | func | () => null | Called when the modal is completely hidden |
+| beforeModalShow | func | () => null | Called before the modal is shown |
 | style | any | null | Style applied to the modal |
 
 ## Frequently Asked Questions
