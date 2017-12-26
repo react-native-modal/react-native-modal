@@ -37,14 +37,12 @@ export default class ModalTester extends Component {
     isModalVisible: false
   }
 
-  _showModal = () => this.setState({ isModalVisible: true })
-
-  _hideModal = () => this.setState({ isModalVisible: false })
+  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible })
 
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <TouchableOpacity onPress={this._showModal}>
+        <TouchableOpacity onPress={this._toggleModal}>
           <Text>Show Modal</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible}>
