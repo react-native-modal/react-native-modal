@@ -37,9 +37,7 @@ export default class ModalTester extends Component {
     isModalVisible: false
   }
 
-  _showModal = () => this.setState({ isModalVisible: true })
-
-  _hideModal = () => this.setState({ isModalVisible: false })
+  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible })
 
   render () {
     return (
