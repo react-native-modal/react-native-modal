@@ -42,7 +42,7 @@ export default class ModalTester extends Component {
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <TouchableOpacity onPress={this._showModal}>
+        <TouchableOpacity onPress={this._toggleModal}>
           <Text>Show Modal</Text>
         </TouchableOpacity>
         <Modal isVisible={this.state.isModalVisible}>
