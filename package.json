@@ -23,7 +23,7 @@
     "animated"
   ],
   "author": "Mazzarolo Matteo",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/react-native-community/react-native-modal",
   "repository": {
     "type": "git",
