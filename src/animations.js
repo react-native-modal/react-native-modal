@@ -1,5 +1,5 @@
 /**
- * Since react-native-animatable applies by default a margin of 100 to its sliding animation, 
+ * Since react-native-animatable applies by default a margin of 100 to its sliding animation,
  * we reset them here overriding the margin to 0.
  */
 import { Dimensions } from 'react-native';

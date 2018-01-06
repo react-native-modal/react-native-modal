@@ -9,8 +9,7 @@
     "precommit": "lint-staged",
     "test": "npm run lint",
     "prettier": "prettier --write src/**/*.js",
-    "reset":
-      "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
+    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
   },
   "keywords": [
     "react-native",
@@ -31,16 +30,16 @@
     "url": "https://github.com/react-native-community/react-native-modal"
   },
   "dependencies": {
-    "prop-types": "15.5.10",
-    "react-native-animatable": "^1.2.3"
+    "prop-types": "15.6.0",
+    "react-native-animatable": "^1.2.4"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "4.5.0",
+    "babel-eslint": "^8.1.2",
+    "eslint": "4.14.0",
     "eslint-plugin-react-app": "^1.0.2",
     "husky": "0.14.3",
-    "lint-staged": "4.0.4",
-    "prettier": "1.6.1",
+    "lint-staged": "6.0.0",
+    "prettier": "1.9.2",
     "react": ">=15.0.0",
     "react-native": ">=0.24.0"
   },
@@ -50,6 +49,10 @@
     "trailingComma": "es5"
   },
   "lint-staged": {
-    "*.js": ["lint", "prettier --write", "git add"]
+    "*.js": [
+      "lint",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
