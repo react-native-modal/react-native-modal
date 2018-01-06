@@ -158,7 +158,7 @@ export class ReactNativeModal extends Component {
     this.transitionLock = true;
     this.backdropRef.transitionTo(
       { opacity: this.props.backdropOpacity },
-      this.props.backdropTransitionInTiming,
+      this.props.backdropTransitionInTiming
     );
     this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
       this.transitionLock = false;
