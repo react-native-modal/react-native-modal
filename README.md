@@ -67,7 +67,7 @@ render () {
 The `isVisible` prop is the only prop you'll really need to make the modal work: you should control this prop value by saving it in your state and setting it to `true` or `false` when needed.  
 
 
-## Usage example
+## A complete example
 The following example consists in a component (`ModalTester`) with a button and a modal.
 The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.    
 Pressing the button sets `isModalVisible` to true, making the modal visible.  
