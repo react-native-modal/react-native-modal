@@ -34,7 +34,7 @@ Since react-native-modal is an extension of the original react native modal, it 
 import Modal from 'react-native-modal'
 ```
 
-2. Create a modal and nest its content inside it:
+2. Create a modal and nest its content inside of it:
 ```javascript
 render () {
     return (
@@ -49,7 +49,7 @@ render () {
   }
 ```
 
-3. And then simply show it by setting the `isVisible` prop to true:
+3. Then simply show it by setting the `isVisible` prop to true:
 ```javascript
 render () {
     return (
@@ -70,7 +70,8 @@ The `isVisible` prop is the only prop you'll really need to make the modal work:
 ## Usage example
 The following example consists in a component (`ModalTester`) with a button and a modal.
 The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.    
-Pressing the button sets the `isModalVisible` to true, making the modal visible.  
+Pressing the button sets `isModalVisible` to true, making the modal visible.  
+Inside the modal there is another button that, when pressed, sets `isModalVisible` to false, hiding the modal.
 
 ```javascript
 import React, { Component } from 'react'
@@ -93,6 +94,9 @@ export default class ModalTester extends Component {
         <Modal isVisible={this.state.isModalVisible}>
           <View style={{ flex: 1 }}>
             <Text>Hello!</Text>
+            <TouchableOpacity onPress={this._toggleModal}>
+              <Text>Hide me!</Text>
+            </TouchableOpacity>
           </View>
         </Modal>
       </View>
