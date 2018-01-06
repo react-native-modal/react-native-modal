@@ -119,9 +119,8 @@ export class ReactNativeModal extends Component {
     // On modal open request, we slide the view up and fade in the backdrop
     if (this.props.isVisible && !prevProps.isVisible) {
       this._open();
-    }
-    // On modal close request, we slide the view down and fade out the backdrop
-    else if (!this.props.isVisible && prevProps.isVisible) {
+    } else if (!this.props.isVisible && prevProps.isVisible) {
+      // On modal close request, we slide the view down and fade out the backdrop
       this._close();
     }
   }
@@ -165,8 +164,7 @@ export class ReactNativeModal extends Component {
       this.transitionLock = false;
       if (!this.props.isVisible) {
         this._close();
-      }
-      else {
+      } else {
         this.props.onModalShow();
       }
     });
@@ -180,8 +178,7 @@ export class ReactNativeModal extends Component {
       this.transitionLock = false;
       if (this.props.isVisible) {
         this._open();
-      }
-      else {
+      } else {
         this.setState({ isVisible: false });
         this.props.onModalHide();
       }
@@ -232,9 +229,9 @@ export class ReactNativeModal extends Component {
       <Modal
         transparent={true}
         animationType={'none'}
-        visible={this.state.isVisible}
         onRequestClose={onBackButtonPress}
         {...otherProps}
+        visible={this.state.isVisible}
       >
         <TouchableWithoutFeedback onPress={onBackdropPress}>
           <View
