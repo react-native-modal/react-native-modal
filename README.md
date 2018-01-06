@@ -27,6 +27,51 @@ This library is available on npm, install it with: `npm install --save react-nat
 
 ## Usage
 
+Since react-native-modal is an extension of the original react native modal, it works in a similar fashion [react-native original modal](https://facebook.github.io/react-native/docs/modal.html).  
+
+1. Import react-native-modal:
+```javascript
+import Modal from 'react-native-modal'
+```
+
+2. Create a modal and nest its content inside it:
+```javascript
+render () {
+    return (
+      <View>
+        <Modal>
+          <View style={{ flex: 1 }}>
+            <Text>I am the modal content!</Text>
+          </View>
+        </Modal>
+      </View>
+    )
+  }
+```
+
+3. And then simply show it by setting the `isVisible` prop to true:
+```javascript
+render () {
+    return (
+      <View>
+        <Modal isVisible={true}>
+          <View style={{ flex: 1 }}>
+            <Text>I am the modal content!</Text>
+          </View>
+        </Modal>
+      </View>
+    )
+  }
+```
+
+The `isVisible` prop is the only prop you'll really need to make the modal work: you should control this prop value by saving it in your state and setting it to `true` or `false` when needed.  
+
+
+## Usage example
+The following example consists in a component (`ModalTester`) with a button and a modal.
+The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.    
+Pressing the button sets the `isModalVisible` to true, making the modal visible.  
+
 ```javascript
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
@@ -85,6 +130,19 @@ For a more complex example take a look at the `/example` directory.
 ### The component is not working as expected
 Under the hood `react-native-modal` uses react-native original [Modal component](https://facebook.github.io/react-native/docs/modal.html).  
 Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).  
+
+### How can I hide the modal by pressing outside of its content?
+The prop `onBackdropPress` allows you to handle this situation:
+```javascript
+<Modal
+  isVisible={this.state.isVisible}
+  onBackdropPress={() => this.setState({ isVisible: false })}
+>
+  <View style={{ flex: 1 }}>
+    <Text>I am the modal content!</Text>
+  </View>
+</Modal>
+```
 
 ### The modal doesn't change orientation
 Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations)
