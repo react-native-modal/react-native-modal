@@ -96,6 +96,12 @@ export class ReactNativeModal extends Component {
     ) {
       this._buildAnimations(nextProps);
     }
+    if (this.props.backdropOpacity !== nextProps.backdropOpacity && this.backdropRef) {
+      this.backdropRef.transitionTo(
+        { opacity: nextProps.backdropOpacity },
+        this.props.backdropTransitionInTiming
+      );
+    }
   }
 
   componentWillMount() {
