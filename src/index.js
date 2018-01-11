@@ -52,10 +52,11 @@ export class ReactNativeModal extends Component {
     onModalHide: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
+    onSwipe: PropTypes.func,
+    onSwipeThreshold: PropTypes.number,
     useNativeDriver: PropTypes.bool,
     style: PropTypes.any,
     swipeDirection: PropTypes.string,
-    swipeThreshold: PropTypes.number,
   };
 
   static defaultProps = {
@@ -73,9 +74,10 @@ export class ReactNativeModal extends Component {
     isVisible: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
+    onSwipe: () => null,
+    onSwipeThreshold: 100,
     useNativeDriver: false,
     swipeDirection: null,
-    swipeThreshold: 200,
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -158,37 +160,39 @@ export class ReactNativeModal extends Component {
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (evt, gestureState) => {
-        console.log('onPanResponderMove', evt, gestureState, this._isSwipeDirectionAllowed(gestureState));
         if ( this._isSwipeDirectionAllowed(gestureState) ) {
+          this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity * (1 - (this._getAccDistancePerDirection(gestureState) / this.state.deviceWidth))});
           animEvt(evt, gestureState);
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
-        console.log('onPanResponderRelease', evt, gestureState);
-        if ( ! horizontalDirections(this.props.swipeDirection) ) {
-          if ( this.props.swipeDirection === 'top' ? -gestureState.dy > this.props.swipeThreshold : gestureState.dy > this.props.swipeThreshold ) {
-            this.props.onBackdropPress();
-          }
-          else {
-            Animated.spring(
-              this.state.pan,
-              { toValue: {x: 0, y: 0} }
-            ).start();
-          }
+        if (this._getAccDistancePerDirection(gestureState) > this.props.onSwipeThreshold) {
+          this.props.onSwipe();
+          return;
         }
-        else {
-          if ( this.props.swipeDirection === 'left' ? -gestureState.dx > this.props.swipeThreshold : gestureState.dx > this.props.swipeThreshold ) {
-            this.props.onBackdropPress();
-          }
-          else {
-            Animated.spring(
-              this.state.pan,
-              { toValue: {x: 0, y: 0} }
-            ).start();
-          }
-        }
+
+        this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity });
+        Animated.spring(
+          this.state.pan,
+          { toValue: {x: 0, y: 0} }
+        ).start();
       }
     });
+  }
+
+  _getAccDistancePerDirection = gestureState => {
+    switch (this.props.swipeDirection) {
+      case 'top':
+        return -gestureState.dy;
+      case 'bottom':
+        return gestureState.dy;
+      case 'right':
+        return gestureState.dx;
+      case 'left':
+        return -gestureState.dx;
+      default:
+        return 0;
+    }
   }
 
   _isSwipeDirectionAllowed = ({dy, dx}) => {
