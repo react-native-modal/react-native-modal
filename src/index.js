@@ -171,7 +171,10 @@ export class ReactNativeModal extends Component {
         this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity }, this.props.backdropTransitionInTiming);
         Animated.spring(
           this.state.pan,
-          { toValue: {x: 0, y: 0} }
+          {
+            toValue: {x: 0, y: 0},
+            bounciness: 0,
+          }
         ).start();
       }
     });
