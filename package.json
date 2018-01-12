@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal",
-  "version": "4.2.0",
+  "version": "5.0.0-0",
   "description": "An enhanced React-Native modal",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -9,8 +9,7 @@
     "precommit": "lint-staged",
     "test": "npm run lint",
     "prettier": "prettier --write src/**/*.js",
-    "reset":
-      "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
+    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
   },
   "keywords": [
     "react-native",
@@ -45,6 +44,10 @@
     "react-native": ">=0.24.0"
   },
   "lint-staged": {
-    "*.js": ["lint", "prettier --write", "git add"]
+    "*.js": [
+      "lint",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
