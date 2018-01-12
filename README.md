@@ -3,16 +3,16 @@
 [![npm version](https://badge.fury.io/js/react-native-modal.svg)](https://badge.fury.io/js/react-native-modal)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-An enhanced, animated and customizable react-native modal.  
+An enhanced, animated and customizable react-native modal.
 
 ## Features
 
-- Smooth enter/exit animations
-- Plain simple and flexible APIs
-- Customizable backdrop opacity, color and timing
-- Listeners for the modal animations ending
-- Resize itself correctly on device rotation
-- Swipeable
+* Smooth enter/exit animations
+* Plain simple and flexible APIs
+* Customizable backdrop opacity, color and timing
+* Listeners for the modal animations ending
+* Resize itself correctly on device rotation
+* Swipeable
 
 ## Demo
 
@@ -28,14 +28,16 @@ This library is available on npm, install it with: `npm install --save react-nat
 
 ## Usage
 
-Since react-native-modal is an extension of the original react native modal, it works in a similar fashion [react-native original modal](https://facebook.github.io/react-native/docs/modal.html).  
+Since react-native-modal is an extension of the original react native modal, it works in a similar fashion [react-native original modal](https://facebook.github.io/react-native/docs/modal.html).
 
 1. Import react-native-modal:
+
 ```javascript
-import Modal from 'react-native-modal'
+import Modal from "react-native-modal";
 ```
 
 2. Create a modal and nest its content inside of it:
+
 ```javascript
 render () {
     return (
@@ -51,6 +53,7 @@ render () {
 ```
 
 3. Then simply show it by setting the `isVisible` prop to true:
+
 ```javascript
 render () {
     return (
@@ -65,28 +68,29 @@ render () {
   }
 ```
 
-The `isVisible` prop is the only prop you'll really need to make the modal work: you should control this prop value by saving it in your state and setting it to `true` or `false` when needed.  
-
+The `isVisible` prop is the only prop you'll really need to make the modal work: you should control this prop value by saving it in your state and setting it to `true` or `false` when needed.
 
 ## A complete example
+
 The following example consists in a component (`ModalTester`) with a button and a modal.
-The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.    
+The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.  
 Pressing the button sets `isModalVisible` to true, making the modal visible.  
 Inside the modal there is another button that, when pressed, sets `isModalVisible` to false, hiding the modal.
 
 ```javascript
-import React, { Component } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import Modal from 'react-native-modal'
+import React, { Component } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import Modal from "react-native-modal";
 
 export default class ModalTester extends Component {
   state = {
     isModalVisible: false
-  }
+  };
 
-  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible })
+  _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
 
-  render () {
+  render() {
     return (
       <View style={{ flex: 1 }}>
         <TouchableOpacity onPress={this._toggleModal}>
@@ -101,46 +105,49 @@ export default class ModalTester extends Component {
           </View>
         </Modal>
       </View>
-    )
+    );
   }
-
 }
 ```
+
 For a more complex example take a look at the `/example` directory.
 
 ## Available props
 
-| Name | Type| Default | Description |
-| --- | --- | --- | --- |
-| animationIn | string or object | 'slideInUp' | Modal show animation |
-| animationInTiming | number | 300 | Timing for the modal show animation (in ms) |
-| animationOut | string or object | 'slideOutDown' | Modal hide animation |
-| animationOutTiming | number | 300 | Timing for the modal hide animation (in ms) |
-| avoidKeyboard | bool | false | Move the modal up if the keyboard is open |
-| backdropColor | string | 'black' | The backdrop background color |
-| backdropOpacity | number | 0.70 | The backdrop opacity when the modal is visible |
-| backdropTransitionInTiming | number | 300 | The backdrop show timing (in ms) |
-| backdropTransitionOutTiming | number | 300 | The backdrop hide timing (in ms) |
-| children | node | **REQUIRED** | The modal content |
-| isVisible | bool | **REQUIRED** | Show the modal? |
-| onBackButtonPress | func | () => null | Called when the Android back button is pressed |
-| onBackdropPress | func | () => null | Called when the backdrop is pressed |
-| onModalHide | func | () => null | Called when the modal is completely hidden |
-| onModalShow | func | () => null | Called when the modal is completely visible |
-| onSwipe | func | null | Called when the onSwipeTreshold has been reach |
-| onSwipeTreshold | number | 100 | Threshold for calling onSwipe |
-| style | any | null | Style applied to the modal |
-| swipeDirection | string | null | When set, enables the swipe to close feature. Possible values ['up', 'down', 'left, 'right']
-| useNativeDriver | bool | false | Define if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
+| Name                        | Type             | Default        | Description                                                                                                                         |
+| --------------------------- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| animationIn                 | string or object | 'slideInUp'    | Modal show animation                                                                                                                |
+| animationInTiming           | number           | 300            | Timing for the modal show animation (in ms)                                                                                         |
+| animationOut                | string or object | 'slideOutDown' | Modal hide animation                                                                                                                |
+| animationOutTiming          | number           | 300            | Timing for the modal hide animation (in ms)                                                                                         |
+| avoidKeyboard               | bool             | false          | Move the modal up if the keyboard is open                                                                                           |
+| backdropColor               | string           | 'black'        | The backdrop background color                                                                                                       |
+| backdropOpacity             | number           | 0.70           | The backdrop opacity when the modal is visible                                                                                      |
+| backdropTransitionInTiming  | number           | 300            | The backdrop show timing (in ms)                                                                                                    |
+| backdropTransitionOutTiming | number           | 300            | The backdrop hide timing (in ms)                                                                                                    |
+| children                    | node             | **REQUIRED**   | The modal content                                                                                                                   |
+| isVisible                   | bool             | **REQUIRED**   | Show the modal?                                                                                                                     |
+| onBackButtonPress           | func             | () => null     | Called when the Android back button is pressed                                                                                      |
+| onBackdropPress             | func             | () => null     | Called when the backdrop is pressed                                                                                                 |
+| onModalHide                 | func             | () => null     | Called when the modal is completely hidden                                                                                          |
+| onModalShow                 | func             | () => null     | Called when the modal is completely visible                                                                                         |
+| onSwipe                     | func             | null           | Called when the `swipeThreshold` has been reached                                                                                   | e |
+| swipeThreshold              | number           | 100            | Swiping threshold that when reached calls `onSwipe`                                                                                 |
+| swipeDirection              | string           | null           | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right')                                        |
+| useNativeDriver             | bool             | false          | Define if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
+| style                       | any              | null           | Style applied to the modal                                                                                                          |
 
 ## Frequently Asked Questions
 
 ### The component is not working as expected
+
 Under the hood `react-native-modal` uses react-native original [Modal component](https://facebook.github.io/react-native/docs/modal.html).  
-Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).  
+Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).
 
 ### How can I hide the modal by pressing outside of its content?
+
 The prop `onBackdropPress` allows you to handle this situation:
+
 ```javascript
 <Modal
   isVisible={this.state.isVisible}
@@ -152,13 +159,30 @@ The prop `onBackdropPress` allows you to handle this situation:
 </Modal>
 ```
 
+### How can I hide the modal by swiping it?
+
+The prop `onSwipe` allows you to handle this situation (remember to set `swipeDirection` too!):
+
+```javascript
+<Modal
+  isVisible={this.state.isVisible}
+  onSwipe={() => this.setState({ isVisible: false })}
+  swipeDirection="left"
+>
+  <View style={{ flex: 1 }}>
+    <Text>I am the modal content!</Text>
+  </View>
+</Modal>
+```
+
 ### The modal doesn't change orientation
+
 Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations)
 
 ## Available animations
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
 
-Pull requests, feedbacks and suggestions are welcome!  
+Pull requests, feedbacks and suggestions are welcome!
 
-P.S.: Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!  
+P.S.: Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!
