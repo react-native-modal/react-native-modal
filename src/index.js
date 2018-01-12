@@ -31,10 +31,6 @@ const isObject = obj => {
   return obj !== null && typeof obj === 'object';
 };
 
-const horizontalDirections = direction => {
-  return direction == 'right' || direction == 'left';
-}
-
 export class ReactNativeModal extends Component {
   static propTypes = {
     animationIn: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -56,7 +52,7 @@ export class ReactNativeModal extends Component {
     onSwipeThreshold: PropTypes.number,
     useNativeDriver: PropTypes.bool,
     style: PropTypes.any,
-    swipeDirection: PropTypes.string,
+    swipeDirection: PropTypes.oneOf(['up', 'down', 'left', 'right']),
   };
 
   static defaultProps = {
@@ -151,7 +147,7 @@ export class ReactNativeModal extends Component {
   _buildPanResponder = () => {
     let animEvt = null;
 
-    if (horizontalDirections(this.props.swipeDirection)) {
+    if (this.props.swipeDirection == 'right' || this.props.swipeDirection == 'left') {
       animEvt = Animated.event([null,{ dx : this.state.pan.x }]);
     }
     else {
