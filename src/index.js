@@ -5,6 +5,7 @@ import {
   DeviceEventEmitter,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Platform,
   PanResponder,
   Animated,
 } from 'react-native';
@@ -385,7 +386,7 @@ export class ReactNativeModal extends Component {
 
         {avoidKeyboard && (
           <KeyboardAvoidingView
-            behavior={'padding'}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
             pointerEvents={'box-none'}
             style={computedStyle.concat([{ margin: 0 }])}
           >

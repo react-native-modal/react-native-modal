@@ -12,7 +12,7 @@ An enhanced, animated and customizable react-native modal.
 - Customizable backdrop opacity, color and timing
 - Listeners for the modal animations ending
 - Resize itself correctly on device rotation
-- Swipe to close
+- Swipeable
 
 ## Demo
 
