@@ -53,8 +53,8 @@ export default class Example extends Component {
         </Modal>
         <Modal
           isVisible={this.state.visibleModal === 2}
-          animationIn={"slideInLeft"}
-          animationOut={"slideOutRight"}
+          animationIn="slideInLeft"
+          animationOut="slideOutRight"
         >
           {this._renderModalContent()}
         </Modal>
@@ -71,8 +71,8 @@ export default class Example extends Component {
           isVisible={this.state.visibleModal === 4}
           backdropColor={"red"}
           backdropOpacity={1}
-          animationIn={"zoomInDown"}
-          animationOut={"zoomOutUp"}
+          animationIn="zoomInDown"
+          animationOut="zoomOutUp"
           animationInTiming={1000}
           animationOutTiming={1000}
           backdropTransitionInTiming={1000}
