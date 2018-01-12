@@ -5,7 +5,7 @@
 import { Dimensions } from "react-native";
 const { height, width } = Dimensions.get("window");
 
-function makeSlideTranslation(translationType, fromValue, toValue) {
+const makeSlideTranslation = (translationType, fromValue, toValue) => {
   return {
     from: {
       [translationType]: fromValue
@@ -14,7 +14,7 @@ function makeSlideTranslation(translationType, fromValue, toValue) {
       [translationType]: toValue
     }
   };
-}
+};
 
 export const slideInDown = makeSlideTranslation("translateY", -height, 0);
 

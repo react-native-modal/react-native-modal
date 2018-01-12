@@ -78,7 +78,7 @@ export class ReactNativeModal extends Component {
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
   // the modal visibile during the exit animation, even if the user has already change the
   // isVisible prop to false.
-  // We also store in the state the device width and height so that we can update the modal on
+  // We store in the state the device width and height so that we can update the modal on
   // device rotation.
   state = {
     isVisible: false,
@@ -89,6 +89,7 @@ export class ReactNativeModal extends Component {
   };
 
   transitionLock = null;
+  inSwipeClosingState = false;
 
   constructor(props) {
     super(props);
@@ -157,8 +158,8 @@ export class ReactNativeModal extends Component {
     let animEvt = null;
 
     if (
-      this.props.swipeDirection == "right" ||
-      this.props.swipeDirection == "left"
+      this.props.swipeDirection === "right" ||
+      this.props.swipeDirection === "left"
     ) {
       animEvt = Animated.event([null, { dx: this.state.pan.x }]);
     } else {
@@ -168,30 +169,27 @@ export class ReactNativeModal extends Component {
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (evt, gestureState) => {
+        // Dim the background while swiping the modal
+        const accDistance = this.getAccDistancePerDirection(gestureState);
+        const newOpacityFactor = 1 - accDistance / this.state.deviceWidth;
         if (this.isSwipeDirectionAllowed(gestureState)) {
           this.backdropRef.transitionTo({
-            opacity:
-              this.props.backdropOpacity *
-              (1 -
-                this.getAccDistancePerDirection(gestureState) /
-                  this.state.deviceWidth)
+            opacity: this.props.backdropOpacity * newOpacityFactor
           });
           animEvt(evt, gestureState);
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
-        if (
-          this.getAccDistancePerDirection(gestureState) >
-          this.props.swipeThreshold
-        ) {
+        // Call the onSwipe prop if the threshold has been exceeded
+        const accDistance = this.getAccDistancePerDirection(gestureState);
+        if (accDistance > this.props.swipeThreshold) {
           if (this.props.onSwipe) {
             this.inSwipeClosingState = true;
             this.props.onSwipe();
             return;
           }
         }
-
-        //Reset backdrop opacity & modal position
+        //Reset backdrop opacity and modal position
         this.backdropRef.transitionTo(
           { opacity: this.props.backdropOpacity },
           this.props.backdropTransitionInTiming
@@ -225,23 +223,15 @@ export class ReactNativeModal extends Component {
     const draggedLeft = dx < 0;
     const draggedRight = dx > 0;
 
-    switch (this.props.swipeDirection) {
-      case "up":
-        if (draggedUp) return true;
-        break;
-      case "down":
-        if (draggedDown) return true;
-        break;
-      case "right":
-        if (draggedRight) return true;
-        break;
-      case "left":
-        if (draggedLeft) return true;
-        break;
-      default:
-        return false;
+    if (this.props.swipeDirection === "up" && draggedUp) {
+      return true;
+    } else if (this.props.swipeDirection === "down" && draggedDown) {
+      return true;
+    } else if (this.props.swipeDirection === "right" && draggedRight) {
+      return true;
+    } else if (this.props.swipeDirection === "left" && draggedLeft) {
+      return true;
     }
-
     return false;
   };
 
@@ -313,19 +303,14 @@ export class ReactNativeModal extends Component {
 
     if (this.inSwipeClosingState) {
       this.inSwipeClosingState = false;
-      switch (this.props.swipeDirection) {
-        case "up":
-          animationOut = "slideOutUp";
-          break;
-        case "down":
-          animationOut = "slideOutDown";
-          break;
-        case "right":
-          animationOut = "slideOutRight";
-          break;
-        case "left":
-          animationOut = "slideOutLeft";
-          break;
+      if (this.props.swipeDirection === "up") {
+        animationOut = "slideOutUp";
+      } else if (this.props.swipeDirection === "down") {
+        animationOut = "slideOutDown";
+      } else if (this.props.swipeDirection === "right") {
+        animationOut = "slideOutRight";
+      } else if (this.props.swipeDirection === "left") {
+        animationOut = "slideOutLeft";
       }
     }
 
