@@ -121,17 +121,17 @@ For a more complex example take a look at the `/example` directory.
 | backdropOpacity | number | 0.70 | The backdrop opacity when the modal is visible |
 | backdropTransitionInTiming | number | 300 | The backdrop show timing (in ms) |
 | backdropTransitionOutTiming | number | 300 | The backdrop hide timing (in ms) |
+| children | node | **REQUIRED** | The modal content |
+| isVisible | bool | **REQUIRED** | Show the modal? |
 | onBackButtonPress | func | () => null | Called when the Android back button is pressed |
 | onBackdropPress | func | () => null | Called when the backdrop is pressed |
-| useNativeDriver | bool | false | Define if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
-| isVisible | bool | **REQUIRED** | Show the modal? |
-| children | node | **REQUIRED** | The modal content |
-| onModalShow | func | () => null | Called when the modal is completely visible |
 | onModalHide | func | () => null | Called when the modal is completely hidden |
-| style | any | null | Style applied to the modal |
+| onModalShow | func | () => null | Called when the modal is completely visible |
 | onSwipe | func | null | Called when the onSwipeTreshold has been reach |
-| onSwipeTreshold | number | 100 | Treshold that will trigger onSwipe |
-| swipeDirection | string | null | When set, enabled the swipe to close feature. Possible value ['up', 'down', 'left, 'right']
+| onSwipeTreshold | number | 100 | Threshold for calling onSwipe |
+| style | any | null | Style applied to the modal |
+| swipeDirection | string | null | When set, enables the swipe to close feature. Possible values ['up', 'down', 'left, 'right']
+| useNativeDriver | bool | false | Define if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
 
 ## Frequently Asked Questions
 

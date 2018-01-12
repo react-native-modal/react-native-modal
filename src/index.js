@@ -87,7 +87,8 @@ export class ReactNativeModal extends Component {
     isVisible: false,
     deviceWidth: Dimensions.get('window').width,
     deviceHeight: Dimensions.get('window').height,
-    pan: this.props.swipeDirection ? new Animated.ValueXY() : null,
+    isSwipeable: this.props.swipeDirection ? true : false,
+    pan: null,
   };
 
   transitionLock = null;
@@ -107,14 +108,17 @@ export class ReactNativeModal extends Component {
     ) {
       this._buildAnimations(nextProps);
     }
+    if (!this.props.swipeDirection && nextProps.swipeDirection) {
+      this.setState({ pan: new Animated.ValueXY() });
+    }
   }
 
   componentWillMount() {
     if (this.props.isVisible) {
       this.setState({ isVisible: true });
     }
-    if (this.props.swipeDirection) {
-      this._buildPanResponder(this.props);
+    if (this.state.isSwipeable) {
+      this._buildPanResponder();
     }
   }
 
@@ -140,7 +144,7 @@ export class ReactNativeModal extends Component {
     }
   }
 
-  _buildPanResponder = props => {
+  _buildPanResponder = () => {
     let animEvt = null;
 
     if (horizontalDirections(this.props.swipeDirection)) {
@@ -160,7 +164,7 @@ export class ReactNativeModal extends Component {
       },
       onPanResponderRelease: (evt, gestureState) => {
         if (this._getAccDistancePerDirection(gestureState) > this.props.onSwipeThreshold) {
-          if ( this.props.onSwipe ) {
+          if (this.props.onSwipe) {
             this.inSwipeClosingState = true;
             this.props.onSwipe();
             return;
@@ -172,7 +176,7 @@ export class ReactNativeModal extends Component {
         Animated.spring(
           this.state.pan,
           {
-            toValue: {x: 0, y: 0},
+            toValue: { x: 0, y: 0 },
             bounciness: 0,
           }
         ).start();
@@ -260,7 +264,7 @@ export class ReactNativeModal extends Component {
     // This is for reset the pan position, if not modal get stuck
     // at the last release position when you try to open it.
     // Could certainly be improve - no idea for the moment.
-    if ( this.state.pan ) {
+    if (this.state.isSwipeable) {
       this.state.pan.setValue({ x: 0, y: 0});
     }
 
@@ -282,7 +286,7 @@ export class ReactNativeModal extends Component {
 
     let animationOut = this.animationOut;
 
-    if ( this.inSwipeClosingState ) {
+    if (this.inSwipeClosingState) {
       this.inSwipeClosingState = false;
       switch (this.props.swipeDirection) {
         case 'up':
@@ -340,8 +344,12 @@ export class ReactNativeModal extends Component {
       style,
     ];
 
-    const panHandlers = this.props.swipeDirection ? { ...this.panResponder.panHandlers } : {};
-    const panPosition = this.state.pan ? this.state.pan.getLayout() : {};
+    let panHandlers = {};
+    let panPosition = {};
+    if (this.state.isSwipeable) {
+      panHandlers = { ...this.panResponder.panHandlers };
+      panPosition = this.state.pan.getLayout()
+    }
 
     const containerView = (
       <View
