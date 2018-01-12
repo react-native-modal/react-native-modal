@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Dimensions,
   Modal,
@@ -7,18 +7,18 @@ import {
   KeyboardAvoidingView,
   Platform,
   PanResponder,
-  Animated,
-} from 'react-native';
-import PropTypes from 'prop-types';
+  Animated
+} from "react-native";
+import PropTypes from "prop-types";
 import {
   View,
   initializeRegistryWithDefinitions,
   registerAnimation,
-  createAnimation,
-} from 'react-native-animatable';
-import * as ANIMATION_DEFINITIONS from './animations';
+  createAnimation
+} from "react-native-animatable";
+import * as ANIMATION_DEFINITIONS from "./animations";
 
-import styles from './index.style.js';
+import styles from "./index.style.js";
 
 // Override default animations
 initializeRegistryWithDefinitions(ANIMATION_DEFINITIONS);
@@ -29,7 +29,7 @@ const makeAnimation = (name, obj) => {
 };
 
 const isObject = obj => {
-  return obj !== null && typeof obj === 'object';
+  return obj !== null && typeof obj === "object";
 };
 
 export class ReactNativeModal extends Component {
@@ -50,19 +50,19 @@ export class ReactNativeModal extends Component {
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
     onSwipe: PropTypes.func,
-    onSwipeThreshold: PropTypes.number,
+    swipeThreshold: PropTypes.number,
+    swipeDirection: PropTypes.oneOf(["up", "down", "left", "right"]),
     useNativeDriver: PropTypes.bool,
-    style: PropTypes.any,
-    swipeDirection: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+    style: PropTypes.any
   };
 
   static defaultProps = {
-    animationIn: 'slideInUp',
+    animationIn: "slideInUp",
     animationInTiming: 300,
-    animationOut: 'slideOutDown',
+    animationOut: "slideOutDown",
     animationOutTiming: 300,
     avoidKeyboard: false,
-    backdropColor: 'black',
+    backdropColor: "black",
     backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
@@ -71,8 +71,8 @@ export class ReactNativeModal extends Component {
     isVisible: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
-    onSwipeThreshold: 100,
-    useNativeDriver: false,
+    swipeThreshold: 100,
+    useNativeDriver: false
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -82,20 +82,20 @@ export class ReactNativeModal extends Component {
   // device rotation.
   state = {
     isVisible: false,
-    deviceWidth: Dimensions.get('window').width,
-    deviceHeight: Dimensions.get('window').height,
+    deviceWidth: Dimensions.get("window").width,
+    deviceHeight: Dimensions.get("window").height,
     isSwipeable: this.props.swipeDirection ? true : false,
-    pan: null,
+    pan: null
   };
 
   transitionLock = null;
 
   constructor(props) {
     super(props);
-    this._buildAnimations(props);
+    this.buildAnimations(props);
     if (this.state.isSwipeable) {
       this.state = { ...this.state, pan: new Animated.ValueXY() };
-      this._buildPanResponder();
+      this.buildPanResponder();
     }
   }
 
@@ -107,9 +107,12 @@ export class ReactNativeModal extends Component {
       this.props.animationIn !== nextProps.animationIn ||
       this.props.animationOut !== nextProps.animationOut
     ) {
-      this._buildAnimations(nextProps);
+      this.buildAnimations(nextProps);
     }
-    if (this.props.backdropOpacity !== nextProps.backdropOpacity && this.backdropRef) {
+    if (
+      this.props.backdropOpacity !== nextProps.backdropOpacity &&
+      this.backdropRef
+    ) {
       this.backdropRef.transitionTo(
         { opacity: nextProps.backdropOpacity },
         this.props.backdropTransitionInTiming
@@ -125,44 +128,62 @@ export class ReactNativeModal extends Component {
 
   componentDidMount() {
     if (this.state.isVisible) {
-      this._open();
+      this.open();
     }
-    DeviceEventEmitter.addListener('didUpdateDimensions', this._handleDimensionsUpdate);
+    DeviceEventEmitter.addListener(
+      "didUpdateDimensions",
+      this.handleDimensionsUpdate
+    );
   }
 
   componentWillUnmount() {
-    DeviceEventEmitter.removeListener('didUpdateDimensions', this._handleDimensionsUpdate);
+    DeviceEventEmitter.removeListener(
+      "didUpdateDimensions",
+      this.handleDimensionsUpdate
+    );
   }
 
   componentDidUpdate(prevProps, prevState) {
     // On modal open request, we slide the view up and fade in the backdrop
     if (this.props.isVisible && !prevProps.isVisible) {
-      this._open();
+      this.open();
     } else if (!this.props.isVisible && prevProps.isVisible) {
       // On modal close request, we slide the view down and fade out the backdrop
       this._close();
     }
   }
 
-  _buildPanResponder = () => {
+  buildPanResponder = () => {
     let animEvt = null;
 
-    if (this.props.swipeDirection == 'right' || this.props.swipeDirection == 'left') {
-      animEvt = Animated.event([null,{ dx : this.state.pan.x }]);
+    if (
+      this.props.swipeDirection == "right" ||
+      this.props.swipeDirection == "left"
+    ) {
+      animEvt = Animated.event([null, { dx: this.state.pan.x }]);
     } else {
-      animEvt = Animated.event([null,{ dy : this.state.pan.y }]);
+      animEvt = Animated.event([null, { dy: this.state.pan.y }]);
     }
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (evt, gestureState) => {
-        if (this._isSwipeDirectionAllowed(gestureState)) {
-          this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity * (1 - (this._getAccDistancePerDirection(gestureState) / this.state.deviceWidth))});
+        if (this.isSwipeDirectionAllowed(gestureState)) {
+          this.backdropRef.transitionTo({
+            opacity:
+              this.props.backdropOpacity *
+              (1 -
+                this.getAccDistancePerDirection(gestureState) /
+                  this.state.deviceWidth)
+          });
           animEvt(evt, gestureState);
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
-        if (this._getAccDistancePerDirection(gestureState) > this.props.onSwipeThreshold) {
+        if (
+          this.getAccDistancePerDirection(gestureState) >
+          this.props.swipeThreshold
+        ) {
           if (this.props.onSwipe) {
             this.inSwipeClosingState = true;
             this.props.onSwipe();
@@ -171,50 +192,50 @@ export class ReactNativeModal extends Component {
         }
 
         //Reset backdrop opacity & modal position
-        this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity }, this.props.backdropTransitionInTiming);
-        Animated.spring(
-          this.state.pan,
-          {
-            toValue: { x: 0, y: 0 },
-            bounciness: 0,
-          }
-        ).start();
+        this.backdropRef.transitionTo(
+          { opacity: this.props.backdropOpacity },
+          this.props.backdropTransitionInTiming
+        );
+        Animated.spring(this.state.pan, {
+          toValue: { x: 0, y: 0 },
+          bounciness: 0
+        }).start();
       }
     });
-  }
+  };
 
-  _getAccDistancePerDirection = gestureState => {
+  getAccDistancePerDirection = gestureState => {
     switch (this.props.swipeDirection) {
-      case 'up':
+      case "up":
         return -gestureState.dy;
-      case 'down':
+      case "down":
         return gestureState.dy;
-      case 'right':
+      case "right":
         return gestureState.dx;
-      case 'left':
+      case "left":
         return -gestureState.dx;
       default:
         return 0;
     }
-  }
+  };
 
-  _isSwipeDirectionAllowed = ({dy, dx}) => {
+  isSwipeDirectionAllowed = ({ dy, dx }) => {
     const draggedDown = dy > 0;
     const draggedUp = dy < 0;
     const draggedLeft = dx < 0;
     const draggedRight = dx > 0;
 
     switch (this.props.swipeDirection) {
-      case 'up':
+      case "up":
         if (draggedUp) return true;
         break;
-      case 'down':
+      case "down":
         if (draggedDown) return true;
         break;
-      case 'right':
+      case "right":
         if (draggedRight) return true;
         break;
-      case 'left':
+      case "left":
         if (draggedLeft) return true;
         break;
       default:
@@ -222,37 +243,40 @@ export class ReactNativeModal extends Component {
     }
 
     return false;
-  }
+  };
 
   // User can define custom react-native-animatable animations, see PR #72
-  _buildAnimations = props => {
+  buildAnimations = props => {
     let animationIn = props.animationIn;
     let animationOut = props.animationOut;
 
     if (isObject(animationIn)) {
-      makeAnimation('animationIn', animationIn);
-      animationIn = 'animationIn';
+      makeAnimation("animationIn", animationIn);
+      animationIn = "animationIn";
     }
 
     if (isObject(animationOut)) {
-      makeAnimation('animationOut', animationOut);
-      animationOut = 'animationOut';
+      makeAnimation("animationOut", animationOut);
+      animationOut = "animationOut";
     }
 
     this.animationIn = animationIn;
     this.animationOut = animationOut;
   };
 
-  _handleDimensionsUpdate = dimensionsUpdate => {
+  handleDimensionsUpdate = dimensionsUpdate => {
     // Here we update the device dimensions in the state if the layout changed (triggering a render)
-    const deviceWidth = Dimensions.get('window').width;
-    const deviceHeight = Dimensions.get('window').height;
-    if (deviceWidth !== this.state.deviceWidth || deviceHeight !== this.state.deviceHeight) {
+    const deviceWidth = Dimensions.get("window").width;
+    const deviceHeight = Dimensions.get("window").height;
+    if (
+      deviceWidth !== this.state.deviceWidth ||
+      deviceHeight !== this.state.deviceHeight
+    ) {
       this.setState({ deviceWidth, deviceHeight });
     }
   };
 
-  _open = () => {
+  open = () => {
     if (this.transitionLock) return;
     this.transitionLock = true;
     this.backdropRef.transitionTo(
@@ -264,7 +288,7 @@ export class ReactNativeModal extends Component {
     // at the last release position when you try to open it.
     // Could certainly be improve - no idea for the moment.
     if (this.state.isSwipeable) {
-      this.state.pan.setValue({ x: 0, y: 0});
+      this.state.pan.setValue({ x: 0, y: 0 });
     }
 
     this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
@@ -280,24 +304,27 @@ export class ReactNativeModal extends Component {
   _close = () => {
     if (this.transitionLock) return;
     this.transitionLock = true;
-    this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming);
+    this.backdropRef.transitionTo(
+      { opacity: 0 },
+      this.props.backdropTransitionOutTiming
+    );
 
     let animationOut = this.animationOut;
 
     if (this.inSwipeClosingState) {
       this.inSwipeClosingState = false;
       switch (this.props.swipeDirection) {
-        case 'up':
-          animationOut = 'slideOutUp';
+        case "up":
+          animationOut = "slideOutUp";
           break;
-        case 'down':
-          animationOut = 'slideOutDown';
+        case "down":
+          animationOut = "slideOutDown";
           break;
-        case 'right':
-          animationOut = 'slideOutRight';
+        case "right":
+          animationOut = "slideOutRight";
           break;
-        case 'left':
-          animationOut = 'slideOutLeft';
+        case "left":
+          animationOut = "slideOutLeft";
           break;
       }
     }
@@ -305,7 +332,7 @@ export class ReactNativeModal extends Component {
     this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
       this.transitionLock = false;
       if (this.props.isVisible) {
-        this._open();
+        this.open();
       } else {
         this.setState({ isVisible: false });
         this.props.onModalHide();
@@ -338,22 +365,22 @@ export class ReactNativeModal extends Component {
     const computedStyle = [
       { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
       styles.content,
-      style,
+      style
     ];
 
     let panHandlers = {};
     let panPosition = {};
     if (this.state.isSwipeable) {
       panHandlers = { ...this.panResponder.panHandlers };
-      panPosition = this.state.pan.getLayout()
+      panPosition = this.state.pan.getLayout();
     }
 
     const containerView = (
       <View
-        { ...panHandlers }
+        {...panHandlers}
         ref={ref => (this.contentRef = ref)}
         style={[panPosition, computedStyle]}
-        pointerEvents={'box-none'}
+        pointerEvents="box-none"
         useNativeDriver={useNativeDriver}
         {...otherProps}
       >
@@ -364,7 +391,7 @@ export class ReactNativeModal extends Component {
     return (
       <Modal
         transparent={true}
-        animationType={'none'}
+        animationType={"none"}
         visible={this.state.isVisible}
         onRequestClose={onBackButtonPress}
         {...otherProps}
@@ -378,16 +405,16 @@ export class ReactNativeModal extends Component {
               {
                 backgroundColor: backdropColor,
                 width: deviceWidth,
-                height: deviceHeight,
-              },
+                height: deviceHeight
+              }
             ]}
           />
         </TouchableWithoutFeedback>
 
         {avoidKeyboard && (
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : null}
-            pointerEvents={'box-none'}
+            behavior={Platform.OS === "ios" ? "padding" : null}
+            pointerEvents="box-none"
             style={computedStyle.concat([{ margin: 0 }])}
           >
             {containerView}
