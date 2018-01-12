@@ -74,7 +74,6 @@ export class ReactNativeModal extends Component {
     isVisible: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
-    onSwipe: () => null,
     onSwipeThreshold: 100,
     useNativeDriver: false,
     swipeDirection: null,
@@ -89,7 +88,7 @@ export class ReactNativeModal extends Component {
     isVisible: false,
     deviceWidth: Dimensions.get('window').width,
     deviceHeight: Dimensions.get('window').height,
-    pan: new Animated.ValueXY(),
+    pan: this.props.swipeDirection ? new Animated.ValueXY() : null,
   };
 
   transitionLock = null;
@@ -143,35 +142,34 @@ export class ReactNativeModal extends Component {
   }
 
   _buildPanResponder = props => {
-
     let animEvt = null;
 
-    if ( horizontalDirections(this.props.swipeDirection) ) {
-      animEvt = Animated.event([null,{
-        dx : this.state.pan.x,
-      }]);
+    if (horizontalDirections(this.props.swipeDirection)) {
+      animEvt = Animated.event([null,{ dx : this.state.pan.x }]);
     }
     else {
-      animEvt = Animated.event([null,{
-        dy : this.state.pan.y,
-      }]);
+      animEvt = Animated.event([null,{ dy : this.state.pan.y }]);
     }
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (evt, gestureState) => {
-        if ( this._isSwipeDirectionAllowed(gestureState) ) {
+        if (this._isSwipeDirectionAllowed(gestureState)) {
           this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity * (1 - (this._getAccDistancePerDirection(gestureState) / this.state.deviceWidth))});
           animEvt(evt, gestureState);
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
         if (this._getAccDistancePerDirection(gestureState) > this.props.onSwipeThreshold) {
-          this.props.onSwipe();
-          return;
+          if ( this.props.onSwipe ) {
+            this.inSwipeClosingState = true;
+            this.props.onSwipe();
+            return;
+          }
         }
 
-        this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity });
+        //Reset backdrop opacity & modal position
+        this.backdropRef.transitionTo({ opacity: this.props.backdropOpacity }, this.props.backdropTransitionInTiming);
         Animated.spring(
           this.state.pan,
           { toValue: {x: 0, y: 0} }
@@ -260,7 +258,9 @@ export class ReactNativeModal extends Component {
     // This is for reset the pan position, if not modal get stuck
     // at the last release position when you try to open it.
     // Could certainly be improve - no idea for the moment.
-    this.state.pan.setValue({ x: 0, y: 0});
+    if ( this.state.pan ) {
+      this.state.pan.setValue({ x: 0, y: 0});
+    }
 
     this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
       this.transitionLock = false;
@@ -277,7 +277,28 @@ export class ReactNativeModal extends Component {
     if (this.transitionLock) return;
     this.transitionLock = true;
     this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming);
-    this.contentRef[this.animationOut](this.props.animationOutTiming).then(() => {
+
+    let animationOut = this.animationOut;
+
+    if ( this.inSwipeClosingState ) {
+      this.inSwipeClosingState = false;
+      switch (this.props.swipeDirection) {
+        case 'top':
+          animationOut = 'slideOutUp';
+          break;
+        case 'bottom':
+          animationOut = 'slideOutDown';
+          break;
+        case 'right':
+          animationOut = 'slideOutRight';
+          break;
+        case 'left':
+          animationOut = 'slideOutLeft';
+          break;
+      }
+    }
+
+    this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
       this.transitionLock = false;
       if (this.props.isVisible) {
         this._open();
@@ -317,11 +338,14 @@ export class ReactNativeModal extends Component {
       style,
     ];
 
+    const panHandlers = this.props.swipeDirection ? { ...this.panResponder.panHandlers } : {};
+    const panPosition = this.state.pan ? this.state.pan.getLayout() : {};
+
     const containerView = (
       <View
-        { ...this.panResponder.panHandlers }
+        { ...panHandlers }
         ref={ref => (this.contentRef = ref)}
-        style={[this.state.pan.getLayout(), computedStyle]}
+        style={[panPosition, computedStyle]}
         pointerEvents={'box-none'}
         useNativeDriver={useNativeDriver}
         onLayout={this._containerViewOnLayout}
