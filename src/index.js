@@ -96,6 +96,10 @@ export class ReactNativeModal extends Component {
   constructor(props) {
     super(props);
     this._buildAnimations(props);
+    if (this.state.isSwipeable) {
+      this.state = { ...this.state, pan: new Animated.ValueXY() };
+      this._buildPanResponder();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -108,17 +112,17 @@ export class ReactNativeModal extends Component {
     ) {
       this._buildAnimations(nextProps);
     }
-    if (!this.props.swipeDirection && nextProps.swipeDirection) {
-      this.setState({ pan: new Animated.ValueXY() });
+    if (this.props.backdropOpacity !== nextProps.backdropOpacity && this.backdropRef) {
+      this.backdropRef.transitionTo(
+        { opacity: nextProps.backdropOpacity },
+        this.props.backdropTransitionInTiming
+      );
     }
   }
 
   componentWillMount() {
     if (this.props.isVisible) {
       this.setState({ isVisible: true });
-    }
-    if (this.state.isSwipeable) {
-      this._buildPanResponder();
     }
   }
 
