@@ -76,7 +76,6 @@ export class ReactNativeModal extends Component {
     onBackButtonPress: () => null,
     onSwipeThreshold: 100,
     useNativeDriver: false,
-    swipeDirection: null,
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -180,9 +179,9 @@ export class ReactNativeModal extends Component {
 
   _getAccDistancePerDirection = gestureState => {
     switch (this.props.swipeDirection) {
-      case 'top':
+      case 'up':
         return -gestureState.dy;
-      case 'bottom':
+      case 'down':
         return gestureState.dy;
       case 'right':
         return gestureState.dx;
@@ -200,10 +199,10 @@ export class ReactNativeModal extends Component {
     const draggedRight = dx > 0;
 
     switch (this.props.swipeDirection) {
-      case 'top':
+      case 'up':
         if (draggedUp) return true;
         break;
-      case 'bottom':
+      case 'down':
         if (draggedDown) return true;
         break;
       case 'right':
@@ -283,10 +282,10 @@ export class ReactNativeModal extends Component {
     if ( this.inSwipeClosingState ) {
       this.inSwipeClosingState = false;
       switch (this.props.swipeDirection) {
-        case 'top':
+        case 'up':
           animationOut = 'slideOutUp';
           break;
-        case 'bottom':
+        case 'down':
           animationOut = 'slideOutDown';
           break;
         case 'right':

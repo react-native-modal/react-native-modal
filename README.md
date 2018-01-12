@@ -12,6 +12,7 @@ An enhanced, animated and customizable react-native modal.
 - Customizable backdrop opacity, color and timing
 - Listeners for the modal animations ending
 - Resize itself correctly on device rotation
+- Swipe to close
 
 ## Demo
 
@@ -128,6 +129,9 @@ For a more complex example take a look at the `/example` directory.
 | onModalShow | func | () => null | Called when the modal is completely visible |
 | onModalHide | func | () => null | Called when the modal is completely hidden |
 | style | any | null | Style applied to the modal |
+| onSwipe | func | null | Called when the onSwipeTreshold has been reach |
+| onSwipeTreshold | number | 100 | Treshold that will trigger onSwipe |
+| swipeDirection | string | null | When set, enabled the swipe to close feature. Possible value ['up', 'down', 'left, 'right']
 
 ## Frequently Asked Questions
 
