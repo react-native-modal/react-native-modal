@@ -137,9 +137,8 @@ export class ReactNativeModal extends Component {
     // On modal open request, we slide the view up and fade in the backdrop
     if (this.props.isVisible && !prevProps.isVisible) {
       this._open();
-    }
-    // On modal close request, we slide the view down and fade out the backdrop
-    else if (!this.props.isVisible && prevProps.isVisible) {
+    } else if (!this.props.isVisible && prevProps.isVisible) {
+      // On modal close request, we slide the view down and fade out the backdrop
       this._close();
     }
   }
@@ -149,8 +148,7 @@ export class ReactNativeModal extends Component {
 
     if (this.props.swipeDirection == 'right' || this.props.swipeDirection == 'left') {
       animEvt = Animated.event([null,{ dx : this.state.pan.x }]);
-    }
-    else {
+    } else {
       animEvt = Animated.event([null,{ dy : this.state.pan.y }]);
     }
 
@@ -258,7 +256,7 @@ export class ReactNativeModal extends Component {
     this.transitionLock = true;
     this.backdropRef.transitionTo(
       { opacity: this.props.backdropOpacity },
-      this.props.backdropTransitionInTiming,
+      this.props.backdropTransitionInTiming
     );
 
     // This is for reset the pan position, if not modal get stuck
@@ -272,8 +270,7 @@ export class ReactNativeModal extends Component {
       this.transitionLock = false;
       if (!this.props.isVisible) {
         this._close();
-      }
-      else {
+      } else {
         this.props.onModalShow();
       }
     });
@@ -308,8 +305,7 @@ export class ReactNativeModal extends Component {
       this.transitionLock = false;
       if (this.props.isVisible) {
         this._open();
-      }
-      else {
+      } else {
         this.setState({ isVisible: false });
         this.props.onModalHide();
       }
@@ -358,7 +354,6 @@ export class ReactNativeModal extends Component {
         style={[panPosition, computedStyle]}
         pointerEvents={'box-none'}
         useNativeDriver={useNativeDriver}
-        onLayout={this._containerViewOnLayout}
         {...otherProps}
       >
         {children}
@@ -388,17 +383,17 @@ export class ReactNativeModal extends Component {
           />
         </TouchableWithoutFeedback>
 
-          {avoidKeyboard && (
-            <KeyboardAvoidingView
-              behavior={'padding'}
-              pointerEvents={'box-none'}
-              style={computedStyle.concat([{ margin: 0 }])}
-            >
-              {containerView}
-            </KeyboardAvoidingView>
-          )}
+        {avoidKeyboard && (
+          <KeyboardAvoidingView
+            behavior={'padding'}
+            pointerEvents={'box-none'}
+            style={computedStyle.concat([{ margin: 0 }])}
+          >
+            {containerView}
+          </KeyboardAvoidingView>
+        )}
 
-          {!avoidKeyboard && containerView}
+        {!avoidKeyboard && containerView}
       </Modal>
     );
   }
