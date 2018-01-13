@@ -134,7 +134,7 @@ For a more complex example take a look at the `/example` directory.
 | onSwipe                     | func             | null           | Called when the `swipeThreshold` has been reached                                                                                   | e |
 | swipeThreshold              | number           | 100            | Swiping threshold that when reached calls `onSwipe`                                                                                 |
 | swipeDirection              | string           | null           | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right')                                        |
-| useNativeDriver             | bool             | false          | Define if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
+| useNativeDriver             | bool             | false          | Defines if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
 | style                       | any              | null           | Style applied to the modal                                                                                                          |
 
 ## Frequently Asked Questions
