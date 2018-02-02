@@ -241,13 +241,15 @@ export class ReactNativeModal extends Component {
     let animationOut = props.animationOut;
 
     if (isObject(animationIn)) {
-      makeAnimation("animationIn", animationIn);
-      animationIn = "animationIn";
+      const animationName = JSON.stringify(animationIn);
+      makeAnimation(animationName, animationIn);
+      animationIn = animationName;
     }
 
     if (isObject(animationOut)) {
-      makeAnimation("animationOut", animationOut);
-      animationOut = "animationOut";
+      const animationName = JSON.stringify(animationOut);
+      makeAnimation(animationName, animationOut);
+      animationOut = animationName;
     }
 
     this.animationIn = animationIn;
