@@ -81,6 +81,7 @@ export class ReactNativeModal extends Component {
   // We store in the state the device width and height so that we can update the modal on
   // device rotation.
   state = {
+    showContent: true,
     isVisible: false,
     deviceWidth: Dimensions.get("window").width,
     deviceHeight: Dimensions.get("window").height,
@@ -102,7 +103,7 @@ export class ReactNativeModal extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
-      this.setState({ isVisible: true });
+      this.setState({ isVisible: true, showContent: true });
     }
     if (
       this.props.animationIn !== nextProps.animationIn ||
@@ -123,7 +124,7 @@ export class ReactNativeModal extends Component {
 
   componentWillMount() {
     if (this.props.isVisible) {
-      this.setState({ isVisible: true });
+      this.setState({ isVisible: true, showContent: true });
     }
   }
 
@@ -321,7 +322,13 @@ export class ReactNativeModal extends Component {
       if (this.props.isVisible) {
         this.open();
       } else {
-        this.setState({ isVisible: false });
+        this.setState({
+          showContent: false
+        }, () => {
+          this.setState({
+            isVisible: false
+          })
+        });
         this.props.onModalHide();
       }
     });
@@ -371,7 +378,7 @@ export class ReactNativeModal extends Component {
         useNativeDriver={useNativeDriver}
         {...otherProps}
       >
-        {children}
+        {this.state.showContent ? children : <View />}
       </View>
     );
 
@@ -390,7 +397,7 @@ export class ReactNativeModal extends Component {
             style={[
               styles.backdrop,
               {
-                backgroundColor: backdropColor,
+                backgroundColor: this.state.showContent ? backdropColor : 'transparent',
                 width: deviceWidth,
                 height: deviceHeight
               }
