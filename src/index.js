@@ -45,6 +45,7 @@ export class ReactNativeModal extends Component {
     backdropTransitionOutTiming: PropTypes.number,
     children: PropTypes.node.isRequired,
     isVisible: PropTypes.bool.isRequired,
+    hideModalContentWhileAnimating: PropTypes.bool,
     onModalShow: PropTypes.func,
     onModalHide: PropTypes.func,
     onBackButtonPress: PropTypes.func,
@@ -69,6 +70,7 @@ export class ReactNativeModal extends Component {
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false,
+    hideModalContentWhileAnimating: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
     swipeThreshold: 100,
@@ -369,6 +371,7 @@ export class ReactNativeModal extends Component {
       panPosition = this.state.pan.getLayout();
     }
 
+    const _children = this.props.hideModalContentWhileAnimating && this.props.useNativeDriver &&!this.state.showContent ? <View /> : children;
     const containerView = (
       <View
         {...panHandlers}
@@ -378,7 +381,7 @@ export class ReactNativeModal extends Component {
         useNativeDriver={useNativeDriver}
         {...otherProps}
       >
-        {this.state.showContent ? children : <View />}
+        {_children}
       </View>
     );
 
