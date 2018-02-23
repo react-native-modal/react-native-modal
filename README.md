@@ -114,28 +114,28 @@ For a more complex example take a look at the `/example` directory.
 
 ## Available props
 
-| Name                        | Type             | Default        | Description                                                                                                                         |
-| --------------------------- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| animationIn                 | string or object | 'slideInUp'    | Modal show animation                                                                                                                |
-| animationInTiming           | number           | 300            | Timing for the modal show animation (in ms)                                                                                         |
-| animationOut                | string or object | 'slideOutDown' | Modal hide animation                                                                                                                |
-| animationOutTiming          | number           | 300            | Timing for the modal hide animation (in ms)                                                                                         |
-| avoidKeyboard               | bool             | false          | Move the modal up if the keyboard is open                                                                                           |
-| backdropColor               | string           | 'black'        | The backdrop background color                                                                                                       |
-| backdropOpacity             | number           | 0.70           | The backdrop opacity when the modal is visible                                                                                      |
-| backdropTransitionInTiming  | number           | 300            | The backdrop show timing (in ms)                                                                                                    |
-| backdropTransitionOutTiming | number           | 300            | The backdrop hide timing (in ms)                                                                                                    |
-| children                    | node             | **REQUIRED**   | The modal content                                                                                                                   |
-| isVisible                   | bool             | **REQUIRED**   | Show the modal?                                                                                                                     |
-| onBackButtonPress           | func             | () => null     | Called when the Android back button is pressed                                                                                      |
-| onBackdropPress             | func             | () => null     | Called when the backdrop is pressed                                                                                                 |
-| onModalHide                 | func             | () => null     | Called when the modal is completely hidden                                                                                          |
-| onModalShow                 | func             | () => null     | Called when the modal is completely visible                                                                                         |
-| onSwipe                     | func             | null           | Called when the `swipeThreshold` has been reached                                                                                   | e |
-| swipeThreshold              | number           | 100            | Swiping threshold that when reached calls `onSwipe`                                                                                 |
-| swipeDirection              | string           | null           | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right')                                        |
-| useNativeDriver             | bool             | false          | Defines if animations should use [native driver](https://facebook.github.io/react-native/docs/animated.html#using-the-native-driver) |
-| style                       | any              | null           | Style applied to the modal                                                                                                          |
+| Name                        | Type             | Default        | Description                                                                                  |
+| --------------------------- | ---------------- | -------------- | -------------------------------------------------------------------------------------------- |
+| animationIn                 | string or object | 'slideInUp'    | Modal show animation                                                                         |
+| animationInTiming           | number           | 300            | Timing for the modal show animation (in ms)                                                  |
+| animationOut                | string or object | 'slideOutDown' | Modal hide animation                                                                         |
+| animationOutTiming          | number           | 300            | Timing for the modal hide animation (in ms)                                                  |
+| avoidKeyboard               | bool             | false          | Move the modal up if the keyboard is open                                                    |
+| backdropColor               | string           | 'black'        | The backdrop background color                                                                |
+| backdropOpacity             | number           | 0.70           | The backdrop opacity when the modal is visible                                               |
+| backdropTransitionInTiming  | number           | 300            | The backdrop show timing (in ms)                                                             |
+| backdropTransitionOutTiming | number           | 300            | The backdrop hide timing (in ms)                                                             |
+| children                    | node             | **REQUIRED**   | The modal content                                                                            |
+| isVisible                   | bool             | **REQUIRED**   | Show the modal?                                                                              |
+| onBackButtonPress           | func             | () => null     | Called when the Android back button is pressed                                               |
+| onBackdropPress             | func             | () => null     | Called when the backdrop is pressed                                                          |
+| onModalHide                 | func             | () => null     | Called when the modal is completely hidden                                                   |
+| onModalShow                 | func             | () => null     | Called when the modal is completely visible                                                  |
+| onSwipe                     | func             | null           | Called when the `swipeThreshold` has been reached                                            |
+| swipeThreshold              | number           | 100            | Swiping threshold that when reached calls `onSwipe`                                          |
+| swipeDirection              | string           | null           | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right') |
+| useNativeDriver             | bool             | false          | Defines if animations should use native driver                                               |
+| style                       | any              | null           | Style applied to the modal                                                                   |
 
 ## Frequently Asked Questions
 
