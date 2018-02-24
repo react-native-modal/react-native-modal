@@ -183,7 +183,7 @@ In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating
 
 ### The modal doesn't change orientation
 
-Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations)
+Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations).
 
 ## Available animations
 
