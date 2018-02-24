@@ -179,7 +179,7 @@ The prop `onSwipe` allows you to handle this situation (remember to set `swipeDi
 ### The modal flashes in a weird way when animating
 
 Unfortunately this is a [know issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.  
-As a workaround you can set the `hideModalContentWhileAnimating` prop to `true`: this seems to solve the issue.
+In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating` prop to `true`: this seems to solve the issue.
 
 ### The modal doesn't change orientation
 
