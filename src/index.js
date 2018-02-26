@@ -175,7 +175,7 @@ export class ReactNativeModal extends Component {
         // Dim the background while swiping the modal
         const accDistance = this.getAccDistancePerDirection(gestureState);
         const newOpacityFactor = 1 - accDistance / this.state.deviceWidth;
-        if (this.isSwipeDirectionAllowed(gestureState)) {
+        if (this.isSwipeDirectionAllowed(gestureState) && this.backdropRef) {
           this.backdropRef.transitionTo({
             opacity: this.props.backdropOpacity * newOpacityFactor
           });
@@ -193,10 +193,12 @@ export class ReactNativeModal extends Component {
           }
         }
         //Reset backdrop opacity and modal position
-        this.backdropRef.transitionTo(
-          { opacity: this.props.backdropOpacity },
-          this.props.backdropTransitionInTiming
-        );
+        if (this.backdropRef) {
+          this.backdropRef.transitionTo(
+            { opacity: this.props.backdropOpacity },
+            this.props.backdropTransitionInTiming
+          );  
+        }
         Animated.spring(this.state.pan, {
           toValue: { x: 0, y: 0 },
           bounciness: 0
@@ -274,10 +276,13 @@ export class ReactNativeModal extends Component {
   open = () => {
     if (this.transitionLock) return;
     this.transitionLock = true;
-    this.backdropRef.transitionTo(
-      { opacity: this.props.backdropOpacity },
-      this.props.backdropTransitionInTiming
-    );
+    if (this.backdropRef) {
+      this.backdropRef.transitionTo(
+        { opacity: this.props.backdropOpacity },
+        this.props.backdropTransitionInTiming
+      );
+    }
+
 
     // This is for reset the pan position, if not modal get stuck
     // at the last release position when you try to open it.
@@ -299,10 +304,12 @@ export class ReactNativeModal extends Component {
   _close = () => {
     if (this.transitionLock) return;
     this.transitionLock = true;
-    this.backdropRef.transitionTo(
-      { opacity: 0 },
-      this.props.backdropTransitionOutTiming
-    );
+    if (this.backdropRef) {
+      this.backdropRef.transitionTo(
+        { opacity: 0 },
+        this.props.backdropTransitionOutTiming
+      );
+    }
 
     let animationOut = this.animationOut;
 
