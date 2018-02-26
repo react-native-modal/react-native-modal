@@ -1,5 +1,7 @@
 {
-  "extends": [
-    "plugin:react-app/recommended"
-  ]
+  "extends": ["plugin:react-app/recommended"],
+  "rules": {
+    "no-use-before-define": "off",
+    "react-app/jsx-a11y/href-no-hash": "off"
+  }
 }
