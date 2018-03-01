@@ -9,8 +9,7 @@
     "precommit": "lint-staged",
     "test": "npm run lint",
     "prettier": "prettier --write src/**/*.js",
-    "reset":
-      "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
+    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
   },
   "keywords": [
     "react-native",
@@ -45,6 +44,10 @@
     "react-native": ">=0.24.0"
   },
   "lint-staged": {
-    "*.js": ["eslint src", "prettier --write", "git add"]
+    "*.js": [
+      "eslint src",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
