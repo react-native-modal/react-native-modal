@@ -3,11 +3,11 @@ import {
   Dimensions,
   Modal,
   DeviceEventEmitter,
-  TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
   PanResponder,
-  Animated
+  Animated,
+  SafeAreaView
 } from "react-native";
 import PropTypes from "prop-types";
 import {
@@ -409,34 +409,36 @@ export class ReactNativeModal extends Component {
         onRequestClose={onBackButtonPress}
         {...otherProps}
       >
-        <TouchableWithoutFeedback onPress={onBackdropPress}>
-          <View
-            ref={ref => (this.backdropRef = ref)}
-            useNativeDriver={useNativeDriver}
-            style={[
-              styles.backdrop,
-              {
-                backgroundColor: this.state.showContent
-                  ? backdropColor
-                  : "transparent",
-                width: deviceWidth,
-                height: deviceHeight
-              }
-            ]}
-          />
-        </TouchableWithoutFeedback>
+        <View
+          ref={ref => (this.backdropRef = ref)}
+          useNativeDriver={useNativeDriver}
+          style={[
+            styles.backdrop,
+            {
+              backgroundColor: this.state.showContent
+                ? backdropColor
+                : "transparent",
+              width: deviceWidth,
+              height: deviceHeight
+            }
+          ]}
+        />
+        <SafeAreaView
+          style={{flex: 1}}
+          onStartShouldSetResponder={() => true}
+          onResponderGrant={onBackdropPress}>
+          {avoidKeyboard && (
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : null}
+              pointerEvents="box-none"
+              style={computedStyle.concat([{ margin: 0 }])}
+            >
+              {containerView}
+            </KeyboardAvoidingView>
+          )}
 
-        {avoidKeyboard && (
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : null}
-            pointerEvents="box-none"
-            style={computedStyle.concat([{ margin: 0 }])}
-          >
-            {containerView}
-          </KeyboardAvoidingView>
-        )}
-
-        {!avoidKeyboard && containerView}
+          {!avoidKeyboard && containerView}
+        </SafeAreaView>
       </Modal>
     );
   }
