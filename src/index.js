@@ -3,6 +3,7 @@ import {
   Dimensions,
   Modal,
   DeviceEventEmitter,
+  TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
   PanResponder,
@@ -397,7 +398,9 @@ export class ReactNativeModal extends Component {
         useNativeDriver={useNativeDriver}
         {...otherProps}
       >
-        {_children}
+        <SafeAreaView style={{flex: 0}}>
+          {_children}
+        </SafeAreaView>
       </View>
     );
 
@@ -409,36 +412,34 @@ export class ReactNativeModal extends Component {
         onRequestClose={onBackButtonPress}
         {...otherProps}
       >
-        <View
-          ref={ref => (this.backdropRef = ref)}
-          useNativeDriver={useNativeDriver}
-          style={[
-            styles.backdrop,
-            {
-              backgroundColor: this.state.showContent
-                ? backdropColor
-                : "transparent",
-              width: deviceWidth,
-              height: deviceHeight
-            }
-          ]}
-        />
-        <SafeAreaView
-          style={{flex: 1}}
-          onStartShouldSetResponder={() => true}
-          onResponderGrant={onBackdropPress}>
-          {avoidKeyboard && (
-            <KeyboardAvoidingView
-              behavior={Platform.OS === "ios" ? "padding" : null}
-              pointerEvents="box-none"
-              style={computedStyle.concat([{ margin: 0 }])}
-            >
-              {containerView}
-            </KeyboardAvoidingView>
-          )}
+        <TouchableWithoutFeedback onPress={onBackdropPress}>
+          <View
+            ref={ref => (this.backdropRef = ref)}
+            useNativeDriver={useNativeDriver}
+            style={[
+              styles.backdrop,
+              {
+                backgroundColor: this.state.showContent
+                  ? backdropColor
+                  : "transparent",
+                width: deviceWidth,
+                height: deviceHeight
+              }
+            ]}
+          />
+        </TouchableWithoutFeedback>
 
-          {!avoidKeyboard && containerView}
-        </SafeAreaView>
+        {avoidKeyboard && (
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : null}
+            pointerEvents="box-none"
+            style={computedStyle.concat([{ margin: 0 }])}
+          >
+            {containerView}
+          </KeyboardAvoidingView>
+        )}
+
+        {!avoidKeyboard && containerView}
       </Modal>
     );
   }
