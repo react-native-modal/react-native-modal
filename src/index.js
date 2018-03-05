@@ -7,7 +7,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   PanResponder,
-  Animated
+  Animated,
+  SafeAreaView
 } from "react-native";
 import PropTypes from "prop-types";
 import {
@@ -397,7 +398,9 @@ export class ReactNativeModal extends Component {
         useNativeDriver={useNativeDriver}
         {...otherProps}
       >
-        {_children}
+        <SafeAreaView style={{flex: 0}}>
+          {_children}
+        </SafeAreaView>
       </View>
     );
 
