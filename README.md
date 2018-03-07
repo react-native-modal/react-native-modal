@@ -191,6 +191,6 @@ Take a look at [react-native-animatable](https://github.com/oblador/react-native
 
 
 ## Aknowledgements
-P.S.: Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!
+Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!
 
 Pull requests, feedbacks and suggestions are welcome!
