@@ -30,12 +30,12 @@
     "url": "https://github.com/react-native-community/react-native-modal"
   },
   "dependencies": {
-    "prop-types": "15.6.0",
+    "prop-types": "^15.6.1",
     "react-native-animatable": "^1.2.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
-    "eslint": "^4.18.1",
+    "eslint": "^4.18.2",
     "eslint-plugin-react-app": "^3.0.0",
     "husky": "0.14.3",
     "lint-staged": "^7.0.0",
