@@ -181,6 +181,10 @@ The prop `onSwipe` allows you to handle this situation (remember to set `swipeDi
 Unfortunately this is a [know issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.  
 In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating` prop to `true`: this seems to solve the issue.
 
+### The modal background doesn't animate properly
+
+Are you sure you named the `isVisible` prop correctly?
+
 ### The modal doesn't change orientation
 
 Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations).
@@ -189,8 +193,8 @@ Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component,
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
 
-
 ## Aknowledgements
+
 Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!
 
 Pull requests, feedbacks and suggestions are welcome!
