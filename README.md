@@ -183,7 +183,7 @@ In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating
 
 ### The modal background doesn't animate properly
 
-Are you sure you named the `isVisible` prop correctly?
+Are you sure you named the `isVisible` prop correctly? Make sure it is spelled correctly: `isVisible`, not `visible`.
 
 ### The modal doesn't change orientation
 
