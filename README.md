@@ -180,6 +180,7 @@ The prop `onSwipe` allows you to handle this situation (remember to set `swipeDi
 
 Unfortunately this is a [know issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.  
 In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating` prop to `true`: this seems to solve the issue.
+Also, do not assign a `backgroundColor` property directly to the Modal. Prefer to set it on the child container.
 
 ### The modal background doesn't animate properly
 
