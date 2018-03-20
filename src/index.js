@@ -50,6 +50,7 @@ export class ReactNativeModal extends Component {
     onModalHide: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
+    beforeModalShow: PropTypes.func,
     onSwipe: PropTypes.func,
     swipeThreshold: PropTypes.number,
     swipeDirection: PropTypes.oneOf(["up", "down", "left", "right"]),
@@ -67,6 +68,7 @@ export class ReactNativeModal extends Component {
     backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
+    beforeModalShow: () => null,
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false,
@@ -289,7 +291,7 @@ export class ReactNativeModal extends Component {
     if (this.state.isSwipeable) {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
-
+    this.props.beforeModalShow()
     this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
       this.transitionLock = false;
       if (!this.props.isVisible) {
@@ -382,12 +384,12 @@ export class ReactNativeModal extends Component {
 
     const _children =
       this.props.hideModalContentWhileAnimating &&
-      this.props.useNativeDriver &&
-      !this.state.showContent ? (
-        <View />
-      ) : (
-        children
-      );
+        this.props.useNativeDriver &&
+        !this.state.showContent ? (
+          <View />
+        ) : (
+          children
+        );
     const containerView = (
       <View
         {...panHandlers}
