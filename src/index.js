@@ -284,10 +284,6 @@ export class ReactNativeModal extends Component {
         this.props.backdropTransitionInTiming
       );
     }
-
-    // This is for reset the pan position, if not modal get stuck
-    // at the last release position when you try to open it.
-    // Could certainly be improve - no idea for the moment.
     if (this.state.isSwipeable) {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
