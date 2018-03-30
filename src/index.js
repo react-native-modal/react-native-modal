@@ -3,7 +3,6 @@ import {
   Dimensions,
   Modal,
   DeviceEventEmitter,
-  TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
   PanResponder,
@@ -40,6 +39,10 @@ class ReactNativeModal extends Component {
     animationOutTiming: PropTypes.number,
     avoidKeyboard: PropTypes.bool,
     backdropColor: PropTypes.string,
+    backdropHitSlop: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
     backdropOpacity: PropTypes.number,
     backdropTransitionInTiming: PropTypes.number,
     backdropTransitionOutTiming: PropTypes.number,
@@ -76,6 +79,10 @@ class ReactNativeModal extends Component {
     animationOutTiming: 300,
     avoidKeyboard: false,
     backdropColor: "black",
+    backdropHitSlop: {
+      x: 20,
+      y: 20
+    },
     backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
@@ -124,6 +131,7 @@ class ReactNativeModal extends Component {
         showContent: true
       };
     }
+    this.buildBackdropPanResponder(props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -243,6 +251,21 @@ class ReactNativeModal extends Component {
           });
         }
       }
+    });
+  };
+
+  buildBackdropPanResponder = props => {
+    this.backdropPanResponder = PanResponder.create({
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onPanResponderTerminationRequest: (evt, gestureState) => false,
+      onPanResponderRelease: (evt, gestureState) => {
+        const { x, y } = props.backdropHitSlop;
+        if (Math.abs(gestureState.dx) < x && Math.abs(gestureState.dy) < y) {
+          props.onBackdropPress();
+        }
+      },
+      onShouldBlockNativeResponder: (evt, gestureState) => true
     });
   };
 
@@ -454,7 +477,7 @@ class ReactNativeModal extends Component {
         onRequestClose={onBackButtonPress}
         {...otherProps}
       >
-        <TouchableWithoutFeedback onPress={onBackdropPress}>
+        <View {...this.backdropPanResponder.panHandlers}>
           <View
             ref={ref => (this.backdropRef = ref)}
             useNativeDriver={useNativeDriver}
@@ -469,7 +492,7 @@ class ReactNativeModal extends Component {
               }
             ]}
           />
-        </TouchableWithoutFeedback>
+        </View>
 
         {avoidKeyboard && (
           <KeyboardAvoidingView
