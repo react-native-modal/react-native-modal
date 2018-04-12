@@ -101,6 +101,13 @@ export class ReactNativeModal extends Component {
       this.state = { ...this.state, pan: new Animated.ValueXY() };
       this.buildPanResponder();
     }
+    if (this.props.isVisible) {
+      this.state = { 
+        ...this.state, 
+        isVisible: true, 
+        showContent: true 
+      };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -121,12 +128,6 @@ export class ReactNativeModal extends Component {
         { opacity: nextProps.backdropOpacity },
         this.props.backdropTransitionInTiming
       );
-    }
-  }
-
-  componentWillMount() {
-    if (this.props.isVisible) {
-      this.setState({ isVisible: true, showContent: true });
     }
   }
 
