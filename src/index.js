@@ -291,6 +291,10 @@ export class ReactNativeModal extends Component {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
 
+    if (!this.contentRef) {
+      return;
+    }
+
     this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
       this.transitionLock = false;
       if (!this.props.isVisible) {
@@ -324,6 +328,10 @@ export class ReactNativeModal extends Component {
       } else if (this.props.swipeDirection === "left") {
         animationOut = "slideOutLeft";
       }
+    }
+
+    if (!this.contentRef) {
+      return;
     }
 
     this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
