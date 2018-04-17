@@ -54,7 +54,8 @@ export class ReactNativeModal extends Component {
     swipeThreshold: PropTypes.number,
     swipeDirection: PropTypes.oneOf(["up", "down", "left", "right"]),
     useNativeDriver: PropTypes.bool,
-    style: PropTypes.any
+    style: PropTypes.any,
+    scrollTo: PropTypes.func
   };
 
   static defaultProps = {
@@ -74,7 +75,8 @@ export class ReactNativeModal extends Component {
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
     swipeThreshold: 100,
-    useNativeDriver: false
+    useNativeDriver: false,
+    scrollTo: () => null
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -102,10 +104,10 @@ export class ReactNativeModal extends Component {
       this.buildPanResponder();
     }
     if (this.props.isVisible) {
-      this.state = { 
-        ...this.state, 
-        isVisible: true, 
-        showContent: true 
+      this.state = {
+        ...this.state,
+        isVisible: true,
+        showContent: true
       };
     }
   }
@@ -176,11 +178,14 @@ export class ReactNativeModal extends Component {
         // Dim the background while swiping the modal
         const accDistance = this.getAccDistancePerDirection(gestureState);
         const newOpacityFactor = 1 - accDistance / this.state.deviceWidth;
-        if (this.isSwipeDirectionAllowed(gestureState) && this.backdropRef) {
-          this.backdropRef.transitionTo({
-            opacity: this.props.backdropOpacity * newOpacityFactor
-          });
+        if (this.isSwipeDirectionAllowed(gestureState)) {
+          this.backdropRef &&
+            this.backdropRef.transitionTo({
+              opacity: this.props.backdropOpacity * newOpacityFactor
+            });
           animEvt(evt, gestureState);
+        } else {
+          this.props.scrollTo({ y: -gestureState.dy, animated: false });
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
