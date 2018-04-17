@@ -55,7 +55,8 @@ export class ReactNativeModal extends Component {
     swipeDirection: PropTypes.oneOf(["up", "down", "left", "right"]),
     useNativeDriver: PropTypes.bool,
     style: PropTypes.any,
-    scrollTo: PropTypes.func
+    scrollTo: PropTypes.func,
+    scrollOffset: PropTypes.number
   };
 
   static defaultProps = {
@@ -76,7 +77,8 @@ export class ReactNativeModal extends Component {
     onBackButtonPress: () => null,
     swipeThreshold: 100,
     useNativeDriver: false,
-    scrollTo: () => null
+    scrollTo: null,
+    scrollOffset: 0
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -173,7 +175,14 @@ export class ReactNativeModal extends Component {
     }
 
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => {
+        if (this.props.scrollTo) {
+          if (this.props.scrollOffset > 0) {
+            return false; // user needs to be able to scroll content back up
+          }
+        }
+        return true;
+      },
       onPanResponderMove: (evt, gestureState) => {
         // Dim the background while swiping the modal
         const accDistance = this.getAccDistancePerDirection(gestureState);
@@ -185,7 +194,8 @@ export class ReactNativeModal extends Component {
             });
           animEvt(evt, gestureState);
         } else {
-          this.props.scrollTo({ y: -gestureState.dy, animated: false });
+          this.props.scrollTo &&
+            this.props.scrollTo({ y: -gestureState.dy, animated: false });
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
