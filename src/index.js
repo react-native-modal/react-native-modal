@@ -291,18 +291,16 @@ export class ReactNativeModal extends Component {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
 
-    if (!this.contentRef) {
-      return;
+    if (this.contentRef) {
+      this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
+        this.transitionLock = false;
+        if (!this.props.isVisible) {
+          this._close();
+        } else {
+          this.props.onModalShow();
+        }
+      });
     }
-
-    this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
-      this.transitionLock = false;
-      if (!this.props.isVisible) {
-        this._close();
-      } else {
-        this.props.onModalShow();
-      }
-    });
   };
 
   _close = () => {
@@ -330,28 +328,26 @@ export class ReactNativeModal extends Component {
       }
     }
 
-    if (!this.contentRef) {
-      return;
+    if (this.contentRef) {
+      this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
+        this.transitionLock = false;
+        if (this.props.isVisible) {
+          this.open();
+        } else {
+          this.setState(
+            {
+              showContent: false
+            },
+            () => {
+              this.setState({
+                isVisible: false
+              });
+            }
+          );
+          this.props.onModalHide();
+        }
+      });
     }
-
-    this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
-      this.transitionLock = false;
-      if (this.props.isVisible) {
-        this.open();
-      } else {
-        this.setState(
-          {
-            showContent: false
-          },
-          () => {
-            this.setState({
-              isVisible: false
-            });
-          }
-        );
-        this.props.onModalHide();
-      }
-    });
   };
 
   render() {
