@@ -56,7 +56,8 @@ export class ReactNativeModal extends Component {
     useNativeDriver: PropTypes.bool,
     style: PropTypes.any,
     scrollTo: PropTypes.func,
-    scrollOffset: PropTypes.number
+    scrollOffset: PropTypes.number,
+    scrollOffsetMax: PropTypes.number
   };
 
   static defaultProps = {
@@ -78,7 +79,8 @@ export class ReactNativeModal extends Component {
     swipeThreshold: 100,
     useNativeDriver: false,
     scrollTo: null,
-    scrollOffset: 0
+    scrollOffset: 0,
+    scrollOffsetMax: 0
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -194,8 +196,13 @@ export class ReactNativeModal extends Component {
             });
           animEvt(evt, gestureState);
         } else {
-          this.props.scrollTo &&
-            this.props.scrollTo({ y: -gestureState.dy, animated: false });
+          if (this.props.scrollTo) {
+            let offsetY = -gestureState.dy;
+            if (offsetY > this.props.scrollOffsetMax) {
+              offsetY -= (offsetY - this.props.scrollOffsetMax) / 2;
+            }
+            this.props.scrollTo({ y: offsetY, animated: false });
+          }
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
