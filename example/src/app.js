@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 
 import styles from "./app.style";
@@ -47,6 +47,9 @@ export default class Example extends Component {
         )}
         {this._renderButton("Swipeable modal", () =>
           this.setState({ visibleModal: 7 })
+        )}
+        {this._renderButton("Scrollable modal", () =>
+          this.setState({ visibleModal: 8 })
         )}
         <Modal isVisible={this.state.visibleModal === 1}>
           {this._renderModalContent()}
@@ -98,6 +101,30 @@ export default class Example extends Component {
           swipeDirection="left"
         >
           {this._renderModalContent()}
+        </Modal>
+        <Modal
+          isVisible={this.state.visibleModal === 8}
+          onSwipe={() => this.setState({ visibleModal: null })}
+          swipeDirection="down"
+          scrollTo={p => this.refs._scrollView.scrollTo(p)}
+          scrollOffset={this.state.scrollOffset}
+          scrollOffsetMax={400 - 300} // content height - ScrollView height
+          style={styles.bottomModal}
+        >
+          <View style={{ height: 300 }}>
+            <ScrollView
+              ref="_scrollView"
+              onScroll={event => {
+                this.setState({
+                  scrollOffset: event.nativeEvent.contentOffset.y
+                });
+              }}
+              scrollEventThrottle={16}
+            >
+              <View style={{ height: 200, backgroundColor: "red" }} />
+              <View style={{ height: 200, backgroundColor: "blue" }} />
+            </ScrollView>
+          </View>
         </Modal>
       </View>
     );
