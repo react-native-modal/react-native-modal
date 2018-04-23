@@ -226,6 +226,12 @@ export class ReactNativeModal extends Component {
           toValue: { x: 0, y: 0 },
           bounciness: 0
         }).start();
+        if (this.props.scrollOffset > this.props.scrollOffsetMax) {
+          this.props.scrollTo({
+            y: this.props.scrollOffsetMax,
+            animated: true
+          });
+        }
       }
     });
   };
