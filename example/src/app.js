@@ -121,8 +121,26 @@ export default class Example extends Component {
               }}
               scrollEventThrottle={16}
             >
-              <View style={{ height: 200, backgroundColor: "red" }} />
-              <View style={{ height: 200, backgroundColor: "blue" }} />
+              <View
+                style={{
+                  height: 200,
+                  backgroundColor: "orange",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <Text>Scroll me up</Text>
+              </View>
+              <View
+                style={{
+                  height: 200,
+                  backgroundColor: "lightgreen",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <Text>Scroll me up</Text>
+              </View>
             </ScrollView>
           </View>
         </Modal>
