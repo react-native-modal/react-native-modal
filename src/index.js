@@ -54,7 +54,10 @@ export class ReactNativeModal extends Component {
     swipeThreshold: PropTypes.number,
     swipeDirection: PropTypes.oneOf(["up", "down", "left", "right"]),
     useNativeDriver: PropTypes.bool,
-    style: PropTypes.any
+    style: PropTypes.any,
+    scrollTo: PropTypes.func,
+    scrollOffset: PropTypes.number,
+    scrollOffsetMax: PropTypes.number
   };
 
   static defaultProps = {
@@ -74,7 +77,10 @@ export class ReactNativeModal extends Component {
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
     swipeThreshold: 100,
-    useNativeDriver: false
+    useNativeDriver: false,
+    scrollTo: null,
+    scrollOffset: 0,
+    scrollOffsetMax: 0
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
@@ -102,10 +108,10 @@ export class ReactNativeModal extends Component {
       this.buildPanResponder();
     }
     if (this.props.isVisible) {
-      this.state = { 
-        ...this.state, 
-        isVisible: true, 
-        showContent: true 
+      this.state = {
+        ...this.state,
+        isVisible: true,
+        showContent: true
       };
     }
   }
@@ -171,16 +177,32 @@ export class ReactNativeModal extends Component {
     }
 
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => {
+        if (this.props.scrollTo) {
+          if (this.props.scrollOffset > 0) {
+            return false; // user needs to be able to scroll content back up
+          }
+        }
+        return true;
+      },
       onPanResponderMove: (evt, gestureState) => {
         // Dim the background while swiping the modal
         const accDistance = this.getAccDistancePerDirection(gestureState);
         const newOpacityFactor = 1 - accDistance / this.state.deviceWidth;
-        if (this.isSwipeDirectionAllowed(gestureState) && this.backdropRef) {
-          this.backdropRef.transitionTo({
-            opacity: this.props.backdropOpacity * newOpacityFactor
-          });
+        if (this.isSwipeDirectionAllowed(gestureState)) {
+          this.backdropRef &&
+            this.backdropRef.transitionTo({
+              opacity: this.props.backdropOpacity * newOpacityFactor
+            });
           animEvt(evt, gestureState);
+        } else {
+          if (this.props.scrollTo) {
+            let offsetY = -gestureState.dy;
+            if (offsetY > this.props.scrollOffsetMax) {
+              offsetY -= (offsetY - this.props.scrollOffsetMax) / 2;
+            }
+            this.props.scrollTo({ y: offsetY, animated: false });
+          }
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
@@ -204,6 +226,12 @@ export class ReactNativeModal extends Component {
           toValue: { x: 0, y: 0 },
           bounciness: 0
         }).start();
+        if (this.props.scrollOffset > this.props.scrollOffsetMax) {
+          this.props.scrollTo({
+            y: this.props.scrollOffsetMax,
+            animated: true
+          });
+        }
       }
     });
   };

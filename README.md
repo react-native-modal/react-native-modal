@@ -13,13 +13,14 @@ An enhanced, animated and customizable react-native modal.
 * Listeners for the modal animations ending
 * Resize itself correctly on device rotation
 * Swipeable
+* Scrollable
 
 ## Demo
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-ios.gif" height="300" />
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-animated-modal/master/extras/example-modal.gif" height="300" />
+<img src="https://raw.githubusercontent.com/pistonsky/react-native-modal/master/extras/example-modal.gif" height="300" />
 </p>
 
 ## Setup
@@ -132,6 +133,9 @@ For a more complex example take a look at the `/example` directory.
 | onModalHide                    | func             | () => null     | Called when the modal is completely hidden                                                   |
 | onModalShow                    | func             | () => null     | Called when the modal is completely visible                                                  |
 | onSwipe                        | func             | null           | Called when the `swipeThreshold` has been reached                                            |
+| scrollOffset                   | number           | 0              | When > 0, disables swipe-to-close, in order to implement scrollable content                  |
+| scrollOffsetMax                | number           | 0              | Used to implement overscroll feel when content is scrollable. See `/example` directory       |
+| scrollTo                       | func             | null           | Used to implement scrollable modal. See `/example` directory for reference on how to use it  |
 | swipeThreshold                 | number           | 100            | Swiping threshold that when reached calls `onSwipe`                                          |
 | swipeDirection                 | string           | null           | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right') |
 | useNativeDriver                | bool             | false          | Defines if animations should use native driver                                               |
