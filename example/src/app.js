@@ -24,6 +24,18 @@ export default class Example extends Component {
     </View>
   );
 
+  _handleOnScroll = event => {
+    this.setState({
+      scrollOffset: event.nativeEvent.contentOffset.y
+    });
+  };
+
+  _handleScrollTo = p => {
+    if (this.scrollViewRef) {
+      this.scrollViewRef.scrollTo(p);
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -106,39 +118,21 @@ export default class Example extends Component {
           isVisible={this.state.visibleModal === 8}
           onSwipe={() => this.setState({ visibleModal: null })}
           swipeDirection="down"
-          scrollTo={p => this.refs._scrollView.scrollTo(p)}
+          scrollTo={this._handleScrollTo}
           scrollOffset={this.state.scrollOffset}
           scrollOffsetMax={400 - 300} // content height - ScrollView height
           style={styles.bottomModal}
         >
-          <View style={{ height: 300 }}>
+          <View style={styles.scrollableModal}>
             <ScrollView
-              ref="_scrollView"
-              onScroll={event => {
-                this.setState({
-                  scrollOffset: event.nativeEvent.contentOffset.y
-                });
-              }}
+              ref={ref => (this.scrollViewRef = ref)}
+              onScroll={this._handleOnScroll}
               scrollEventThrottle={16}
             >
-              <View
-                style={{
-                  height: 200,
-                  backgroundColor: "orange",
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
+              <View style={styles.scrollableModalContent1}>
                 <Text>Scroll me up</Text>
               </View>
-              <View
-                style={{
-                  height: 200,
-                  backgroundColor: "lightgreen",
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
+              <View style={styles.scrollableModalContent1}>
                 <Text>Scroll me up</Text>
               </View>
             </ScrollView>
