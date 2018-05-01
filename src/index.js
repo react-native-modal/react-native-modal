@@ -320,14 +320,16 @@ export class ReactNativeModal extends Component {
     }
 
     if (this.contentRef) {
-      this.contentRef[this.animationIn](this.props.animationInTiming).then(() => {
-        this.transitionLock = false;
-        if (!this.props.isVisible) {
-          this._close();
-        } else {
-          this.props.onModalShow();
+      this.contentRef[this.animationIn](this.props.animationInTiming).then(
+        () => {
+          this.transitionLock = false;
+          if (!this.props.isVisible) {
+            this._close();
+          } else {
+            this.props.onModalShow();
+          }
         }
-      });
+      );
     }
   };
 
