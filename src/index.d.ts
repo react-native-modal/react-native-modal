@@ -26,8 +26,8 @@ declare module "react-native-modal" {
     onSwipeThreshold?: number;
     style?: StyleProp<ViewStyle>;
     swipeDirection?: string;
-    scrollTo: () => void;
-    scrollOffset: number;
+    scrollTo?: () => void;
+    scrollOffset?: number;
   }
 
   class Modal extends Component<ModalProps> {}
