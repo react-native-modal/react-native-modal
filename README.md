@@ -149,6 +149,20 @@ For a more complex example take a look at the `/example` directory.
 Under the hood `react-native-modal` uses react-native original [Modal component](https://facebook.github.io/react-native/docs/modal.html).  
 Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).
 
+### The backdrop is not completely filled/covered on some Android devices (Galaxy, for one)
+
+Checkout the package [react-native-extra-dimensions-android](https://github.com/Sunhat/react-native-extra-dimensions-android)
+
+To use, here's an example:
+
+```
+const IOS = Platform.OS === "ios";
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = IOS
+  ? Dimensions.get("window").height
+  : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
+```
+
 ### How can I hide the modal by pressing outside of its content?
 
 The prop `onBackdropPress` allows you to handle this situation:
