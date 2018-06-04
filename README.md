@@ -3,7 +3,9 @@
 [![npm version](https://badge.fury.io/js/react-native-modal.svg)](https://badge.fury.io/js/react-native-modal)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-An enhanced, animated and customizable react-native modal.
+An enhanced, animated and customizable react-native modal.  
+  
+The aim of `react-native-modal` is expanding the original react-native `Modal` component by adding animations and styles customization options while still providing a plain-simple API.
 
 ## Features
 
