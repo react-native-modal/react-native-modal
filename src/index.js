@@ -39,6 +39,7 @@ export class ReactNativeModal extends Component {
     animationOut: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationOutTiming: PropTypes.number,
     avoidKeyboard: PropTypes.bool,
+    fullWidth: PropTypes.bool,    
     backdropColor: PropTypes.string,
     backdropOpacity: PropTypes.number,
     backdropTransitionInTiming: PropTypes.number,
@@ -66,6 +67,7 @@ export class ReactNativeModal extends Component {
     animationOut: "slideOutDown",
     animationOutTiming: 300,
     avoidKeyboard: false,
+    fullWidth: false,    
     backdropColor: "black",
     backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
@@ -387,6 +389,7 @@ export class ReactNativeModal extends Component {
       animationOut,
       animationOutTiming,
       avoidKeyboard,
+      fullWidth,
       backdropColor,
       backdropOpacity,
       backdropTransitionInTiming,
@@ -403,9 +406,9 @@ export class ReactNativeModal extends Component {
     const { deviceWidth, deviceHeight } = this.state;
 
     const computedStyle = [
-      { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
+      { margin: fullWidth?0:deviceWidth * 0.05, transform: [{ translateY: 0 }] },
       styles.content,
-      style
+      style,
     ];
 
     let panHandlers = {};
