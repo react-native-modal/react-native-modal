@@ -57,7 +57,8 @@ class ReactNativeModal extends Component {
     style: PropTypes.any,
     scrollTo: PropTypes.func,
     scrollOffset: PropTypes.number,
-    scrollOffsetMax: PropTypes.number
+    scrollOffsetMax: PropTypes.number,
+    supportedOrientations: PropTypes.oneOf(['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right'])
   };
 
   static defaultProps = {
@@ -80,7 +81,8 @@ class ReactNativeModal extends Component {
     useNativeDriver: false,
     scrollTo: null,
     scrollOffset: 0,
-    scrollOffsetMax: 0
+    scrollOffsetMax: 0,
+    supportedOrientations: ['portrait', 'landscape']
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
