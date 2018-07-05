@@ -82,7 +82,7 @@ class ReactNativeModal extends Component {
     scrollTo: null,
     scrollOffset: 0,
     scrollOffsetMax: 0,
-    supportedOrientations: ['portrait', 'landscape']
+    supportedOrientations: ["portrait", "landscape"]
   };
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
