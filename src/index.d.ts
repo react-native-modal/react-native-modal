@@ -29,7 +29,7 @@ declare module "react-native-modal" {
     scrollTo?: () => void;
     scrollOffset?: number;
     scrollOffsetMax?: number;
-    supportedOrientations?: "portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right";
+    supportedOrientations?: string[];
   }
 
   class Modal extends Component<ModalProps> {}
