@@ -7,7 +7,7 @@ node_modules/
 npm-debug.log
 
 # Images and extras
-extras/
+.github/
 example/
 .eslintrc
 yarn.lock

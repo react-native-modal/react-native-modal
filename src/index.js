@@ -58,7 +58,15 @@ class ReactNativeModal extends Component {
     scrollTo: PropTypes.func,
     scrollOffset: PropTypes.number,
     scrollOffsetMax: PropTypes.number,
-    supportedOrientations: PropTypes.arrayOf(PropTypes.oneOf(["portrait", "portrait-upside-down", "landscape", "landscape-left", "landscape-right"])),
+    supportedOrientations: PropTypes.arrayOf(
+      PropTypes.oneOf([
+        "portrait",
+        "portrait-upside-down",
+        "landscape",
+        "landscape-left",
+        "landscape-right"
+      ])
+    )
   };
 
   static defaultProps = {

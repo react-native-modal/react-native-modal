@@ -1,25 +1,24 @@
 {
-  "name": "react-native-modal-example",
+  "name": "ReactNativeModalExample",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
+    "test": "jest"
   },
   "dependencies": {
-    "react": "16.0.0-alpha.6",
-    "react-native": "0.43.3",
-    "react-native-modal": "3.1.0"
-  },
-  "jest": {
-    "preset": "jest-react-native"
+    "react": "16.4.1",
+    "react-native": "0.56.0",
+    "react-native-modal": "*"
   },
   "devDependencies": {
-    "babel-jest": "^19.0.0",
-    "babel-preset-react-native": "^1.9.1",
-    "jest": "^19.0.2",
-    "jest-react-native": "^18.0.0",
-    "react-test-renderer": "^15.5.4"
+    "babel-jest": "23.2.0",
+    "babel-preset-react-native": "^5",
+    "jest": "23.3.0",
+    "prettier": "^1.13.7",
+    "react-test-renderer": "16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }
