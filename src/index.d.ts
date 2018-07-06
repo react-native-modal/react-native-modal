@@ -26,7 +26,7 @@ declare module "react-native-modal" {
     swipeThreshold?: number;
     style?: StyleProp<ViewStyle>;
     swipeDirection?: "up" | "down" | "left" | "right";
-    scrollTo?: () => void;
+    scrollTo?: (e: any) => void;
     scrollOffset?: number;
     scrollOffsetMax?: number;
     supportedOrientations?: string[];
