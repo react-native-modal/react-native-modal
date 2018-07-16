@@ -3,6 +3,7 @@ declare module "react-native-modal" {
   import { StyleProp, ViewStyle } from "react-native";
 
   type AnimationConfig = string | { from: Object; to: Object };
+  type Orientation = "portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right";
 
   export interface ModalProps {
     animationIn?: AnimationConfig;
@@ -29,7 +30,7 @@ declare module "react-native-modal" {
     scrollTo?: (e: any) => void;
     scrollOffset?: number;
     scrollOffsetMax?: number;
-    supportedOrientations?: string[];
+    supportedOrientations?: Orientation[];
   }
 
   class Modal extends Component<ModalProps> {}
