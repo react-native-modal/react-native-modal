@@ -34,6 +34,7 @@ const isObject = obj => {
 
 class ReactNativeModal extends Component {
   static propTypes = {
+    disableAnimation: PropTypes.bool,
     animationIn: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationInTiming: PropTypes.number,
     animationOut: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -70,6 +71,7 @@ class ReactNativeModal extends Component {
   };
 
   static defaultProps = {
+    disableAnimation: false,
     animationIn: "slideInUp",
     animationInTiming: 300,
     animationOut: "slideOutDown",
@@ -112,7 +114,9 @@ class ReactNativeModal extends Component {
 
   constructor(props) {
     super(props);
+    if(!this.props.disableAnimation) {
     this.buildAnimations(props);
+    }
     if (this.state.isSwipeable) {
       this.state = { ...this.state, pan: new Animated.ValueXY() };
       this.buildPanResponder();
@@ -130,9 +134,9 @@ class ReactNativeModal extends Component {
     if (!this.state.isVisible && nextProps.isVisible) {
       this.setState({ isVisible: true, showContent: true });
     }
-    if (
-      this.props.animationIn !== nextProps.animationIn ||
-      this.props.animationOut !== nextProps.animationOut
+    if (!this.props.disableAnimation &&
+      (this.props.animationIn !== nextProps.animationIn ||
+      this.props.animationOut !== nextProps.animationOut)
     ) {
       this.buildAnimations(nextProps);
     }
@@ -332,7 +336,7 @@ class ReactNativeModal extends Component {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
 
-    if (this.contentRef) {
+    if (this.contentRef && !this.props.disableAnimation) {
       this.contentRef[this.animationIn](this.props.animationInTiming).then(
         () => {
           this.transitionLock = false;
@@ -371,7 +375,7 @@ class ReactNativeModal extends Component {
       }
     }
 
-    if (this.contentRef) {
+    if (this.contentRef && !this.props.disableAnimation) {
       this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
         this.transitionLock = false;
         if (this.props.isVisible) {
@@ -395,6 +399,7 @@ class ReactNativeModal extends Component {
 
   render() {
     const {
+      disableAnimation,
       animationIn,
       animationInTiming,
       animationOut,
