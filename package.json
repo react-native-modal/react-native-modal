@@ -31,7 +31,8 @@
   },
   "dependencies": {
     "prop-types": "^15.6.1",
-    "react-native-animatable": "^1.2.4"
+    "react-native-animatable": "^1.2.4",
+    "react-native-extra-dimensions-android": "^0.21.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
