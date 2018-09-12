@@ -25,6 +25,10 @@ The aim of `react-native-modal` is expanding the original react-native `Modal` c
 <img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal/master/.github/example-modal.gif" height="300" />
 </p>
 
+<p align="center">
+  New GIFs of the modal are warmly welcome! Feel free to submit a PR.
+</p>
+
 ## Setup
 
 This library is available on npm, install it with: `npm install --save react-native-modal` or `yarn add react-native-modal`.
