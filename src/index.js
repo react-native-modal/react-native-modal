@@ -188,7 +188,7 @@ class ReactNativeModal extends Component {
 
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        return !(gestureState.dx === 0 && gestureState.dy === 0);
+        return Math.abs(gestureState.dx) >= 4 || Math.abs(gestureState.dy) >= 4;
       },
       onStartShouldSetPanResponder: () => {
         if (this.props.scrollTo) {
