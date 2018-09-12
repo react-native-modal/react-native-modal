@@ -133,6 +133,8 @@ For a more complex example take a look at the `/example` directory.
 | backdropTransitionInTiming     | number           | 300            | The backdrop show timing (in ms)                                                             |
 | backdropTransitionOutTiming    | number           | 300            | The backdrop hide timing (in ms)                                                             |
 | children                       | node             | **REQUIRED**   | The modal content                                                                            |
+| deviceHeight                   | number           | null           | Device height (useful on devices that can hide the navigation bar)                           |
+| deviceWidth                    | number           | null           | Device width (useful on devices that can hide the navigation bar)                            |
 | isVisible                      | bool             | **REQUIRED**   | Show the modal?                                                                              |
 | onBackButtonPress              | func             | () => null     | Called when the Android back button is pressed                                               |
 | onBackdropPress                | func             | () => null     | Called when the backdrop is pressed                                                          |
@@ -213,6 +215,8 @@ Are you sure you named the `isVisible` prop correctly? Make sure it is spelled c
 ### The modal doesn't change orientation
 
 Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations).
+
+Also, if you're providing the `deviceHeight` and `deviceWidth` props you'll have to manually update them when the layout changes.
 
 ### I can't show multiple modals one after another
 

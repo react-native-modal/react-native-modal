@@ -44,6 +44,8 @@ class ReactNativeModal extends Component {
     backdropTransitionInTiming: PropTypes.number,
     backdropTransitionOutTiming: PropTypes.number,
     children: PropTypes.node.isRequired,
+    deviceHeight: PropTypes.number,
+    deviceWidth: PropTypes.number,
     isVisible: PropTypes.bool.isRequired,
     hideModalContentWhileAnimating: PropTypes.bool,
     onModalShow: PropTypes.func,
@@ -80,6 +82,8 @@ class ReactNativeModal extends Component {
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
     onModalShow: () => null,
+    deviceHeight: null,
+    deviceWidth: null,
     onModalHide: () => null,
     isVisible: false,
     hideModalContentWhileAnimating: false,
@@ -126,7 +130,7 @@ class ReactNativeModal extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
       this.setState({ isVisible: true, showContent: true });
     }
@@ -157,7 +161,7 @@ class ReactNativeModal extends Component {
     );
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     DeviceEventEmitter.removeListener(
       "didUpdateDimensions",
       this.handleDimensionsUpdate
@@ -204,8 +208,9 @@ class ReactNativeModal extends Component {
       },
       onPanResponderMove: (evt, gestureState) => {
         // Dim the background while swiping the modal
+        const deviceWidth = this.props.deviceWidth || this.state.deviceWidth;
         const accDistance = this.getAccDistancePerDirection(gestureState);
-        const newOpacityFactor = 1 - accDistance / this.state.deviceWidth;
+        const newOpacityFactor = 1 - accDistance / deviceWidth;
         if (this.isSwipeDirectionAllowed(gestureState)) {
           this.backdropRef &&
             this.backdropRef.transitionTo({
@@ -308,14 +313,17 @@ class ReactNativeModal extends Component {
   };
 
   handleDimensionsUpdate = dimensionsUpdate => {
-    // Here we update the device dimensions in the state if the layout changed (triggering a render)
-    const deviceWidth = Dimensions.get("window").width;
-    const deviceHeight = Dimensions.get("window").height;
-    if (
-      deviceWidth !== this.state.deviceWidth ||
-      deviceHeight !== this.state.deviceHeight
-    ) {
-      this.setState({ deviceWidth, deviceHeight });
+    if (!this.props.deviceHeight && !this.props.deviceWidth) {
+      // Here we update the device dimensions in the state if the layout changed
+      // (triggering a render)
+      const deviceWidth = Dimensions.get("window").width;
+      const deviceHeight = Dimensions.get("window").height;
+      if (
+        deviceWidth !== this.state.deviceWidth ||
+        deviceHeight !== this.state.deviceHeight
+      ) {
+        this.setState({ deviceWidth, deviceHeight });
+      }
     }
   };
 
@@ -409,6 +417,8 @@ class ReactNativeModal extends Component {
       backdropTransitionInTiming,
       backdropTransitionOutTiming,
       children,
+      deviceHeight: deviceHeightProp,
+      deviceWidth: deviceWidthProp,
       isVisible,
       onModalShow,
       onBackdropPress,
@@ -417,7 +427,8 @@ class ReactNativeModal extends Component {
       style,
       ...otherProps
     } = this.props;
-    const { deviceWidth, deviceHeight } = this.state;
+    const deviceWidth = deviceHeightProp || this.state.deviceWidth;
+    const deviceHeight = deviceHeightProp || this.state.deviceHeight;
 
     const computedStyle = [
       { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
