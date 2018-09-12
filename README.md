@@ -26,7 +26,7 @@ The aim of `react-native-modal` is expanding the original react-native `Modal` c
 </p>
 
 <p align="center">
-  New GIFs of the modal are warmly welcome! Feel free to submit a PR.
+  *New GIFs of your modal are warmly welcome! Feel free to submit a PR. :party:*
 </p>
 
 ## Setup
