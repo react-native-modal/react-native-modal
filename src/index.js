@@ -170,7 +170,7 @@ class ReactNativeModal extends Component {
       this.open();
     } else if (!this.props.isVisible && prevProps.isVisible) {
       // On modal close request, we slide the view down and fade out the backdrop
-      this._close();
+      this.close();
     }
   }
 
@@ -188,6 +188,10 @@ class ReactNativeModal extends Component {
 
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
+        // The number "4" is just a good tradeoff to make the panResponder
+        // work correctly even when the modal has touchable buttons.
+        // For reference:
+        // https://github.com/react-native-community/react-native-modal/pull/197
         return Math.abs(gestureState.dx) >= 4 || Math.abs(gestureState.dy) >= 4;
       },
       onStartShouldSetPanResponder: () => {
@@ -337,7 +341,7 @@ class ReactNativeModal extends Component {
         () => {
           this.transitionLock = false;
           if (!this.props.isVisible) {
-            this._close();
+            this.close();
           } else {
             this.props.onModalShow();
           }
@@ -346,7 +350,7 @@ class ReactNativeModal extends Component {
     }
   };
 
-  _close = () => {
+  close = () => {
     if (this.transitionLock) return;
     this.transitionLock = true;
     if (this.backdropRef) {
