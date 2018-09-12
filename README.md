@@ -210,6 +210,17 @@ Are you sure you named the `isVisible` prop correctly? Make sure it is spelled c
 
 Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations).
 
+### I can't show multiple modals one after another
+
+Unfortunately right now react-native doesn't allow multiple modals to be displayed at the same time.
+This means that, in `react-native-modal`, if you want to immediately show a new modal after closing one you must first make sure that the modal that your closing has completed its hiding animation by using the `onModalHide` prop.
+
+### I can't show multiple modals at the same time
+
+See the question above.
+Showing multiple modals (or even alerts/dialogs) at the same time is not doable because of a react-native bug.
+That said, I would strongly advice against using multiple modals at the same time because, most often than not, this leads to a bad UX, especially on mobile (just my opinion).
+
 ## Available animations
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
