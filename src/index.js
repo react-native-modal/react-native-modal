@@ -16,7 +16,6 @@ import {
   registerAnimation,
   createAnimation
 } from "react-native-animatable";
-import ExtraDimensions from 'react-native-extra-dimensions-android';
 import * as ANIMATION_DEFINITIONS from "./animations";
 
 import styles from "./index.style.js";
@@ -46,6 +45,8 @@ class ReactNativeModal extends Component {
     backdropTransitionInTiming: PropTypes.number,
     backdropTransitionOutTiming: PropTypes.number,
     children: PropTypes.node.isRequired,
+    deviceHeight: PropTypes.number,
+    deviceWidth: PropTypes.number,
     isVisible: PropTypes.bool.isRequired,
     hideModalContentWhileAnimating: PropTypes.bool,
     onModalShow: PropTypes.func,
@@ -82,6 +83,8 @@ class ReactNativeModal extends Component {
     backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
+    deviceWidth:  Dimensions.get("window").width,
+    deviceHeight: Dimensions.get("window").height,
     onModalShow: () => null,
     onModalHide: () => null,
     isVisible: false,
@@ -104,8 +107,6 @@ class ReactNativeModal extends Component {
   state = {
     showContent: true,
     isVisible: false,
-    deviceWidth: Platform.OS === 'android' ? ExtraDimensions.get('REAL_WINDOW_WIDTH') : Dimensions.get("window").width,
-    deviceHeight: Platform.OS === 'android' ?ExtraDimensions.get('REAL_WINDOW_HEIGHT') : Dimensions.get("window").height,
     isSwipeable: this.props.swipeDirection ? true : false,
     pan: null
   };
@@ -204,9 +205,10 @@ class ReactNativeModal extends Component {
         return true;
       },
       onPanResponderMove: (evt, gestureState) => {
+        const { deviceWidth } = this.props;
         // Dim the background while swiping the modal
         const accDistance = this.getAccDistancePerDirection(gestureState);
-        const newOpacityFactor = 1 - accDistance / this.state.deviceWidth;
+        const newOpacityFactor = 1 - accDistance / deviceWidth;
         if (this.isSwipeDirectionAllowed(gestureState)) {
           this.backdropRef &&
             this.backdropRef.transitionTo({
@@ -310,11 +312,12 @@ class ReactNativeModal extends Component {
 
   handleDimensionsUpdate = dimensionsUpdate => {
     // Here we update the device dimensions in the state if the layout changed (triggering a render)
-    const deviceWidth = Platform.OS === 'android' ? ExtraDimensions.get('REAL_WINDOW_WIDTH'): Dimensions.get("window").width;
-    const deviceHeight = Platform.OS === 'android' ? ExtraDimensions.get('REAL_WINDOW_HEIGHT') : Dimensions.get("window").height;
+    const { deviceHeight, deviceWidth } = this.props;
+    const width = Dimensions.get("window").width;
+    const height = Dimensions.get("window").height;
     if (
-      deviceWidth !== this.state.deviceWidth ||
-      deviceHeight !== this.state.deviceHeight
+      width !== deviceWidth ||
+      height !== deviceHeight
     ) {
       this.setState({ deviceWidth, deviceHeight });
     }
@@ -410,6 +413,8 @@ class ReactNativeModal extends Component {
       backdropOpacity,
       backdropTransitionInTiming,
       backdropTransitionOutTiming,
+      deviceHeight,
+      deviceWidth,
       children,
       isVisible,
       onModalShow,
@@ -419,8 +424,6 @@ class ReactNativeModal extends Component {
       style,
       ...otherProps
     } = this.props;
-    const { deviceWidth, deviceHeight } = this.state;
-
     const computedStyle = [
       { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
       styles.content,
