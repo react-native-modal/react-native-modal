@@ -3,19 +3,19 @@
 [![npm version](https://badge.fury.io/js/react-native-modal.svg)](https://badge.fury.io/js/react-native-modal)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-An enhanced, animated and customizable react-native modal.  
-  
+An enhanced, animated and customizable react-native modal.
+
 The aim of `react-native-modal` is expanding the original react-native `Modal` component by adding animations and styles customization options while still providing a plain-simple API.
 
 ## Features
 
-* Smooth enter/exit animations
-* Plain simple and flexible APIs
-* Customizable backdrop opacity, color and timing
-* Listeners for the modal animations ending
-* Resize itself correctly on device rotation
-* Swipeable
-* Scrollable
+- Smooth enter/exit animations
+- Plain simple and flexible APIs
+- Customizable backdrop opacity, color and timing
+- Listeners for the modal animations ending
+- Resize itself correctly on device rotation
+- Swipeable
+- Scrollable
 
 ## Demo
 
@@ -33,13 +33,13 @@ This library is available on npm, install it with: `npm install --save react-nat
 
 Since react-native-modal is an extension of the original react native modal, it works in a similar fashion [react-native original modal](https://facebook.github.io/react-native/docs/modal.html).
 
-1. Import react-native-modal:
+1.  Import react-native-modal:
 
 ```javascript
 import Modal from "react-native-modal";
 ```
 
-2. Create a modal and nest its content inside of it:
+2.  Create a modal and nest its content inside of it:
 
 ```javascript
 render () {
@@ -55,7 +55,7 @@ render () {
   }
 ```
 
-3. Then simply show it by setting the `isVisible` prop to true:
+3.  Then simply show it by setting the `isVisible` prop to true:
 
 ```javascript
 render () {
@@ -214,7 +214,7 @@ Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component,
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
 
-## Acknowledgements 
+## Acknowledgements
 
 Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!
 
