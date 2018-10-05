@@ -213,7 +213,8 @@ switch(swipeDirection_string){
           direction =  (dy > 0)?'down': 'up';
         }
         const accDistance = this.getAccDistancePerDirection(gestureState,direction);
-        if (accDistance > this.props.swipeThreshold) {
+        const isValidSwipe = (typeof this.props.swipeDirection === 'string')?this.props.swipeDirection === direction:(this.props.swipeDirection.indexOf(direction) != -1);
+        if ((accDistance > this.props.swipeThreshold) && isValidSwipe) {
           if (this.props.onSwipe) {
             this.inSwipeClosingState = true;
             this.props.onSwipe(direction);
