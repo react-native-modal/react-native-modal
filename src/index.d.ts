@@ -31,7 +31,7 @@ declare module "react-native-modal" {
     scrollOffset?: number;
     scrollOffsetMax?: number;
     supportedOrientations?: Orientation[];
-    onDismiss: () => void;
+    onDismiss?: () => void;
     onShow?: () => void;
     hardwareAccelerated?: boolean;
     onOrientationChange?: (orientation: "portrait" | "landscape") => void;
