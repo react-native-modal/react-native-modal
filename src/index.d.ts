@@ -32,10 +32,10 @@ declare module "react-native-modal" {
     scrollOffsetMax?: number;
     supportedOrientations?: Orientation[];
     onDismiss: () => void;
-    onShow: () => void;
-    hardwareAccelerated: boolean;
-    onOrientationChange: (orientation: "portrait" | "landscape") => void;
-    presentationStyle: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
+    onShow?: () => void;
+    hardwareAccelerated?: boolean;
+    onOrientationChange?: (orientation: "portrait" | "landscape") => void;
+    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
   }
 
   class Modal extends Component<ModalProps> {}
