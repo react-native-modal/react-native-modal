@@ -159,16 +159,29 @@ Before reporting a bug, try swapping `react-native-modal` with react-native orig
 
 ### The backdrop is not completely filled/covered on some Android devices (Galaxy, for one)
 
-Checkout the package [react-native-extra-dimensions-android](https://github.com/Sunhat/react-native-extra-dimensions-android)
+React-Native has a few issues detecting the correct device width/height of some devices.  
+If you're experiencing this issue, you'll need to install [`react-native-extra-dimensions-android`](https://github.com/Sunhat/react-native-extra-dimensions-android).  
+Then, provide the real window height (obtained from `react-native-extra-dimensions-android`) to the modal:  
 
-To use, here's an example:
+```javascript
+render() {
+  const deviceWidth = Dimensions.get("window").width;
+  const deviceHeight = Platform.OS === "ios" 
+    ? Dimensions.get("window").height
+    : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
 
-```
-const IOS = Platform.OS === "ios";
-const WIDTH = Dimensions.get("window").width;
-const HEIGHT = IOS
-  ? Dimensions.get("window").height
-  : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
+  return (
+  <Modal
+    isVisible={this.state.isVisible}
+    deviceHeight={deviceWidth}
+    deviceHeight={deviceHeight}
+  >
+    <View style={{ flex: 1 }}>
+      <Text>I am the modal content!</Text>
+    </View>
+  </Modal>
+  )
+}
 ```
 
 ### How can I hide the modal by pressing outside of its content?
