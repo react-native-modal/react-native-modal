@@ -1,8 +1,9 @@
 declare module "react-native-modal" {
   import { Component, ReactNode } from "react";
   import { StyleProp, ViewStyle } from "react-native";
+  import { Animation, CustomAnimation } from "react-native-animatable"
 
-  type AnimationConfig = string | { from: Object; to: Object };
+  type AnimationConfig = Animations | CustomAnimation;
   type Orientation =
     | "portrait"
     | "portrait-upside-down"
