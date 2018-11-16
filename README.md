@@ -80,8 +80,8 @@ The `isVisible` prop is the only prop you'll really need to make the modal work:
 ## A complete example
 
 The following example consists in a component (`ModalTester`) with a button and a modal.
-The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.  
-Pressing the button sets `isModalVisible` to true, making the modal visible.  
+The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.
+Pressing the button sets `isModalVisible` to true, making the modal visible.
 Inside the modal there is another button that, when pressed, sets `isModalVisible` to false, hiding the modal.
 
 ```javascript
@@ -133,8 +133,6 @@ For a more complex example take a look at the `/example` directory.
 | backdropTransitionInTiming     | number           | 300            | The backdrop show timing (in ms)                                                             |
 | backdropTransitionOutTiming    | number           | 300            | The backdrop hide timing (in ms)                                                             |
 | children                       | node             | **REQUIRED**   | The modal content                                                                            |
-| deviceHeight                   | number           | null           | Device height (useful on devices that can hide the navigation bar)                           |
-| deviceWidth                    | number           | null           | Device width (useful on devices that can hide the navigation bar)                            |
 | isVisible                      | bool             | **REQUIRED**   | Show the modal?                                                                              |
 | onBackButtonPress              | func             | () => null     | Called when the Android back button is pressed                                               |
 | onBackdropPress                | func             | () => null     | Called when the backdrop is pressed                                                          |
@@ -154,35 +152,8 @@ For a more complex example take a look at the `/example` directory.
 
 ### The component is not working as expected
 
-Under the hood `react-native-modal` uses react-native original [Modal component](https://facebook.github.io/react-native/docs/modal.html).  
+Under the hood `react-native-modal` uses react-native original [Modal component](https://facebook.github.io/react-native/docs/modal.html).
 Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).
-
-### The backdrop is not completely filled/covered on some Android devices (Galaxy, for one)
-
-React-Native has a few issues detecting the correct device width/height of some devices.  
-If you're experiencing this issue, you'll need to install [`react-native-extra-dimensions-android`](https://github.com/Sunhat/react-native-extra-dimensions-android).  
-Then, provide the real window height (obtained from `react-native-extra-dimensions-android`) to the modal:  
-
-```javascript
-render() {
-  const deviceWidth = Dimensions.get("window").width;
-  const deviceHeight = Platform.OS === "ios" 
-    ? Dimensions.get("window").height
-    : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
-
-  return (
-  <Modal
-    isVisible={this.state.isVisible}
-    deviceHeight={deviceWidth}
-    deviceHeight={deviceHeight}
-  >
-    <View style={{ flex: 1 }}>
-      <Text>I am the modal content!</Text>
-    </View>
-  </Modal>
-  )
-}
-```
 
 ### How can I hide the modal by pressing outside of its content?
 
@@ -217,7 +188,7 @@ The prop `onSwipe` allows you to handle this situation (remember to set `swipeDi
 
 ### The modal flashes in a weird way when animating
 
-Unfortunately this is a [know issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.  
+Unfortunately this is a [know issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.
 In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating` prop to `true`: this seems to solve the issue.
 Also, do not assign a `backgroundColor` property directly to the Modal. Prefer to set it on the child container.
 
@@ -228,8 +199,6 @@ Are you sure you named the `isVisible` prop correctly? Make sure it is spelled c
 ### The modal doesn't change orientation
 
 Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations).
-
-Also, if you're providing the `deviceHeight` and `deviceWidth` props you'll have to manually update them when the layout changes.
 
 ### I can't show multiple modals one after another
 
