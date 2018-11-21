@@ -173,7 +173,7 @@ render() {
   return (
   <Modal
     isVisible={this.state.isVisible}
-    deviceHeight={deviceWidth}
+    deviceWidth={deviceWidth}
     deviceHeight={deviceHeight}
   >
     <View style={{ flex: 1 }}>
