@@ -161,7 +161,7 @@ class ReactNativeModal extends Component {
     );
   }
 
-  UNSAFE_componentWillUnmount() {
+  componentWillUnmount() {
     DeviceEventEmitter.removeListener(
       "didUpdateDimensions",
       this.handleDimensionsUpdate
