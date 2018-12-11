@@ -246,6 +246,23 @@ That said, I would strongly advice against using multiple modals at the same tim
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
 
+## Introduce eumji-modal-pattern to handle multiple modals in project
+
+If you handle multiple modals in your project, Your project will be so messy like below.
+
+```
+render() {
+  return (
+     <Modal>...</Modal>
+     <Modal>...</Modal>
+     <Modal>...</Modal>
+     <Modal>...</Modal>
+  );
+}
+```
+
+To solve this troublesome, I would like to introduce the [`eumji-modal-pattern`](https://github.com/7772/eumji-modal-pattern). This pattern would help you to handle multiple modals without adding many code lines in your client side using Higer-Order-Component.
+
 ## Acknowledgements
 
 Thanks [@oblador](https://github.com/oblador) for react-native-animatable, [@brentvatne](https://github.com/brentvatne) for the npm namespace and to anyone who contributed to this library!
