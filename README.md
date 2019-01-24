@@ -242,6 +242,11 @@ See the question above.
 Showing multiple modals (or even alerts/dialogs) at the same time is not doable because of a react-native bug.
 That said, I would strongly advice against using multiple modals at the same time because, most often than not, this leads to a bad UX, especially on mobile (just my opinion).
 
+### The StatusBar style changes when the modal shows up 
+
+This issue has ben discussed [here](https://github.com/react-native-community/react-native-modal/issues/50).  
+The TLDR is: it's a know React-Native issue with the Modal component 😞
+
 ## Available animations
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
