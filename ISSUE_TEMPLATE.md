@@ -5,10 +5,10 @@ Before reporting a bug, try swapping `react-native-modal` with react-native orig
 ### When reporting a bug, please be sure to include the following:
 - [ ] The outcome of the `react-native-modal` swap described above
 - [ ] A descriptive title
-- [ ] An *isolated* way to reproduce the behavior (example: GitHub repository with code isolated to the issue that anyone can clone to observe the problem)
 - [ ] What version of `react-native-modal` you're using, and the platform(s) you're running it on (iOS, Android, device)
 - [ ] What packages or other dependencies you're using
 - [ ] The behavior you expect to see, and the actual behavior
+- [ ] **Most important of all:** An *isolated* way to reproduce the behavior (example: GitHub repository with code isolated to the issue that anyone can clone to observe the problem)
 
 
 ### When you open an issue for a feature request, please add as much detail as possible:
