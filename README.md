@@ -247,6 +247,16 @@ That said, I would strongly advice against using multiple modals at the same tim
 This issue has ben discussed [here](https://github.com/react-native-community/react-native-modal/issues/50).  
 The TLDR is: it's a know React-Native issue with the Modal component 😞
 
+### The modal is not covering the entire screen
+
+The modal style applied by default has has a small margin.  
+If you want the modal to cover the entire screen you can easily override it this way:  
+```js
+<Modal style = {{  margin: 0 }}>
+  ...
+</Modal>
+```
+
 ## Available animations
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
