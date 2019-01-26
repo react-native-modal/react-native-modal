@@ -249,7 +249,7 @@ The TLDR is: it's a know React-Native issue with the Modal component 😞
 
 ### The modal is not covering the entire screen
 
-The modal style applied by default has has a small margin.  
+The modal style applied by default has a small margin.  
 If you want the modal to cover the entire screen you can easily override it this way:  
 ```js
 <Modal style = {{  margin: 0 }}>
