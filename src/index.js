@@ -196,7 +196,9 @@ class ReactNativeModal extends Component {
         // work correctly even when the modal has touchable buttons.
         // For reference:
         // https://github.com/react-native-community/react-native-modal/pull/197
-        return Math.abs(gestureState.dx) >= 4 || Math.abs(gestureState.dy) >= 4;
+        
+        // Ghetto temporary fix: https://github.com/react-native-community/react-native-modal/issues/236#issuecomment-453480635
+        // return Math.abs(gestureState.dx) >= 4 || Math.abs(gestureState.dy) >= 4;
       },
       onStartShouldSetPanResponder: () => {
         if (this.props.scrollTo) {
