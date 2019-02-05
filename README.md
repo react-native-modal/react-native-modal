@@ -148,6 +148,7 @@ For a more complex example take a look at the `/example` directory.
 | swipeDirection                 | string           | null           | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right') |
 | useNativeDriver                | bool             | false          | Defines if animations should use native driver                                               |
 | hideModalContentWhileAnimating | bool             | false          | Enhances the performance by hiding the modal content until the animations complete           |
+| propagateSwipe                 | bool             | false          | Allows swipe events to propagate to children components (eg a ScrollView inside a modal)     |
 | style                          | any              | null           | Style applied to the modal                                                                   |
 
 ## Frequently Asked Questions
@@ -166,7 +167,7 @@ Then, provide the real window height (obtained from `react-native-extra-dimensio
 ```javascript
 render() {
   const deviceWidth = Dimensions.get("window").width;
-  const deviceHeight = Platform.OS === "ios" 
+  const deviceHeight = Platform.OS === "ios"
     ? Dimensions.get("window").height
     : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
 
@@ -242,7 +243,7 @@ See the question above.
 Showing multiple modals (or even alerts/dialogs) at the same time is not doable because of a react-native bug.
 That said, I would strongly advice against using multiple modals at the same time because, most often than not, this leads to a bad UX, especially on mobile (just my opinion).
 
-### The StatusBar style changes when the modal shows up 
+### The StatusBar style changes when the modal shows up
 
 This issue has ben discussed [here](https://github.com/react-native-community/react-native-modal/issues/50).  
 The TLDR is: it's a know React-Native issue with the Modal component 😞
@@ -253,6 +254,15 @@ The modal style applied by default has a small margin.
 If you want the modal to cover the entire screen you can easily override it this way:  
 ```js
 <Modal style = {{  margin: 0 }}>
+  ...
+</Modal>
+```
+
+### I can't scroll my ScrollView inside of the modal
+
+Enable propagateSwipe to allow your child components to receive swipe events:
+```js
+<Modal propagateSwipe>
   ...
 </Modal>
 ```
