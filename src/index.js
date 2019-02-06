@@ -432,6 +432,7 @@ class ReactNativeModal extends Component {
       onBackdropPress,
       onBackButtonPress,
       useNativeDriver,
+      propagateSwipe,
       style,
       ...otherProps
     } = this.props;
