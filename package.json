@@ -1,15 +1,14 @@
 {
   "name": "react-native-modal",
-  "version": "7.0.2",
+  "version": "7.1.0-beta.1",
   "description": "An enhanced React-Native modal",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "scripts": {
     "lint": "eslint src",
-    "precommit": "lint-staged",
     "test": "npm run lint",
     "prettier": "prettier --write src/**/*.js",
-    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm prune && yarn cache clean"
+    "reset": "watchman watch-del-all && rm -rf node_modules/"
   },
   "keywords": [
     "react-native",
@@ -30,24 +29,14 @@
     "url": "https://github.com/react-native-community/react-native-modal"
   },
   "dependencies": {
-    "prop-types": "^15.6.1",
+    "prop-types": "^15.6.2",
     "react-native-animatable": "^1.2.4"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.2",
-    "eslint": "^4.19.1",
-    "eslint-plugin-react-app": "^3.0.0",
-    "husky": "0.14.3",
-    "lint-staged": "^7.0.0",
-    "prettier": "^1.11.1",
+    "eslint": "^5.13.0",
+    "eslint-plugin-react-app": "^4.0.1",
+    "prettier": "^1.16.4",
     "react": ">=15.0.0",
     "react-native": ">=0.24.0"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint src",
-      "prettier --write",
-      "git add"
-    ]
   }
 }

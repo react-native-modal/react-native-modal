@@ -43,7 +43,11 @@ declare module "react-native-modal" {
     onShow?: () => void;
     hardwareAccelerated?: boolean;
     onOrientationChange?: (orientation: "portrait" | "landscape") => void;
-    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
+    presentationStyle?:
+      | "fullScreen"
+      | "pageSheet"
+      | "formSheet"
+      | "overFullScreen";
   }
 
   class Modal extends Component<ModalProps> {}
