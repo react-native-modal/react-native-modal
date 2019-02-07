@@ -141,6 +141,7 @@ For a more complex example take a look at the `/example` directory.
 | onModalHide                    | func             | () => null     | Called when the modal is completely hidden                                                   |
 | onModalShow                    | func             | () => null     | Called when the modal is completely visible                                                  |
 | onSwipe                        | func             | null           | Called when the `swipeThreshold` has been reached                                            |
+| onSwiping                      | func             | null           | Called during swipe/move action                                                              |
 | scrollOffset                   | number           | 0              | When > 0, disables swipe-to-close, in order to implement scrollable content                  |
 | scrollOffsetMax                | number           | 0              | Used to implement overscroll feel when content is scrollable. See `/example` directory       |
 | scrollTo                       | func             | null           | Used to implement scrollable modal. See `/example` directory for reference on how to use it  |

@@ -54,6 +54,7 @@ class ReactNativeModal extends Component {
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
     onSwipe: PropTypes.func,
+    onSwiping: PropTypes.func,
     swipeThreshold: PropTypes.number,
     swipeDirection: PropTypes.oneOf(["up", "down", "left", "right"]),
     useNativeDriver: PropTypes.bool,
@@ -225,6 +226,9 @@ class ReactNativeModal extends Component {
               opacity: this.props.backdropOpacity * newOpacityFactor
             });
           animEvt(evt, gestureState);
+          if(this.props.onSwiping) {
+            this.props.onSwiping(newOpacityFactor)
+          }
         } else {
           if (this.props.scrollTo) {
             let offsetY = -gestureState.dy;
