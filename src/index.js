@@ -55,6 +55,7 @@ class ReactNativeModal extends Component {
     onBackdropPress: PropTypes.func,
     onSwipe: PropTypes.func,
     onSwiping: PropTypes.func,
+    onSwipingDone: PropTypes.func,
     swipeThreshold: PropTypes.number,
     swipeDirection: PropTypes.oneOf(["up", "down", "left", "right"]),
     useNativeDriver: PropTypes.bool,
@@ -248,6 +249,9 @@ class ReactNativeModal extends Component {
             this.props.onSwipe();
             return;
           }
+        }
+        if (this.props.onSwipingDone) {
+          this.props.onSwipingDone();
         }
         //Reset backdrop opacity and modal position
         if (this.backdropRef) {

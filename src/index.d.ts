@@ -33,6 +33,7 @@ declare module "react-native-modal" {
     onBackdropPress?: () => void;
     onSwipe?: () => void;
     onSwiping?: (movedPercentage: number) => void;
+    onSwipingDone?: () => void;
     swipeThreshold?: number;
     style?: StyleProp<ViewStyle>;
     swipeDirection?: "up" | "down" | "left" | "right";
