@@ -491,7 +491,7 @@ class ReactNativeModal extends Component {
         <TouchableWithoutFeedback onPress={onBackdropPress}>
           <View
             ref={ref => (this.backdropRef = ref)}
-            useNativeDriver={useNativeDriver}
+            useNativeDriver={true}
             style={[
               styles.backdrop,
               {
