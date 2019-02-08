@@ -449,7 +449,14 @@ class ReactNativeModal extends Component {
     let panPosition = {};
     if (this.state.isSwipeable) {
       panHandlers = { ...this.panResponder.panHandlers };
-      panPosition = this.state.pan.getLayout();
+
+      if (useNativeDriver) {
+        panPosition = {
+            transform: this.state.pan.getTranslateTransform()
+        };
+      } else {
+        panPosition = this.state.pan.getLayout();
+      }
     }
 
     const _children =

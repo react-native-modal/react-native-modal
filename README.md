@@ -215,6 +215,7 @@ The prop `onSwipe` allows you to handle this situation (remember to set `swipeDi
   </View>
 </Modal>
 ```
+Note that when using `useNativeDriver={true}` the modal won't drag correctly. This is a [known issue](https://github.com/react-native-community/react-native-modal/issues/163#issuecomment-409760695).
 
 ### The modal flashes in a weird way when animating
 
