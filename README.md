@@ -138,7 +138,9 @@ For a more complex example take a look at the `/example` directory.
 | isVisible                      | bool             | **REQUIRED**   | Show the modal?                                                                              |
 | onBackButtonPress              | func             | () => null     | Called when the Android back button is pressed                                               |
 | onBackdropPress                | func             | () => null     | Called when the backdrop is pressed                                                          |
+| onModalWillHide                | func             | () => null     | Called before the modal hide animation begins                                                |
 | onModalHide                    | func             | () => null     | Called when the modal is completely hidden                                                   |
+| onModalWillShow                | func             | () => null     | Called before the modal show animation begins                                                |
 | onModalShow                    | func             | () => null     | Called when the modal is completely visible                                                  |
 | onSwipe                        | func             | null           | Called when the `swipeThreshold` has been reached                                            |
 | scrollOffset                   | number           | 0              | When > 0, disables swipe-to-close, in order to implement scrollable content                  |
