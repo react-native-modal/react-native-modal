@@ -138,7 +138,9 @@ For a more complex example take a look at the `/example` directory.
 | isVisible                      | bool             | **REQUIRED**            | Show the modal?                                                                              |
 | onBackButtonPress              | func             | () => null              | Called when the Android back button is pressed                                               |
 | onBackdropPress                | func             | () => null              | Called when the backdrop is pressed                                                          |
+| onModalWillHide                | func             | () => null              | Called before the modal hide animation begins                                                |
 | onModalHide                    | func             | () => null              | Called when the modal is completely hidden                                                   |
+| onModalWillShow                | func             | () => null              | Called before the modal show animation begins                                                |
 | onModalShow                    | func             | () => null              | Called when the modal is completely visible                                                  |
 | onSwipeStart                   | func             | () => null              | Called when the swipe action started                                                         |
 | onSwipeMove                    | func             | (swipeProgress) => null | Called on each swipe event                                                                   |
@@ -216,6 +218,8 @@ The prop `onSwipe` allows you to handle this situation (remember to set `swipeDi
   </View>
 </Modal>
 ```
+
+Note that when using `useNativeDriver={true}` the modal won't drag correctly. This is a [known issue](https://github.com/react-native-community/react-native-modal/issues/163#issuecomment-409760695).
 
 ### The modal flashes in a weird way when animating
 

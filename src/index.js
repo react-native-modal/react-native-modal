@@ -50,7 +50,9 @@ class ReactNativeModal extends Component {
     hideModalContentWhileAnimating: PropTypes.bool,
     propagateSwipe: PropTypes.bool,
     onModalShow: PropTypes.func,
+    onModalWillShow: PropTypes.func,
     onModalHide: PropTypes.func,
+    onModalWillHide: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
     onSwipeStart: PropTypes.func,
@@ -86,9 +88,11 @@ class ReactNativeModal extends Component {
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
     onModalShow: () => null,
+    onModalWillShow: () => null,
     deviceHeight: null,
     deviceWidth: null,
     onModalHide: () => null,
+    onModalWillHide: () => null,
     isVisible: false,
     hideModalContentWhileAnimating: false,
     propagateSwipe: PropTypes.false,
@@ -372,12 +376,13 @@ class ReactNativeModal extends Component {
 
     // This is for reset the pan position, if not modal get stuck
     // at the last release position when you try to open it.
-    // Could certainly be improve - no idea for the moment.
+    // Could certainly be improved - no idea for the moment.
     if (this.state.isSwipeable) {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
 
     if (this.contentRef) {
+      this.props.onModalWillShow && this.props.onModalWillShow()
       this.contentRef[this.animationIn](this.props.animationInTiming).then(
         () => {
           this.transitionLock = false;
@@ -417,6 +422,7 @@ class ReactNativeModal extends Component {
     }
 
     if (this.contentRef) {
+      this.props.onModalWillHide && this.props.onModalWillHide()
       this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
         this.transitionLock = false;
         if (this.props.isVisible) {
@@ -474,7 +480,14 @@ class ReactNativeModal extends Component {
     let panPosition = {};
     if (this.state.isSwipeable) {
       panHandlers = { ...this.panResponder.panHandlers };
-      panPosition = this.state.pan.getLayout();
+
+      if (useNativeDriver) {
+        panPosition = {
+            transform: this.state.pan.getTranslateTransform()
+        };
+      } else {
+        panPosition = this.state.pan.getLayout();
+      }
     }
 
     const _children =
@@ -507,7 +520,7 @@ class ReactNativeModal extends Component {
         <TouchableWithoutFeedback onPress={onBackdropPress}>
           <View
             ref={ref => (this.backdropRef = ref)}
-            useNativeDriver={useNativeDriver}
+            useNativeDriver={true}
             style={[
               styles.backdrop,
               {
