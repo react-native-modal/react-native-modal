@@ -50,7 +50,9 @@ class ReactNativeModal extends Component {
     hideModalContentWhileAnimating: PropTypes.bool,
     propagateSwipe: PropTypes.bool,
     onModalShow: PropTypes.func,
+    onModalWillShow: PropTypes.func,
     onModalHide: PropTypes.func,
+    onModalWillHide: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
     onSwipe: PropTypes.func,
@@ -83,9 +85,11 @@ class ReactNativeModal extends Component {
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
     onModalShow: () => null,
+    onModalWillShow: () => null,
     deviceHeight: null,
     deviceWidth: null,
     onModalHide: () => null,
+    onModalWillHide: () => null,
     isVisible: false,
     hideModalContentWhileAnimating: false,
     propagateSwipe: PropTypes.false,
@@ -347,12 +351,13 @@ class ReactNativeModal extends Component {
 
     // This is for reset the pan position, if not modal get stuck
     // at the last release position when you try to open it.
-    // Could certainly be improve - no idea for the moment.
+    // Could certainly be improved - no idea for the moment.
     if (this.state.isSwipeable) {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
 
     if (this.contentRef) {
+      this.props.onModalWillShow && this.props.onModalWillShow()
       this.contentRef[this.animationIn](this.props.animationInTiming).then(
         () => {
           this.transitionLock = false;
@@ -392,6 +397,7 @@ class ReactNativeModal extends Component {
     }
 
     if (this.contentRef) {
+      this.props.onModalWillHide && this.props.onModalWillHide()
       this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
         this.transitionLock = false;
         if (this.props.isVisible) {
