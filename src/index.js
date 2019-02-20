@@ -39,6 +39,7 @@ class ReactNativeModal extends Component {
     animationOut: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationOutTiming: PropTypes.number,
     avoidKeyboard: PropTypes.bool,
+    hasBackdrop: PropTypes.bool,
     backdropColor: PropTypes.string,
     backdropOpacity: PropTypes.number,
     backdropTransitionInTiming: PropTypes.number,
@@ -83,6 +84,7 @@ class ReactNativeModal extends Component {
     animationOut: "slideOutDown",
     animationOutTiming: 300,
     avoidKeyboard: false,
+    hasBackdrop: true,
     backdropColor: "black",
     backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
@@ -451,6 +453,7 @@ class ReactNativeModal extends Component {
       animationOut,
       animationOutTiming,
       avoidKeyboard,
+      hasBackdrop,
       backdropColor,
       backdropOpacity,
       backdropTransitionInTiming,
@@ -517,22 +520,24 @@ class ReactNativeModal extends Component {
         visible={this.state.isVisible}
         onRequestClose={onBackButtonPress}
         {...otherProps}>
-        <TouchableWithoutFeedback onPress={onBackdropPress}>
-          <View
-            ref={ref => (this.backdropRef = ref)}
-            useNativeDriver={true}
-            style={[
-              styles.backdrop,
-              {
-                backgroundColor: this.state.showContent
-                  ? backdropColor
-                  : "transparent",
-                width: deviceWidth,
-                height: deviceHeight,
-              },
-            ]}
-          />
-        </TouchableWithoutFeedback>
+        {hasBackdrop &&
+          <TouchableWithoutFeedback onPress={onBackdropPress}>
+            <View
+              ref={ref => (this.backdropRef = ref)}
+              useNativeDriver={true}
+              style={[
+                styles.backdrop,
+                {
+                  backgroundColor: this.state.showContent
+                    ? backdropColor
+                    : "transparent",
+                  width: deviceWidth,
+                  height: deviceHeight,
+                },
+              ]}
+            />
+          </TouchableWithoutFeedback> 
+        }
 
         {avoidKeyboard && (
           <KeyboardAvoidingView

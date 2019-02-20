@@ -128,6 +128,7 @@ For a more complex example take a look at the `/example` directory.
 | animationOut                   | string or object | 'slideOutDown'            | Modal hide animation                                                                         |
 | animationOutTiming             | number           | 300                       | Timing for the modal hide animation (in ms)                                                  |
 | avoidKeyboard                  | bool             | false                     | Move the modal up if the keyboard is open                                                    |
+| hasBackdrop                    | bool             | true                      | Render the backdrop                                                                          |
 | backdropColor                  | string           | 'black'                   | The backdrop background color                                                                |
 | backdropOpacity                | number           | 0.70                      | The backdrop opacity when the modal is visible                                               |
 | backdropTransitionInTiming     | number           | 300                       | The backdrop show timing (in ms)                                                             |
