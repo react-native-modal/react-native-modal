@@ -150,7 +150,7 @@ For a more complex example take a look at the `/example` directory.
 | scrollOffset                   | number           | 0                         | When > 0, disables swipe-to-close, in order to implement scrollable content                  |
 | scrollOffsetMax                | number           | 0                         | Used to implement overscroll feel when content is scrollable. See `/example` directory       |
 | scrollTo                       | func             | null                      | Used to implement scrollable modal. See `/example` directory for reference on how to use it  |
-| swipeThreshold                 | number           | 100                       | Swiping threshold that when reached calls `onSwipe`                                          |
+| swipeThreshold                 | number           | 100                       | Swiping threshold that when reached calls ` onSwipeComplete`                                          |
 | swipeDirection                 | string           | null                      | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right') |
 | useNativeDriver                | bool             | false                     | Defines if animations should use native driver                                               |
 | hideModalContentWhileAnimating | bool             | false                     | Enhances the performance by hiding the modal content until the animations complete           |
@@ -207,12 +207,12 @@ The prop `onBackdropPress` allows you to handle this situation:
 
 ### How can I hide the modal by swiping it?
 
-The prop `onSwipe` allows you to handle this situation (remember to set `swipeDirection` too!):
+The prop `onSwipeComplete` allows you to handle this situation (remember to set `swipeDirection` too!):
 
 ```javascript
 <Modal
   isVisible={this.state.isVisible}
-  onSwipe={() => this.setState({ isVisible: false })}
+  onSwipeComplete={() => this.setState({ isVisible: false })}
   swipeDirection="left">
   <View style={{ flex: 1 }}>
     <Text>I am the modal content!</Text>
