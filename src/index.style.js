@@ -8,6 +8,7 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     opacity: 0,
+    backgroundColor: "black"
   },
   content: {
     flex: 1,
