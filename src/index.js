@@ -25,6 +25,7 @@ class ReactNativeModal extends Component {
     animationOut: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationOutTiming: PropTypes.number,
     avoidKeyboard: PropTypes.bool,
+    coverScreen: PropTypes.bool,
     hasBackdrop: PropTypes.bool,
     backdropColor: PropTypes.string,
     backdropOpacity: PropTypes.number,
@@ -73,6 +74,7 @@ class ReactNativeModal extends Component {
     animationOut: "slideOutDown",
     animationOutTiming: 300,
     avoidKeyboard: false,
+    coverScreen: true,
     hasBackdrop: true,
     backdropColor: "black",
     backdropOpacity: 0.7,
@@ -478,6 +480,7 @@ class ReactNativeModal extends Component {
       animationOut,
       animationOutTiming,
       avoidKeyboard,
+      coverScreen,
       hasBackdrop,
       backdropColor,
       backdropOpacity,
@@ -537,6 +540,14 @@ class ReactNativeModal extends Component {
       >
         {_children}
       </animatable.View>
+    );
+
+    if (!coverScreen && this.state.isVisible) return (
+      <View
+        pointerEvents="box-none"
+        style={[styles.backdrop, { zIndex: 2 }]}>
+        {containerView}
+      </View>
     );
 
     return (
