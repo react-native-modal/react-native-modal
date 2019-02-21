@@ -545,7 +545,7 @@ class ReactNativeModal extends Component {
     if (!coverScreen && this.state.isVisible) return (
       <View
         pointerEvents="box-none"
-        style={[styles.backdrop, { zIndex: 2 }]}>
+        style={[styles.backdrop, { zIndex: 2, opacity: 1, backgroundColor: "transparent" }]}>
         {containerView}
       </View>
     );
