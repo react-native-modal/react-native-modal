@@ -150,7 +150,7 @@ For a more complex example take a look at the `/example` directory.
 | scrollOffset                   | number           | 0                         | When > 0, disables swipe-to-close, in order to implement scrollable content                  |
 | scrollOffsetMax                | number           | 0                         | Used to implement overscroll feel when content is scrollable. See `/example` directory       |
 | scrollTo                       | func             | null                      | Used to implement scrollable modal. See `/example` directory for reference on how to use it  |
-| swipeThreshold                 | number           | 100                       | Swiping threshold that when reached calls ` onSwipeComplete`                                          |
+| swipeThreshold                 | number           | 100                       | Swiping threshold that when reached calls `onSwipeComplete`                                  |
 | swipeDirection                 | string           | null                      | Defines the direction where the modal can be swiped (can be 'up', 'down', 'left, or 'right') |
 | useNativeDriver                | bool             | false                     | Defines if animations should use native driver                                               |
 | hideModalContentWhileAnimating | bool             | false                     | Enhances the performance by hiding the modal content until the animations complete           |
@@ -270,6 +270,8 @@ Enable propagateSwipe to allow your child components to receive swipe events:
 ```js
 <Modal propagateSwipe>...</Modal>
 ```
+
+Please notice that this is still a WIP fix and might not fix your issue yet, see [issue #236](https://github.com/react-native-community/react-native-modal/issues/236).
 
 ## Available animations
 
