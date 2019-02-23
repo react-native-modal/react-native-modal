@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   PanResponder,
+  BackHandler,
   StyleSheet,
   TouchableWithoutFeedback
 } from "react-native";
@@ -144,6 +145,7 @@ class ReactNativeModal extends React.Component {
     if (this.state.isVisible) {
       this.open();
     }
+    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress);
     DeviceEventEmitter.addListener(
       "didUpdateDimensions",
       this.handleDimensionsUpdate
@@ -151,6 +153,7 @@ class ReactNativeModal extends React.Component {
   }
 
   componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPress)
     DeviceEventEmitter.removeListener(
       "didUpdateDimensions",
       this.handleDimensionsUpdate
@@ -166,7 +169,13 @@ class ReactNativeModal extends React.Component {
       this.close();
     }
   }
-
+  onBackButtonPress = () => {
+    if (this.props.onBackButtonPress && this.props.isVisible) {
+      this.props.onBackButtonPress()
+      return true
+    }
+    return false
+  }
   buildPanResponder = () => {
     let animEvt = null;
 
