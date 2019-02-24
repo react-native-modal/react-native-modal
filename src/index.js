@@ -11,21 +11,12 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 import * as animatable from "react-native-animatable";
-import * as ANIMATION_DEFINITIONS from "./animations";
+import { initializeAnimations, buildAnimations } from "./utils";
 
 import styles from "./index.style.js";
 
 // Override default react-native-animatable animations
-animatable.initializeRegistryWithDefinitions(ANIMATION_DEFINITIONS);
-
-// Utility for creating our own custom react-native-animatable animations
-const makeAnimation = (name, obj) => {
-  animatable.registerAnimation(name, animatable.createAnimation(obj));
-};
-
-const isObject = obj => {
-  return obj !== null && typeof obj === "object";
-};
+initializeAnimations();
 
 class ReactNativeModal extends Component {
   static propTypes = {
@@ -122,7 +113,9 @@ class ReactNativeModal extends Component {
 
   constructor(props) {
     super(props);
-    this.buildAnimations(props);
+    const { animationIn, animationOut } = buildAnimations(props);
+    this.animationIn = animationIn;
+    this.animationOut = animationOut;
     if (this.state.isSwipeable) {
       this.state = { ...this.state, pan: new Animated.ValueXY() };
       this.buildPanResponder();
@@ -136,6 +129,7 @@ class ReactNativeModal extends Component {
     }
   }
 
+  // TODO: Stop using componentWillReceiveProps
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
       this.setState({ isVisible: true, showContent: true });
@@ -144,7 +138,9 @@ class ReactNativeModal extends Component {
       this.props.animationIn !== nextProps.animationIn ||
       this.props.animationOut !== nextProps.animationOut
     ) {
-      this.buildAnimations(nextProps);
+      const { animationIn, animationOut } = buildAnimations(nextProps);
+      this.animationIn = animationIn;
+      this.animationOut = animationOut;
     }
     if (
       this.props.backdropOpacity !== nextProps.backdropOpacity &&
@@ -325,27 +321,6 @@ class ReactNativeModal extends Component {
     return false;
   };
 
-  // User can define custom react-native-animatable animations, see PR #72
-  buildAnimations = props => {
-    let animationIn = props.animationIn;
-    let animationOut = props.animationOut;
-
-    if (isObject(animationIn)) {
-      const animationName = JSON.stringify(animationIn);
-      makeAnimation(animationName, animationIn);
-      animationIn = animationName;
-    }
-
-    if (isObject(animationOut)) {
-      const animationName = JSON.stringify(animationOut);
-      makeAnimation(animationName, animationOut);
-      animationOut = animationName;
-    }
-
-    this.animationIn = animationIn;
-    this.animationOut = animationOut;
-  };
-
   handleDimensionsUpdate = dimensionsUpdate => {
     if (!this.props.deviceHeight && !this.props.deviceWidth) {
       // Here we update the device dimensions in the state if the layout changed
@@ -371,9 +346,9 @@ class ReactNativeModal extends Component {
       );
     }
 
-    // This is for reset the pan position, if not modal get stuck
-    // at the last release position when you try to open it.
-    // Could certainly be improved - no idea for the moment.
+    // This is for resetting the pan position,otherwise the modal gets stuck
+    // at the last released position when you try to open it.
+    // TODO: Could certainly be improved - no idea for the moment.
     if (this.state.isSwipeable) {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
