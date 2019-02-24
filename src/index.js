@@ -117,7 +117,7 @@ class ReactNativeModal extends Component {
     pan: null
   };
 
-  transitionLock = null;
+  isTransitioning = false;
   inSwipeClosingState = false;
 
   constructor(props) {
@@ -362,8 +362,8 @@ class ReactNativeModal extends Component {
   };
 
   open = () => {
-    if (this.transitionLock) return;
-    this.transitionLock = true;
+    if (this.isTransitioning) return;
+    this.isTransitioning = true;
     if (this.backdropRef) {
       this.backdropRef.transitionTo(
         { opacity: this.props.backdropOpacity },
@@ -382,7 +382,7 @@ class ReactNativeModal extends Component {
       this.props.onModalWillShow && this.props.onModalWillShow();
       this.contentRef[this.animationIn](this.props.animationInTiming).then(
         () => {
-          this.transitionLock = false;
+          this.isTransitioning = false;
           if (!this.props.isVisible) {
             this.close();
           } else {
@@ -394,8 +394,8 @@ class ReactNativeModal extends Component {
   };
 
   close = () => {
-    if (this.transitionLock) return;
-    this.transitionLock = true;
+    if (this.isTransitioning) return;
+    this.isTransitioning = true;
     if (this.backdropRef) {
       this.backdropRef.transitionTo(
         { opacity: 0 },
@@ -421,7 +421,7 @@ class ReactNativeModal extends Component {
     if (this.contentRef) {
       this.props.onModalWillHide && this.props.onModalWillHide();
       this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
-        this.transitionLock = false;
+        this.isTransitioning = false;
         if (this.props.isVisible) {
           this.open();
         } else {
