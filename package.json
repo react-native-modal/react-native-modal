@@ -36,7 +36,11 @@
     "eslint": "^5.13.0",
     "eslint-plugin-react-app": "^4.0.1",
     "prettier": "^1.16.4",
-    "react": ">=15.0.0",
-    "react-native": ">=0.24.0"
+    "react": "16.8.3",
+    "react-native": "0.58.5"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   }
 }

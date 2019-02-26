@@ -8,3 +8,6 @@ npm-debug.log
 jsconfig.json
 dump.rdb
 .vscode
+.idea
+yarn.lock
+example/yarn.lock
