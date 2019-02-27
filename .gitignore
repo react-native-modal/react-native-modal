@@ -11,3 +11,4 @@ dump.rdb
 .idea
 yarn.lock
 example/yarn.lock
+example/ios/Pods
