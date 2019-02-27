@@ -243,9 +243,10 @@ class ReactNativeModal extends Component {
         const accDistance = this.getAccDistancePerDirection(gestureState);
         const newOpacityFactor = 1 - accDistance / deviceWidth;
         if (this.isSwipeDirectionAllowed(gestureState)) {
-          this.backdropRef && this.backdropRef.transitionTo({
-            opacity: this.props.backdropOpacity * newOpacityFactor
-          });
+          this.backdropRef &&
+            this.backdropRef.transitionTo({
+              opacity: this.props.backdropOpacity * newOpacityFactor
+            });
 
           animEvt(evt, gestureState);
 
@@ -266,7 +267,10 @@ class ReactNativeModal extends Component {
       onPanResponderRelease: (evt, gestureState) => {
         // Call the onSwipe prop if the threshold has been exceeded on the right direction
         const accDistance = this.getAccDistancePerDirection(gestureState);
-        if (accDistance > this.props.swipeThreshold && this.isSwipeDirectionAllowed(gestureState)) {
+        if (
+          accDistance > this.props.swipeThreshold &&
+          this.isSwipeDirectionAllowed(gestureState)
+        ) {
           if (this.props.onSwipeComplete) {
             this.inSwipeClosingState = true;
             this.props.onSwipeComplete();
@@ -298,7 +302,7 @@ class ReactNativeModal extends Component {
     });
   };
 
-  getAccDistancePerDirection = (gestureState) => {
+  getAccDistancePerDirection = gestureState => {
     switch (this.currentSwipingDirection) {
       case "up":
         return -gestureState.dy;
@@ -322,17 +326,20 @@ class ReactNativeModal extends Component {
   };
 
   createAnimationEventForSwipe = () => {
-    if (this.currentSwipingDirection === "right" || this.currentSwipingDirection === "left") {
+    if (
+      this.currentSwipingDirection === "right" ||
+      this.currentSwipingDirection === "left"
+    ) {
       return Animated.event([null, { dx: this.state.pan.x }]);
     } else {
       return Animated.event([null, { dy: this.state.pan.y }]);
     }
   };
 
-  isDirectionIncluded = (direction) => {
-    return Array.isArray(this.props.swipeDirection) ?
-      this.props.swipeDirection.includes(direction) :
-      this.props.swipeDirection === direction;
+  isDirectionIncluded = direction => {
+    return Array.isArray(this.props.swipeDirection)
+      ? this.props.swipeDirection.includes(direction)
+      : this.props.swipeDirection === direction;
   };
 
   isSwipeDirectionAllowed = ({ dy, dx }) => {
@@ -341,13 +348,29 @@ class ReactNativeModal extends Component {
     const draggedLeft = dx < 0;
     const draggedRight = dx > 0;
 
-    if (this.currentSwipingDirection === "up" && this.isDirectionIncluded("up") && draggedUp) {
+    if (
+      this.currentSwipingDirection === "up" &&
+      this.isDirectionIncluded("up") &&
+      draggedUp
+    ) {
       return true;
-    } else if (this.currentSwipingDirection === "down" && this.isDirectionIncluded("down") && draggedDown) {
+    } else if (
+      this.currentSwipingDirection === "down" &&
+      this.isDirectionIncluded("down") &&
+      draggedDown
+    ) {
       return true;
-    } else if (this.currentSwipingDirection === "right" && this.isDirectionIncluded("right") && draggedRight) {
+    } else if (
+      this.currentSwipingDirection === "right" &&
+      this.isDirectionIncluded("right") &&
+      draggedRight
+    ) {
       return true;
-    } else if (this.currentSwipingDirection === "left" && this.isDirectionIncluded("left") && draggedLeft) {
+    } else if (
+      this.currentSwipingDirection === "left" &&
+      this.isDirectionIncluded("left") &&
+      draggedLeft
+    ) {
       return true;
     }
     return false;
