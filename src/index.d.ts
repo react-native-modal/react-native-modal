@@ -10,6 +10,7 @@ declare module "react-native-modal" {
     | "landscape"
     | "landscape-left"
     | "landscape-right";
+  type Direction = "up" | "down" | "left" | "right";
 
   export interface ModalProps {
     animationIn?: AnimationConfig;
@@ -38,7 +39,7 @@ declare module "react-native-modal" {
     onSwipeCancel?: () => void;
     swipeThreshold?: number;
     style?: StyleProp<ViewStyle>;
-    swipeDirection?: "up" | "down" | "left" | "right";
+    swipeDirection?: Direction | Array<Direction>;
     scrollTo?: (e: any) => void;
     scrollOffset?: number;
     scrollOffsetMax?: number;
