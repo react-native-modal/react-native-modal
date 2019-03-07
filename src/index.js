@@ -56,6 +56,7 @@ class ReactNativeModal extends Component {
     scrollTo: PropTypes.func,
     scrollOffset: PropTypes.number,
     scrollOffsetMax: PropTypes.number,
+    scrollHorizontal: PropTypes.bool,
     supportedOrientations: PropTypes.arrayOf(
       PropTypes.oneOf([
         "portrait",
@@ -94,6 +95,7 @@ class ReactNativeModal extends Component {
     scrollTo: null,
     scrollOffset: 0,
     scrollOffsetMax: 0,
+    scrollHorizontal: false,
     supportedOrientations: ["portrait", "landscape"]
   };
 
@@ -255,12 +257,21 @@ class ReactNativeModal extends Component {
           }
         } else {
           if (this.props.scrollTo) {
-            let offsetY = -gestureState.dy;
-            if (offsetY > this.props.scrollOffsetMax) {
-              offsetY -= (offsetY - this.props.scrollOffsetMax) / 2;
-            }
+            if (this.props.scrollHorizontal) {
+              let offsetX = -gestureState.dx;
+              if (offsetX > this.props.scrollOffsetMax) {
+                offsetX -= (offsetX - this.props.scrollOffsetMax) / 2;
+              }
 
-            this.props.scrollTo({ y: offsetY, animated: false });
+              this.props.scrollTo({ x: offsetX, animated: false });
+            } else {
+              let offsetY = -gestureState.dy;
+              if (offsetY > this.props.scrollOffsetMax) {
+                offsetY -= (offsetY - this.props.scrollOffsetMax) / 2;
+              }
+
+              this.props.scrollTo({ y: offsetY, animated: false });
+            }
           }
         }
       },
