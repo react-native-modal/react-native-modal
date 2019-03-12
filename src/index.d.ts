@@ -18,6 +18,7 @@ declare module "react-native-modal" {
     animationOut?: AnimationConfig;
     animationOutTiming?: number;
     avoidKeyboard?: boolean;
+    coverScreen?: boolean;
     backdropColor?: string;
     backdropOpacity?: number;
     backdropTransitionInTiming?: number;
