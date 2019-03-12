@@ -542,10 +542,30 @@ class ReactNativeModal extends Component {
       </animatable.View>
     );
 
+    const backdrop = (
+      <TouchableWithoutFeedback onPress={onBackdropPress}>
+        <animatable.View
+          ref={ref => (this.backdropRef = ref)}
+          useNativeDriver={true}
+          style={[
+            styles.backdrop,
+            {
+              backgroundColor: this.state.showContent
+                ? backdropColor
+                : "transparent",
+              width: deviceWidth,
+              height: deviceHeight
+            }
+          ]}
+        />
+      </TouchableWithoutFeedback>
+    );
+
     if (!coverScreen && this.state.isVisible) return (
       <View
         pointerEvents="box-none"
         style={[styles.backdrop, { zIndex: 2, opacity: 1, backgroundColor: "transparent" }]}>
+        {hasBackdrop && backdrop}
         {containerView}
       </View>
     );
@@ -558,24 +578,7 @@ class ReactNativeModal extends Component {
         onRequestClose={onBackButtonPress}
         {...otherProps}
       >
-        {hasBackdrop && (
-          <TouchableWithoutFeedback onPress={onBackdropPress}>
-            <animatable.View
-              ref={ref => (this.backdropRef = ref)}
-              useNativeDriver={true}
-              style={[
-                styles.backdrop,
-                {
-                  backgroundColor: this.state.showContent
-                    ? backdropColor
-                    : "transparent",
-                  width: deviceWidth,
-                  height: deviceHeight
-                }
-              ]}
-            />
-          </TouchableWithoutFeedback>
-        )}
+        {hasBackdrop && backdrop}
 
         {avoidKeyboard && (
           <KeyboardAvoidingView
