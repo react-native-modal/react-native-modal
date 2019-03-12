@@ -1,8 +1,9 @@
 declare module "react-native-modal" {
   import { Component, ReactNode } from "react";
   import { StyleProp, ViewStyle } from "react-native";
+  import { Animation, CustomAnimation } from "react-native-animatable"
 
-  type AnimationConfig = string | { from: Object; to: Object };
+  type AnimationConfig = Animations | CustomAnimation;
   type Orientation =
     | "portrait"
     | "portrait-upside-down"
@@ -28,10 +29,15 @@ declare module "react-native-modal" {
     propagateSwipe?: boolean;
     isVisible: boolean;
     onModalShow?: () => void;
+    onModalWillShow?: () => void;
     onModalHide?: () => void;
+    onModalWillHide?: () => void;
     onBackButtonPress?: () => void;
     onBackdropPress?: () => void;
-    onSwipe?: () => void;
+    onSwipeStart?: () => void;
+    onSwipeMove?: (percentageShown: number) => void;
+    onSwipeComplete?: () => void;
+    onSwipeCancel?: () => void;
     swipeThreshold?: number;
     style?: StyleProp<ViewStyle>;
     swipeDirection?: "up" | "down" | "left" | "right";
