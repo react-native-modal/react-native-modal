@@ -44,6 +44,7 @@ declare module "react-native-modal" {
     scrollTo?: (e: any) => void;
     scrollOffset?: number;
     scrollOffsetMax?: number;
+    scrollHorizontal: boolean,
     supportedOrientations?: Orientation[];
     onDismiss?: () => void;
     onShow?: () => void;
