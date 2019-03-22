@@ -460,12 +460,16 @@ class ReactNativeModal extends Component {
               showContent: false
             },
             () => {
-              this.setState({
-                isVisible: false
-              });
+              this.setState(
+                {
+                  isVisible: false
+                },
+                () => {
+                  this.props.onModalHide();
+                }
+              );
             }
           );
-          this.props.onModalHide();
         }
       });
     }
