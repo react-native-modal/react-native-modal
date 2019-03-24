@@ -31,7 +31,9 @@ declare module "react-native-modal" {
     propagateSwipe?: boolean;
     isVisible: boolean;
     onModalShow?: () => void;
+    onModalWillShow?: () => void;
     onModalHide?: () => void;
+    onModalWillHide?: () => void;
     onBackButtonPress?: () => void;
     onBackdropPress?: () => void;
     onSwipeStart?: () => void;

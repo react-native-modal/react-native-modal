@@ -275,6 +275,11 @@ Enable propagateSwipe to allow your child components to receive swipe events:
 
 Please notice that this is still a WIP fix and might not fix your issue yet, see [issue #236](https://github.com/react-native-community/react-native-modal/issues/236).
 
+### The modal enter/exit animation flickers
+
+Make sure your `animationIn` and `animationOut` are set correctly.  
+We noticed that, for example, using `fadeIn` as an exit animation makes the modal flicker (it should be `fadeOut`!).  
+
 ## Available animations
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
