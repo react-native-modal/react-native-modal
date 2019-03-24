@@ -19,6 +19,8 @@ import styles from "./index.style.js";
 // Override default react-native-animatable animations
 initializeAnimations();
 
+const reversePercentage = x => -(x - 1);
+
 class ReactNativeModal extends Component {
   static propTypes = {
     animationIn: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -118,7 +120,7 @@ class ReactNativeModal extends Component {
 
   isTransitioning = false;
   inSwipeClosingState = false;
-  currentSwipeDirection = null;
+  currentSwipingDirection = null;
 
   constructor(props) {
     super(props);
@@ -243,11 +245,11 @@ class ReactNativeModal extends Component {
           animEvt = this.createAnimationEventForSwipe();
         }
 
-        // Dim the background while swiping the modal
-        const deviceWidth = this.props.deviceWidth || this.state.deviceWidth;
-        const accDistance = this.getAccDistancePerDirection(gestureState);
-        const newOpacityFactor = 1 - accDistance / deviceWidth;
         if (this.isSwipeDirectionAllowed(gestureState)) {
+          // Dim the background while swiping the modal
+          const newOpacityFactor =
+            1 - this.calcDistancePercentage(gestureState);
+
           this.backdropRef &&
             this.backdropRef.transitionTo({
               opacity: this.props.backdropOpacity * newOpacityFactor
@@ -297,10 +299,15 @@ class ReactNativeModal extends Component {
             return;
           }
         }
+
         //Reset backdrop opacity and modal position
         if (this.props.onSwipeCancel) {
           this.props.onSwipeCancel();
         }
+
+        this.backdropRef.transitionTo({
+          opacity: this.props.backdropOpacity
+        });
 
         Animated.spring(this.state.pan, {
           toValue: { x: 0, y: 0 },
@@ -337,6 +344,29 @@ class ReactNativeModal extends Component {
     }
 
     return gestureState.dy > 0 ? "down" : "up";
+  };
+
+  calcDistancePercentage = gestureState => {
+    switch (this.currentSwipingDirection) {
+      case "down":
+        return (
+          (gestureState.moveY - gestureState.y0) /
+          ((this.props.deviceHeight || this.state.deviceHeight) -
+            gestureState.y0)
+        );
+      case "up":
+        return reversePercentage(gestureState.moveY / gestureState.y0);
+      case "left":
+        return reversePercentage(gestureState.moveX / gestureState.x0);
+      case "right":
+        return (
+          (gestureState.moveX - gestureState.x0) /
+          ((this.props.deviceWidth || this.state.deviceWidth) - gestureState.x0)
+        );
+
+      default:
+        return 0;
+    }
   };
 
   createAnimationEventForSwipe = () => {
@@ -577,14 +607,19 @@ class ReactNativeModal extends Component {
       </TouchableWithoutFeedback>
     );
 
-    if (!coverScreen && this.state.isVisible) return (
-      <View
-        pointerEvents="box-none"
-        style={[styles.backdrop, { zIndex: 2, opacity: 1, backgroundColor: "transparent" }]}>
-        {hasBackdrop && backdrop}
-        {containerView}
-      </View>
-    );
+    if (!coverScreen && this.state.isVisible)
+      return (
+        <View
+          pointerEvents="box-none"
+          style={[
+            styles.backdrop,
+            { zIndex: 2, opacity: 1, backgroundColor: "transparent" }
+          ]}
+        >
+          {hasBackdrop && backdrop}
+          {containerView}
+        </View>
+      );
 
     return (
       <Modal
