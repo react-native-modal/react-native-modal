@@ -3,7 +3,7 @@ declare module "react-native-modal" {
   import { StyleProp, ViewStyle } from "react-native";
   import { Animation, CustomAnimation } from "react-native-animatable"
 
-  type AnimationConfig = Animations | CustomAnimation;
+  type AnimationConfig = Animation | CustomAnimation;
   type Orientation =
     | "portrait"
     | "portrait-upside-down"
@@ -46,7 +46,7 @@ declare module "react-native-modal" {
     scrollTo?: (e: any) => void;
     scrollOffset?: number;
     scrollOffsetMax?: number;
-    scrollHorizontal: boolean,
+    scrollHorizontal?: boolean,
     supportedOrientations?: Orientation[];
     onDismiss?: () => void;
     onShow?: () => void;
