@@ -12,3 +12,4 @@ dump.rdb
 yarn.lock
 example/yarn.lock
 example/ios/Pods
+example/Dev.js

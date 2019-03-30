@@ -103,6 +103,8 @@ export default class Example extends Component {
         </Modal>
         <Modal
           isVisible={this.state.visibleModal === 5}
+          onSwipeComplete={() => this.setState({ visibleModal: null })}
+          swipeDirection={["up", "left", "right", "down"]}
           style={styles.bottomModal}>
           {this.renderModalContent()}
         </Modal>
@@ -114,7 +116,7 @@ export default class Example extends Component {
         <Modal
           isVisible={this.state.visibleModal === 7}
           onSwipeComplete={() => this.setState({ visibleModal: null })}
-          swipeDirection="left">
+          swipeDirection={["down"]}>
           {this.renderModalContent()}
         </Modal>
         <Modal

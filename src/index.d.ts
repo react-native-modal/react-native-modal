@@ -3,13 +3,14 @@ declare module "react-native-modal" {
   import { StyleProp, ViewStyle } from "react-native";
   import { Animation, CustomAnimation } from "react-native-animatable"
 
-  type AnimationConfig = Animations | CustomAnimation;
+  type AnimationConfig = Animation | CustomAnimation;
   type Orientation =
     | "portrait"
     | "portrait-upside-down"
     | "landscape"
     | "landscape-left"
     | "landscape-right";
+  type Direction = "up" | "down" | "left" | "right";
 
   export interface ModalProps {
     animationIn?: AnimationConfig;
@@ -18,6 +19,7 @@ declare module "react-native-modal" {
     animationOutTiming?: number;
     avoidKeyboard?: boolean;
     hasBackdrop?: boolean;
+    coverScreen?: boolean;
     backdropColor?: string;
     backdropOpacity?: number;
     backdropTransitionInTiming?: number;
@@ -41,10 +43,11 @@ declare module "react-native-modal" {
     onSwipeCancel?: () => void;
     swipeThreshold?: number;
     style?: StyleProp<ViewStyle>;
-    swipeDirection?: "up" | "down" | "left" | "right";
+    swipeDirection?: Direction | Array<Direction>;
     scrollTo?: (e: any) => void;
     scrollOffset?: number;
     scrollOffsetMax?: number;
+    scrollHorizontal?: boolean,
     supportedOrientations?: Orientation[];
     onDismiss?: () => void;
     onShow?: () => void;
