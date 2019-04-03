@@ -135,7 +135,7 @@ export default class Example extends Component {
               <View style={styles.scrollableModalContent1}>
                 <Text>Scroll me up</Text>
               </View>
-              <View style={styles.scrollableModalContent1}>
+              <View style={styles.scrollableModalContent2}>
                 <Text>Scroll me up</Text>
               </View>
             </ScrollView>
