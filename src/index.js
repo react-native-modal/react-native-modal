@@ -283,9 +283,9 @@ class ReactNativeModal extends Component {
           bounciness: 0
         }).start();
 
-        this.lastScrollOffset = this.props.scrollOffset;
+        this.lastScrollOffset = Math.max(0, this.props.scrollOffset); // ignore negative offset, as it will scroll back to zero
         if (this.props.scrollOffset > this.props.scrollOffsetMax) {
-          this.lastScrollOffset = this.props.scrollOffset;
+          this.lastScrollOffset = this.props.scrollOffsetMax;
           this.props.scrollTo({
             y: this.props.scrollOffsetMax,
             animated: true
