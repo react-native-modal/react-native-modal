@@ -110,6 +110,7 @@ class ReactNativeModal extends Component {
 
   isTransitioning = false;
   inSwipeClosingState = false;
+  lastScrollOffset = 0;
 
   constructor(props) {
     super(props);
@@ -229,18 +230,21 @@ class ReactNativeModal extends Component {
         const deviceWidth = this.props.deviceWidth || this.state.deviceWidth;
         const accDistance = this.getAccDistancePerDirection(gestureState);
         const newOpacityFactor = 1 - accDistance / deviceWidth;
-        if (this.isSwipeDirectionAllowed(gestureState)) {
+        if (
+          this.isSwipeDirectionAllowed(gestureState) &&
+          this.props.scrollOffset <= 0
+        ) {
           this.backdropRef &&
             this.backdropRef.transitionTo({
               opacity: this.props.backdropOpacity * newOpacityFactor
             });
-          animEvt(evt, gestureState);
+          animEvt(evt, { dy: gestureState.dy - this.lastScrollOffset });
           if (this.props.onSwipeMove) {
             this.props.onSwipeMove(newOpacityFactor);
           }
         } else {
           if (this.props.scrollTo) {
-            let offsetY = -gestureState.dy;
+            let offsetY = -gestureState.dy + this.lastScrollOffset;
             if (offsetY > this.props.scrollOffsetMax) {
               offsetY -= (offsetY - this.props.scrollOffsetMax) / 2;
             }
@@ -250,7 +254,7 @@ class ReactNativeModal extends Component {
       },
       onPanResponderRelease: (evt, gestureState) => {
         // Call the onSwipe prop if the threshold has been exceeded
-        const accDistance = this.getAccDistancePerDirection(gestureState);
+        const accDistance = this.getAccDistancePerDirection(gestureState) - this.lastScrollOffset;
         if (accDistance > this.props.swipeThreshold) {
           if (this.props.onSwipeComplete) {
             this.inSwipeClosingState = true;
@@ -278,7 +282,10 @@ class ReactNativeModal extends Component {
           toValue: { x: 0, y: 0 },
           bounciness: 0
         }).start();
+
+        this.lastScrollOffset = this.props.scrollOffset;
         if (this.props.scrollOffset > this.props.scrollOffsetMax) {
+          this.lastScrollOffset = this.props.scrollOffset;
           this.props.scrollTo({
             y: this.props.scrollOffsetMax,
             animated: true
@@ -352,6 +359,8 @@ class ReactNativeModal extends Component {
     if (this.state.isSwipeable) {
       this.state.pan.setValue({ x: 0, y: 0 });
     }
+
+    this.lastScrollOffset = 0;
 
     if (this.contentRef) {
       this.props.onModalWillShow && this.props.onModalWillShow();
