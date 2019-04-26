@@ -121,6 +121,7 @@ class ReactNativeModal extends Component {
   isTransitioning = false;
   inSwipeClosingState = false;
   currentSwipingDirection = null;
+  scrollOffsetWhenTouchStarted = null;
 
   constructor(props) {
     super(props);
@@ -216,6 +217,8 @@ class ReactNativeModal extends Component {
           }
 
           this.currentSwipingDirection = this.getSwipingDirection(gestureState);
+          this.scrollOffsetWhenTouchStarted = this.props.scrollOffset;
+
           animEvt = this.createAnimationEventForSwipe();
           return shouldSetPanResponder;
         }
@@ -231,6 +234,7 @@ class ReactNativeModal extends Component {
         // Cleared so that onPanResponderMove can wait to have some delta
         // to work with
         this.currentSwipingDirection = null;
+        this.scrollOffsetWhenTouchStarted = this.props.scrollOffset;
         return true;
       },
       onPanResponderMove: (evt, gestureState) => {
@@ -251,9 +255,9 @@ class ReactNativeModal extends Component {
             1 - this.calcDistancePercentage(gestureState);
 
           this.backdropRef &&
-            this.backdropRef.transitionTo({
-              opacity: this.props.backdropOpacity * newOpacityFactor
-            });
+          this.backdropRef.transitionTo({
+            opacity: this.props.backdropOpacity * newOpacityFactor
+          });
 
           animEvt(evt, gestureState);
 
@@ -263,14 +267,14 @@ class ReactNativeModal extends Component {
         } else {
           if (this.props.scrollTo) {
             if (this.props.scrollHorizontal) {
-              let offsetX = -gestureState.dx;
+              let offsetX = -gestureState.dx + (this.scrollOffsetWhenTouchStarted || 0);
               if (offsetX > this.props.scrollOffsetMax) {
                 offsetX -= (offsetX - this.props.scrollOffsetMax) / 2;
               }
 
               this.props.scrollTo({ x: offsetX, animated: false });
             } else {
-              let offsetY = -gestureState.dy;
+              let offsetY = -gestureState.dy + (this.scrollOffsetWhenTouchStarted || 0);
               if (offsetY > this.props.scrollOffsetMax) {
                 offsetY -= (offsetY - this.props.scrollOffsetMax) / 2;
               }
@@ -391,6 +395,8 @@ class ReactNativeModal extends Component {
     const draggedUp = dy < 0;
     const draggedLeft = dx < 0;
     const draggedRight = dx > 0;
+
+    console.log(dy, this.currentSwipingDirection);
 
     if (
       this.currentSwipingDirection === "up" &&
