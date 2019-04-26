@@ -541,9 +541,13 @@ class ReactNativeModal extends Component {
     // which is necesseary to aid in reseting scrollOffsetWhenTouchStarted
     // if the user re-opens the modal with a scrollview in it
     if (this.props.scrollTo) {
-      this.props.scrollTo({ y: 0, animated: false });
+      if (this.props.scrollHorizontal) {
+        this.props.scrollTo({ x: 0, animated: false });
+      } else {
+        this.props.scrollTo({ y: 0, animated: false });
+      }
     }
-    
+
     let animationOut = this.animationOut;
 
     if (this.inSwipeClosingState) {
