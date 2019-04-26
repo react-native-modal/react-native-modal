@@ -249,17 +249,26 @@ class ReactNativeModal extends Component {
           animEvt = this.createAnimationEventForSwipe();
         }
 
-        if (this.isSwipeDirectionAllowed(gestureState)) {
+        // needed for when a user switches directions without ending their touch
+        this.currentSwipingDirection = this.getSwipingDirection(gestureState);
+
+        if (this.isSwipeDirectionAllowed(gestureState) && !this.ableToScrollInSwipeDirection()) {
+          const offsetAdjustedGestureState = {
+            ...gestureState,
+            dx: gestureState.dx - (this.scrollOffsetWhenTouchStarted || 0),
+            dy: gestureState.dy - (this.scrollOffsetWhenTouchStarted || 0),
+          };
+
           // Dim the background while swiping the modal
           const newOpacityFactor =
-            1 - this.calcDistancePercentage(gestureState);
+            1 - this.calcDistancePercentage(offsetAdjustedGestureState);
 
           this.backdropRef &&
           this.backdropRef.transitionTo({
             opacity: this.props.backdropOpacity * newOpacityFactor
           });
 
-          animEvt(evt, gestureState);
+          animEvt(evt, offsetAdjustedGestureState);
 
           if (this.props.onSwipeMove) {
             this.props.onSwipeMove(newOpacityFactor);
@@ -317,11 +326,31 @@ class ReactNativeModal extends Component {
           toValue: { x: 0, y: 0 },
           bounciness: 0
         }).start();
+
         if (this.props.scrollOffset > this.props.scrollOffsetMax) {
-          this.props.scrollTo({
-            y: this.props.scrollOffsetMax,
-            animated: true
-          });
+          if (this.props.scrollHorizontal) {
+            this.props.scrollTo({
+              x: this.props.scrollOffsetMax,
+              animated: true
+            })
+          } else {
+            this.props.scrollTo({
+              y: this.props.scrollOffsetMax,
+              animated: true
+            });
+          }
+        } else if (this.props.scrollOffset < 0) {
+          if (this.props.scrollHorizontal) {
+            this.props.scrollTo({
+              x: 0,
+              animated: true,
+            });
+          } else {
+            this.props.scrollTo({
+              y: 0,
+              animated: true,
+            })
+          }
         }
       }
     });
@@ -330,13 +359,13 @@ class ReactNativeModal extends Component {
   getAccDistancePerDirection = gestureState => {
     switch (this.currentSwipingDirection) {
       case "up":
-        return -gestureState.dy;
+        return -gestureState.dy + (this.scrollOffsetWhenTouchStarted || 0);
       case "down":
-        return gestureState.dy;
+        return gestureState.dy - (this.scrollOffsetWhenTouchStarted || 0);
       case "right":
-        return gestureState.dx;
+        return gestureState.dx + (this.scrollOffsetWhenTouchStarted || 0);
       case "left":
-        return -gestureState.dx;
+        return -gestureState.dx - (this.scrollOffsetWhenTouchStarted || 0);
       default:
         return 0;
     }
@@ -384,6 +413,33 @@ class ReactNativeModal extends Component {
     }
   };
 
+  ableToScrollInSwipeDirection = () => {
+    if (!this.props.scrollTo) {
+      return false;
+    }
+
+    switch (this.currentSwipingDirection) {
+      case 'up':
+        return (
+          !this.props.scrollHorizontal &&
+          this.props.scrollOffset < this.props.scrollOffsetMax
+        );
+      case 'down':
+        return !this.props.scrollHorizontal && this.props.scrollOffset > 0;
+      case 'right':
+        return this.props.scrollHorizontal && this.props.scrollOffset > 0;
+      case 'left':
+        return (
+          this.props.scrollHorizontal &&
+          this.props.scrollOffset < this.props.scrollOffsetMax
+        );
+      default:
+        break;
+    }
+
+    return false;
+  };
+
   isDirectionIncluded = direction => {
     return Array.isArray(this.props.swipeDirection)
       ? this.props.swipeDirection.includes(direction)
@@ -395,8 +451,6 @@ class ReactNativeModal extends Component {
     const draggedUp = dy < 0;
     const draggedLeft = dx < 0;
     const draggedRight = dx > 0;
-
-    console.log(dy, this.currentSwipingDirection);
 
     if (
       this.currentSwipingDirection === "up" &&
@@ -483,6 +537,13 @@ class ReactNativeModal extends Component {
       );
     }
 
+    // This function should drive the scrollOffset prop to reset to 0
+    // which is necesseary to aid in reseting scrollOffsetWhenTouchStarted
+    // if the user re-opens the modal with a scrollview in it
+    if (this.props.scrollTo) {
+      this.props.scrollTo({ y: 0, animated: false });
+    }
+    
     let animationOut = this.animationOut;
 
     if (this.inSwipeClosingState) {
