@@ -3,8 +3,6 @@ import * as animatable from 'react-native-animatable';
 
 const { height, width } = Dimensions.get('window');
 
-// Since react-native-animatable applies by default a margin of 100 to its
-// sliding animation, we reset them here overriding the margin to 0.
 export const initializeAnimations = () => {
   const makeSlideTranslation = (translationType, fromValue, toValue) => {
     return {
@@ -16,6 +14,8 @@ export const initializeAnimations = () => {
       },
     };
   };
+  // Since react-native-animatable applies by default a margin of 100 to its
+  // sliding animation, we reset them here overriding the margin to 0.
   const animationDefinitions = {
     slideInDown: makeSlideTranslation('translateY', -height, 0),
     slideInUp: makeSlideTranslation('translateY', height, 0),
