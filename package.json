@@ -10,9 +10,8 @@
   ],
   "scripts": {
     "lint": "eslint src",
-    "test": "npm run lint",
-    "prettier": "prettier --write src/**/*.js",
-    "reset": "watchman watch-del-all && rm -rf node_modules/"
+    "lint:fix": "yarn run lint -- --fix",
+    "test": "yarn run lint"
   },
   "keywords": [
     "react-native",
@@ -37,9 +36,8 @@
     "react-native-animatable": "^1.3.1"
   },
   "devDependencies": {
+    "@react-native-community/eslint-config": "^0.0.3",
     "eslint": "^5.13.0",
-    "eslint-plugin-react-app": "^4.0.1",
-    "prettier": "^1.16.4",
     "react": "16.8.3",
     "react-native": "0.58.5"
   },
