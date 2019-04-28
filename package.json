@@ -4,6 +4,9 @@
   "description": "An enhanced React-Native modal",
   "main": "src/index.js",
   "types": "src/index.d.ts",
+  "files": [
+    "src/"
+  ],
   "scripts": {
     "lint": "eslint src",
     "test": "npm run lint",
