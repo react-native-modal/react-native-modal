@@ -20,9 +20,7 @@ The aim of `react-native-modal` is expanding the original react-native `Modal` c
 ## Demo
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-tips/master/imgs/modal.gif" height="300" />
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/.github/datetimepicker-ios.gif" height="300" />
-<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal/master/.github/example-modal.gif" height="300" />
+<img src="https://raw.githubusercontent.com/mmazzarolo/react-native-modal/master/.github/example-modal.gif" height="500" />
 </p>
 
 <p align="center">
