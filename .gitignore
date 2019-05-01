@@ -2,14 +2,55 @@
 #
 .DS_Store
 
-# Node.js
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+Pods/
+
+# Android/IJ
+#
+.idea
+*.iml
+.gradle
+local.properties
+lib/android/src/main/gen
+
+# node.js
+#
 node_modules/
 npm-debug.log
-jsconfig.json
-dump.rdb
-.vscode
-.idea
-yarn.lock
-example/yarn.lock
-example/ios/Pods
-example/Dev.js
+yarn-error.log
+package-lock.json
+
+# Rubygem bundles
+#
+bundles/
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+android/gradle
+android/gradlew
+android/gradlew.bat
+
+lib/
