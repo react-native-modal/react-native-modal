@@ -5,7 +5,11 @@
 
 An enhanced, animated and customizable react-native modal.
 
-The aim of `react-native-modal` is expanding the original react-native `Modal` component by adding animations and styles customization options while still providing a plain-simple API.
+The goal of `react-native-modal` is expanding the original react-native `Modal` component by adding animations and styles customization options while still providing a plain-simple API.
+
+<p align="center">
+<img src="/.github/example-modal.gif" height="500" />
+</p>
 
 ## Features
 
@@ -16,16 +20,6 @@ The aim of `react-native-modal` is expanding the original react-native `Modal` c
 - Resize itself correctly on device rotation
 - Swipeable
 - Scrollable
-
-## Demo
-
-<p align="center">
-<img src="/.github/example-modal.gif" height="500" />
-</p>
-
-<p align="center">
-  New GIFs of your modal are warmly welcome! Feel free to submit a PR. 🎉
-</p>
 
 ## Setup
 
@@ -84,7 +78,7 @@ Inside the modal there is another button that, when pressed, sets `isModalVisibl
 
 ```javascript
 import React, { Component } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import Modal from "react-native-modal";
 
 export default class ModalTester extends Component {
@@ -92,21 +86,24 @@ export default class ModalTester extends Component {
     isModalVisible: false,
   };
 
-  _toggleModal = () =>
+  toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
+  }
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <TouchableOpacity onPress={this._toggleModal}>
-          <Text>Show Modal</Text>
-        </TouchableOpacity>
+        <Button
+          title="Show modal"
+          onPress={this.toggleModal}
+        />
         <Modal isVisible={this.state.isModalVisible}>
           <View style={{ flex: 1 }}>
             <Text>Hello!</Text>
-            <TouchableOpacity onPress={this._toggleModal}>
-              <Text>Hide me!</Text>
-            </TouchableOpacity>
+            <Button
+              title="Hide modal"
+              onPress={this.toggleModal}
+            />
           </View>
         </Modal>
       </View>
