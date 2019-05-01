@@ -305,9 +305,11 @@ class ReactNativeModal extends Component {
           this.props.onSwipeCancel();
         }
 
-        this.backdropRef.transitionTo({
-          opacity: this.props.backdropOpacity
-        });
+        if (this.backdropRef) {
+          this.backdropRef.transitionTo({
+            opacity: this.props.backdropOpacity
+          });
+        }
 
         Animated.spring(this.state.pan, {
           toValue: { x: 0, y: 0 },
