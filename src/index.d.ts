@@ -28,6 +28,7 @@ declare module "react-native-modal" {
     children: ReactNode;
     deviceHeight?: number;
     deviceWidth?: number;
+    containerWidth?: number;
     hideModalContentWhileAnimating?: boolean;
     propagateSwipe?: boolean;
     isVisible: boolean;
