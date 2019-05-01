@@ -72,7 +72,7 @@ export default class Example extends Component {
         {this.renderButton("Scrollable modal", () =>
           this.setState({ visibleModal: 8 }),
         )}
-        <Modal isVisible={this.state.visibleModal === 1}>
+        <Modal containerWidth={200} isVisible={this.state.visibleModal === 1}>
           {this.renderModalContent()}
         </Modal>
         <Modal

@@ -37,6 +37,7 @@ class ReactNativeModal extends Component {
     children: PropTypes.node.isRequired,
     deviceHeight: PropTypes.number,
     deviceWidth: PropTypes.number,
+    containerWidth: PropTypes.number,
     isVisible: PropTypes.bool.isRequired,
     hideModalContentWhileAnimating: PropTypes.bool,
     propagateSwipe: PropTypes.bool,
@@ -88,6 +89,7 @@ class ReactNativeModal extends Component {
     onModalWillShow: () => null,
     deviceHeight: null,
     deviceWidth: null,
+    containerWidth: null,
     onModalHide: () => null,
     onModalWillHide: () => null,
     isVisible: false,
@@ -519,6 +521,30 @@ class ReactNativeModal extends Component {
     }
   };
 
+  computeContainerWidth = () => {
+    const { deviceWidthProp, containerWidth } = this.props;
+    const deviceWidth = deviceWidthProp || this.state.deviceWidth;
+    if (!containerWidth) {
+      return deviceWidth - deviceWidth * 0.05;
+    }
+    if (containerWidth > deviceWidth) {
+      console.warn(
+        `React-native-modal: containerWidth prop too big, containerWidth set to deviceWidth`
+      );
+      return deviceWidth;
+    }
+    return containerWidth;
+  };
+
+  computeMargin = () => {
+    const { deviceWidthProp, containerWidth } = this.props;
+    const deviceWidth = deviceWidthProp || this.state.deviceWidth;
+    if (!containerWidth) {
+      return deviceWidth * 0.05;
+    }
+    return (deviceWidth - containerWidth) / 2;
+  };
+
   render() {
     const {
       animationIn,
@@ -548,7 +574,11 @@ class ReactNativeModal extends Component {
     const deviceHeight = deviceHeightProp || this.state.deviceHeight;
 
     const computedStyle = [
-      { margin: deviceWidth * 0.05, transform: [{ translateY: 0 }] },
+      {
+        width: this.computeContainerWidth(),
+        margin: this.computeMargin(),
+        transform: [{ translateY: 0 }]
+      },
       styles.content,
       style
     ];
