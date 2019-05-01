@@ -1,4 +1,4 @@
-package com.reactnativemodalexample;
+package com.modalexample;
 
 import android.app.Application;
 
