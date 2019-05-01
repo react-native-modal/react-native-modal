@@ -522,10 +522,13 @@ class ReactNativeModal extends Component {
   };
 
   computeContainerWidth = () => {
-    const { deviceWidthProp, containerWidth } = this.props;
+    const { deviceWidthProp, containerWidth, style } = this.props;
     const deviceWidth = deviceWidthProp || this.state.deviceWidth;
+    if(style && typeof style.margin == 'number') {
+      return deviceWidth - style.margin * 2;
+    }
     if (!containerWidth) {
-      return deviceWidth - deviceWidth * 0.05;
+      return deviceWidth - deviceWidth * 0.05 * 2;
     }
     if (containerWidth > deviceWidth) {
       console.warn(

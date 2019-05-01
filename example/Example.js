@@ -126,6 +126,7 @@ export default class Example extends Component {
           scrollTo={this.handleScrollTo}
           scrollOffset={this.state.scrollOffset}
           scrollOffsetMax={400 - 300} // content height - ScrollView height
+          containerWidth={200}
           style={styles.bottomModal}>
           <View style={styles.scrollableModal}>
             <ScrollView
