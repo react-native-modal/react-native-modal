@@ -83,27 +83,21 @@ import Modal from "react-native-modal";
 
 export default class ModalTester extends Component {
   state = {
-    isModalVisible: false,
+    isModalVisible: false
   };
 
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
-  }
+  };
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Button
-          title="Show modal"
-          onPress={this.toggleModal}
-        />
+        <Button title="Show modal" onPress={this.toggleModal} />
         <Modal isVisible={this.state.isModalVisible}>
           <View style={{ flex: 1 }}>
             <Text>Hello!</Text>
-            <Button
-              title="Hide modal"
-              onPress={this.toggleModal}
-            />
+            <Button title="Hide modal" onPress={this.toggleModal} />
           </View>
         </Modal>
       </View>
@@ -117,7 +111,7 @@ For a more complex example take a look at the `/example` directory.
 ## Available props
 
 | Name                           | Type             | Default                   | Description                                                                                                                                |
-|--------------------------------|------------------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------ | ---------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | animationIn                    | string or object | 'slideInUp'               | Modal show animation                                                                                                                       |
 | animationInTiming              | number           | 300                       | Timing for the modal show animation (in ms)                                                                                                |
 | animationOut                   | string or object | 'slideOutDown'            | Modal hide animation                                                                                                                       |
@@ -152,7 +146,7 @@ For a more complex example take a look at the `/example` directory.
 | useNativeDriver                | bool             | false                     | Defines if animations should use native driver                                                                                             |
 | hideModalContentWhileAnimating | bool             | false                     | Enhances the performance by hiding the modal content until the animations complete                                                         |
 | propagateSwipe                 | bool             | false                     | Allows swipe events to propagate to children components (eg a ScrollView inside a modal)                                                   |
-| style                          | any              | null                      | Style applied to the modal                                                                            
+| style                          | any              | null                      | Style applied to the modal                                                                                                                 |
 
 ## Frequently Asked Questions
 
@@ -195,7 +189,8 @@ The prop `onBackdropPress` allows you to handle this situation:
 ```javascript
 <Modal
   isVisible={this.state.isVisible}
-  onBackdropPress={() => this.setState({ isVisible: false })}>
+  onBackdropPress={() => this.setState({ isVisible: false })}
+>
   <View style={{ flex: 1 }}>
     <Text>I am the modal content!</Text>
   </View>
@@ -210,7 +205,8 @@ The prop `onSwipeComplete` allows you to handle this situation (remember to set 
 <Modal
   isVisible={this.state.isVisible}
   onSwipeComplete={() => this.setState({ isVisible: false })}
-  swipeDirection="left">
+  swipeDirection="left"
+>
   <View style={{ flex: 1 }}>
     <Text>I am the modal content!</Text>
   </View>
@@ -273,7 +269,7 @@ Please notice that this is still a WIP fix and might not fix your issue yet, see
 ### The modal enter/exit animation flickers
 
 Make sure your `animationIn` and `animationOut` are set correctly.  
-We noticed that, for example, using `fadeIn` as an exit animation makes the modal flicker (it should be `fadeOut`!).  
+We noticed that, for example, using `fadeIn` as an exit animation makes the modal flicker (it should be `fadeOut`!).
 
 ## Available animations
 
