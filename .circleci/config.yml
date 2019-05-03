@@ -1,0 +1,63 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10
+
+jobs:
+  setup:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore node modules
+          keys:
+            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: yarn --pure-lockfile
+      - save_cache:
+          name: Save node modules
+          key: node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+  tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore node modules
+          keys:
+            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Run Tests
+          command: yarn test
+
+  publish:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore node modules
+          keys:
+            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Publish to NPM
+          command: yarn run release
+
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - setup
+      - tests:
+          requires:
+            - setup
+      - publish:
+          requires:
+            - tests
+          filters:
+            branches:
+              only: master
