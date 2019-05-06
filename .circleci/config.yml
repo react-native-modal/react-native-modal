@@ -3,31 +3,25 @@ version: 2.1
 orbs:
   rn: react-native-community/react-native@1.1.0
 
-defaults: &defaults
-  docker:
-    - image: circleci/node:10
-
 jobs:
   checkout_code:
-    <<: *defaults
+    executor: rn/linux_js
     steps:
       - checkout
       - persist_to_workspace:
           root: .
           paths: .
-
-  test:
-    <<: *defaults
+  analyse_js:
+    executor: rn/linux_js
     steps:
       - attach_workspace:
           at: .
       - rn/yarn_install
       - run:
-        name: Run Tests
-        command: yarn test
-
+          name: Run ESLint
+          command: yarn eslint
   publish:
-    <<: *defaults
+    executor: rn/linux_js
     steps:
       - attach_workspace:
           at: .
@@ -37,16 +31,15 @@ jobs:
           command: yarn run release
 
 workflows:
-  version: 2
   ci:
     jobs:
       - checkout_code
-      - test:
+      - analyse_js:
           requires:
             - checkout_code
       - publish:
           requires:
-            - test
+            - analyse_js
           filters:
             branches:
               only: master
