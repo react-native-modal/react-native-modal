@@ -15,7 +15,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  
+
   test:
     <<: *defaults
     steps:
@@ -25,7 +25,7 @@ jobs:
       - run:
         name: Run Tests
         command: yarn test
-  
+
   publish:
     <<: *defaults
     steps:
@@ -43,7 +43,7 @@ workflows:
       - checkout_code
       - test:
           requires:
-            - setup
+            - checkout_code
       - publish:
           requires:
             - test
