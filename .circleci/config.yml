@@ -1,48 +1,37 @@
-version: 2
+version: 2.1
+
+orbs:
+  rn: react-native-community/react-native@1.1.0
 
 defaults: &defaults
-  working_directory: ~/repo
   docker:
     - image: circleci/node:10
 
 jobs:
-  setup:
+  checkout_code:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install dependencies
-          command: yarn --pure-lockfile
-      - save_cache:
-          name: Save node modules
-          key: node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-
-  tests:
+      - persist_to_workspace:
+          root: .
+          paths: .
+  
+  test:
     <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
       - run:
-          name: Run Tests
-          command: yarn test
-
+        name: Run Tests
+        command: yarn test
+  
   publish:
     <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
       - run:
           name: Publish to NPM
           command: yarn run release
@@ -51,13 +40,13 @@ workflows:
   version: 2
   ci:
     jobs:
-      - setup
-      - tests:
+      - checkout_code
+      - test:
           requires:
             - setup
       - publish:
           requires:
-            - tests
+            - test
           filters:
             branches:
               only: master
