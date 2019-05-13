@@ -14,7 +14,8 @@
     "start:ios": "react-native run-ios --project-path example/ios",
     "lint": "eslint src",
     "lint:fix": "yarn run lint -- --fix",
-    "test": "yarn run lint"
+    "test": "yarn run lint",
+    "release": "yarn semantic-release"
   },
   "keywords": [
     "react-native",
