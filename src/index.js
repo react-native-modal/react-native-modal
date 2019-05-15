@@ -203,9 +203,12 @@ class ReactNativeModal extends Component {
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
 
+          // The minimum distance a swipe must cover over an axis before it registers as a swipe in that direction
+          const swipeAxisSensitivityThreshold = 30;
+
           if (
-            (['left', 'right'].includes(this.props.swipeDirection) && Math.abs(gestureState.dx) >= 10) ||
-            (['up', 'down'].includes(this.props.swipeDirection) && Math.abs(gestureState.dy) >= 10)
+            (['left', 'right'].includes(this.props.swipeDirection) && Math.abs(gestureState.dx) >= swipeAxisSensitivityThreshold) ||
+            (['up', 'down'].includes(this.props.swipeDirection) && Math.abs(gestureState.dy) >= swipeAxisSensitivityThreshold)
           ) {
 
             if (this.props.onSwipeStart) {
