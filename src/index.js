@@ -202,28 +202,32 @@ class ReactNativeModal extends Component {
 
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        // Use propagateSwipe to allow inner content to scroll. See PR:
-        // https://github.com/react-native-community/react-native-modal/pull/246
-        if (!this.props.propagateSwipe) {
-          // The number "4" is just a good tradeoff to make the panResponder
-          // work correctly even when the modal has touchable buttons.
-          // For reference:
-          // https://github.com/react-native-community/react-native-modal/pull/197
-          const shouldSetPanResponder =
-            Math.abs(gestureState.dx) >= 4 || Math.abs(gestureState.dy) >= 4;
-          if (shouldSetPanResponder && this.props.onSwipeStart) {
-            this.props.onSwipeStart();
+
+          if (
+            (['left', 'right'].includes(this.props.swipeDirection) && Math.abs(gestureState.dx) >= 10) ||
+            (['up', 'down'].includes(this.props.swipeDirection) && Math.abs(gestureState.dy) >= 10)
+          ) {
+
+            if (this.props.onSwipeStart) {
+              this.props.onSwipeStart();
+            }
+
+            this.currentSwipingDirection = this.getSwipingDirection(gestureState);
+            animEvt = this.createAnimationEventForSwipe();
+
+            return true;
+
           }
 
-          this.currentSwipingDirection = this.getSwipingDirection(gestureState);
-          animEvt = this.createAnimationEventForSwipe();
-          return shouldSetPanResponder;
-        }
-      },
+          return false;
+
+        },
       onStartShouldSetPanResponder: () => {
-        if (this.props.scrollTo && this.props.scrollOffset > 0) {
+
+        if (this.props.propagateSwipe || this.props.scrollTo && this.props.scrollOffset > 0) {
           return false; // user needs to be able to scroll content back up
         }
+
         if (this.props.onSwipeStart) {
           this.props.onSwipeStart();
         }
@@ -231,6 +235,7 @@ class ReactNativeModal extends Component {
         // Cleared so that onPanResponderMove can wait to have some delta
         // to work with
         this.currentSwipingDirection = null;
+
         return true;
       },
       onPanResponderMove: (evt, gestureState) => {
