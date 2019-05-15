@@ -207,8 +207,8 @@ class ReactNativeModal extends Component {
           const swipeAxisSensitivityThreshold = 30;
 
           if (
-            (['left', 'right'].includes(this.props.swipeDirection) && Math.abs(gestureState.dx) >= swipeAxisSensitivityThreshold) ||
-            (['up', 'down'].includes(this.props.swipeDirection) && Math.abs(gestureState.dy) >= swipeAxisSensitivityThreshold)
+            ((this.props.swipeDirection === 'left' || this.props.swipeDirection === 'right') && Math.abs(gestureState.dx) >= swipeAxisSensitivityThreshold) ||
+            ((this.props.swipeDirection === 'up' || this.props.swipeDirection === 'down') && Math.abs(gestureState.dy) >= swipeAxisSensitivityThreshold)
           ) {
 
             if (this.props.onSwipeStart) {
