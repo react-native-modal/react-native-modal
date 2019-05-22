@@ -8,7 +8,7 @@ An enhanced, animated and customizable react-native modal.
 The goal of `react-native-modal` is expanding the original react-native `Modal` component by adding animations and styles customization options while still providing a plain-simple API.
 
 <p align="center">
-<img src="/.github/example-modal.gif" height="500" />
+<img src="/.github/images/example-modal.gif" height="500" />
 </p>
 
 ## Features
