@@ -270,6 +270,7 @@ Please notice that this is still a WIP fix and might not fix your issue yet, see
 
 Make sure your `animationIn` and `animationOut` are set correctly.  
 We noticed that, for example, using `fadeIn` as an exit animation makes the modal flicker (it should be `fadeOut`!).
+Also, some users have noticed that setting backdropTransitionOutTiming={0} can fix the flicker without affecting the animation.
 
 ## Available animations
 
