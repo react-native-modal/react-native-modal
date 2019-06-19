@@ -11,6 +11,11 @@ declare module "react-native-modal" {
     | "landscape-left"
     | "landscape-right";
   type Direction = "up" | "down" | "left" | "right";
+  interface CustomBackdropProps {
+    style: {
+      flex: number,
+    };
+  }
 
   export interface ModalProps {
     animationIn?: AnimationConfig;
@@ -24,6 +29,7 @@ declare module "react-native-modal" {
     backdropOpacity?: number;
     backdropTransitionInTiming?: number;
     backdropTransitionOutTiming?: number;
+    customBackdrop?: (backdropProps: CustomBackdropProps) => ReactNode;
     useNativeDriver?: boolean;
     children: ReactNode;
     deviceHeight?: number;
