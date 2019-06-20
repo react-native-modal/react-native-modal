@@ -154,13 +154,13 @@ export default class Example extends Component {
         </Modal>
         <Modal
           isVisible={this.state.visibleModal === 'customBackdrop'}
-          customBackdrop={backdropProps => (
-            <SafeAreaView style={[styles.customBackdrop, backdropProps.style]}>
+          customBackdrop={
+            <SafeAreaView style={styles.customBackdrop}>
               <Text style={styles.customBackdropText}>
                 I'm in the backdrop! 👋
               </Text>
             </SafeAreaView>
-          )}
+          }
         >
           {this.renderModalContent()}
         </Modal>
@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   customBackdrop: {
+    flex: 1,
     backgroundColor: '#87BBE0',
     alignItems: 'center',
   },
