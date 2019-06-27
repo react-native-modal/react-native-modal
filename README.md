@@ -123,6 +123,7 @@ For a more complex example take a look at the `/example` directory.
 | backdropOpacity                | number           | 0.70                      | The backdrop opacity when the modal is visible                                                                                             |
 | backdropTransitionInTiming     | number           | 300                       | The backdrop show timing (in ms)                                                                                                           |
 | backdropTransitionOutTiming    | number           | 300                       | The backdrop hide timing (in ms)                                                                                                           |
+| customBackdrop                 | node             | null                      | The custom backdrop element                                                                                                                |
 | children                       | node             | **REQUIRED**              | The modal content                                                                                                                          |
 | deviceHeight                   | number           | null                      | Device height (useful on devices that can hide the navigation bar)                                                                         |
 | deviceWidth                    | number           | null                      | Device width (useful on devices that can hide the navigation bar)                                                                          |
@@ -271,6 +272,21 @@ Please notice that this is still a WIP fix and might not fix your issue yet, see
 Make sure your `animationIn` and `animationOut` are set correctly.  
 We noticed that, for example, using `fadeIn` as an exit animation makes the modal flicker (it should be `fadeOut`!).
 Also, some users have noticed that setting backdropTransitionOutTiming={0} can fix the flicker without affecting the animation.
+
+### The custom backdrop doesn't fill the entire screen
+
+You need to specify the size of your custom backdrop component. You can also make it expand to fill the entire screen by adding a `flex: 1` to its style:
+
+```javascript
+<Modal
+  isVisible={this.state.isVisible}
+  customBackdrop={<View style={{ flex: 1 }} />}
+>
+  <View style={{ flex: 1 }}>
+    <Text>I am the modal content!</Text>
+  </View>
+</Modal>
+```
 
 ## Available animations
 

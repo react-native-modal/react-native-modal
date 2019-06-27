@@ -34,6 +34,7 @@ class ReactNativeModal extends Component {
     backdropOpacity: PropTypes.number,
     backdropTransitionInTiming: PropTypes.number,
     backdropTransitionOutTiming: PropTypes.number,
+    customBackdrop: PropTypes.node,
     children: PropTypes.node.isRequired,
     deviceHeight: PropTypes.number,
     deviceWidth: PropTypes.number,
@@ -84,6 +85,7 @@ class ReactNativeModal extends Component {
     backdropOpacity: 0.7,
     backdropTransitionInTiming: 300,
     backdropTransitionOutTiming: 300,
+    customBackdrop: null,
     onModalShow: () => null,
     onModalWillShow: () => null,
     deviceHeight: null,
@@ -538,6 +540,7 @@ class ReactNativeModal extends Component {
       backdropOpacity,
       backdropTransitionInTiming,
       backdropTransitionOutTiming,
+      customBackdrop,
       children,
       deviceHeight: deviceHeightProp,
       deviceWidth: deviceWidthProp,
@@ -594,6 +597,7 @@ class ReactNativeModal extends Component {
       </animatable.View>
     );
 
+    const hasCustomBackdrop = React.isValidElement(customBackdrop);
     const backdrop = (
       <TouchableWithoutFeedback onPress={onBackdropPress}>
         <animatable.View
@@ -602,14 +606,19 @@ class ReactNativeModal extends Component {
           style={[
             styles.backdrop,
             {
-              backgroundColor: this.state.showContent
-                ? backdropColor
-                : 'transparent',
               width: deviceWidth,
               height: deviceHeight,
             },
+            {
+              backgroundColor:
+                this.state.showContent && !hasCustomBackdrop
+                  ? backdropColor
+                  : 'transparent',
+            },
           ]}
-        />
+        >
+          {hasCustomBackdrop && customBackdrop}
+        </animatable.View>
       </TouchableWithoutFeedback>
     );
 

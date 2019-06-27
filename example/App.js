@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, Button, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  Button,
+  View,
+  SafeAreaView,
+} from 'react-native';
 import Modal from 'react-native-modal';
 
 export default class Example extends Component {
@@ -63,6 +70,10 @@ export default class Example extends Component {
         <Button
           onPress={() => this.setState({ visibleModal: 'scrollable' })}
           title="Scrollable"
+        />
+        <Button
+          onPress={() => this.setState({ visibleModal: 'customBackdrop' })}
+          title="Custom backdrop"
         />
         <Modal isVisible={this.state.visibleModal === 'default'}>
           {this.renderModalContent()}
@@ -141,6 +152,18 @@ export default class Example extends Component {
             </ScrollView>
           </View>
         </Modal>
+        <Modal
+          isVisible={this.state.visibleModal === 'customBackdrop'}
+          customBackdrop={
+            <SafeAreaView style={styles.customBackdrop}>
+              <Text style={styles.customBackdropText}>
+                I'm in the backdrop! 👋
+              </Text>
+            </SafeAreaView>
+          }
+        >
+          {this.renderModalContent()}
+        </Modal>
       </View>
     );
   }
@@ -191,5 +214,14 @@ const styles = StyleSheet.create({
   scrollableModalText2: {
     fontSize: 20,
     color: 'white',
+  },
+  customBackdrop: {
+    flex: 1,
+    backgroundColor: '#87BBE0',
+    alignItems: 'center',
+  },
+  customBackdropText: {
+    marginTop: 10,
+    fontSize: 17,
   },
 });
