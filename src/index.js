@@ -291,7 +291,9 @@ class ReactNativeModal extends Component {
         ) {
           if (this.props.onSwipeComplete) {
             this.inSwipeClosingState = true;
-            this.props.onSwipeComplete();
+            this.props.onSwipeComplete({
+              swipingDirection: this.getSwipingDirection(gestureState),
+            });
             return;
           }
           // Deprecated. Remove later.
