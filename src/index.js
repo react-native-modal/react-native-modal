@@ -106,6 +106,13 @@ class ReactNativeModal extends Component {
     supportedOrientations: ['portrait', 'landscape'],
   };
 
+  static getDerivedStateFromProps(nextProps,state){
+    if (!state.isVisible && nextProps.isVisible) {
+      return { isVisible: true, showContent: true };
+    }
+    return null;
+  }
+
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
   // the modal visible during the exit animation, even if the user has already change the
   // isVisible prop to false.
@@ -142,11 +149,7 @@ class ReactNativeModal extends Component {
     }
   }
 
-  // TODO: Stop using componentWillReceiveProps
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!this.state.isVisible && nextProps.isVisible) {
-      this.setState({ isVisible: true, showContent: true });
-    }
+  componentDidUpdate(nextProps){
     if (
       this.props.animationIn !== nextProps.animationIn ||
       this.props.animationOut !== nextProps.animationOut
