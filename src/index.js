@@ -626,7 +626,7 @@ class ReactNativeModal extends Component {
       </animatable.View>
     )
 
-    const touchableBackDrop = (
+    const touchableBackdrop = (
       <TouchableWithoutFeedback onPress={onBackdropPress}>
           { backdrop }
       </TouchableWithoutFeedback>
