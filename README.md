@@ -288,6 +288,22 @@ You need to specify the size of your custom backdrop component. You can also mak
 </Modal>
 ```
 
+### The custom backdrop doesn't dismiss the modal on press
+
+You can provide an event handler to the custom backdrop element to dismiss the modal. The prop `onBackdropPress` is not supported for a custom backdrop.
+
+```javascript
+<Modal
+  isVisible={this.state.isVisible}
+  customBackdrop={
+    <TouchableWithoutFeedback onPress={dismissModalHandler}>
+      <View style={{ flex: 1 }} />
+    </TouchableWithoutFeedback>
+  }
+/>
+
+```
+
 ## Available animations
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
