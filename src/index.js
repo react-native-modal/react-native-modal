@@ -603,8 +603,8 @@ class ReactNativeModal extends Component {
     );
 
     const hasCustomBackdrop = React.isValidElement(customBackdrop);
-    
-    const backdrop = (
+
+    const backdropContent = (
       <animatable.View
         ref={ref => (this.backdropRef = ref)}
         useNativeDriver={useNativeDriver}
@@ -624,13 +624,20 @@ class ReactNativeModal extends Component {
       >
         {hasCustomBackdrop && customBackdrop}
       </animatable.View>
-    )
-
-    const touchableBackdrop = (
-      <TouchableWithoutFeedback onPress={onBackdropPress}>
-          { backdrop }
-      </TouchableWithoutFeedback>
     );
+
+    let backdrop = null;
+    if (hasCustomBackdrop) {
+      backdrop = backdropContent;
+    } else {
+      // If there's no custom backdrop, handle presses with
+      // TouchableWithoutFeedback
+      backdrop = (
+        <TouchableWithoutFeedback onPress={onBackdropPress}>
+          {backdropContent}
+        </TouchableWithoutFeedback>
+      );
+    }
 
     if (!coverScreen && this.state.isVisible) {
       return (
@@ -641,8 +648,7 @@ class ReactNativeModal extends Component {
             { zIndex: 2, opacity: 1, backgroundColor: 'transparent' },
           ]}
         >
-          {!hasCustomBackdrop && hasBackdrop && touchableBackdrop}
-          {hasCustomBackdrop && hasBackdrop && backdrop}
+          {hasBackdrop && backdrop}
           {containerView}
         </View>
       );
