@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  rn: react-native-community/react-native@1.1.0
+  rn: react-native-community/react-native@1.2.1
 
 jobs:
   checkout_code:
@@ -19,7 +19,7 @@ jobs:
       - rn/yarn_install
       - run:
           name: Run ESLint
-          command: yarn eslint
+          command: yarn lint
   publish:
     executor: rn/linux_js
     steps:
@@ -28,7 +28,7 @@ jobs:
       - rn/yarn_install
       - run:
           name: Publish to NPM
-          command: yarn run release
+          command: yarn release
 
 workflows:
   ci:
