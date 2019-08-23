@@ -1,7 +1,7 @@
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 import * as animatable from 'react-native-animatable';
 
-const { height, width } = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
 
 export const initializeAnimations = () => {
   const makeSlideTranslation = (translationType, fromValue, toValue) => {
@@ -31,7 +31,7 @@ export const initializeAnimations = () => {
 
 // User can define custom react-native-animatable animations, see PR #72
 // Utility for creating our own custom react-native-animatable animations
-export const buildAnimations = ({ animationIn, animationOut }) => {
+export const buildAnimations = ({animationIn, animationOut}) => {
   let updatedAnimationIn = animationIn;
   let updatedAnimationOut = animationOut;
 
