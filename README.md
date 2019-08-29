@@ -23,7 +23,7 @@ The goal of `react-native-modal` is expanding the original react-native `Modal` 
 
 ## Setup
 
-This library is available on npm, install it with: `npm install --save react-native-modal` or `yarn add react-native-modal`.
+This library is available on npm, install it with: `npm i react-native-modal` or `yarn add react-native-modal`.
 
 ## Usage
 
