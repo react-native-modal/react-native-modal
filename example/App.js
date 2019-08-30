@@ -18,6 +18,7 @@ export default class Example extends Component {
     <View style={styles.content}>
       <Text style={styles.contentTitle}>Hi 👋!</Text>
       <Button
+        testID={"all-modal-close-button"}
         onPress={() => this.setState({ visibleModal: null })}
         title="Close"
       />
@@ -40,45 +41,55 @@ export default class Example extends Component {
     return (
       <View style={styles.container} testID={"welcome"}>
         <Button
+          testID={"default-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'default' })}
           title="Default"
         />
         <Button
+          testID={"slide-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'sliding' })}
           title="Sliding from the sides"
         />
         <Button
+          testID={"slow-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'slow' })}
           title="Sloooow"
         />
         <Button
+          testID={"fancy-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'fancy' })}
           title="Fancy!"
         />
         <Button
+          testID={"bottom-half-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'bottom' })}
           title="Bottom half"
         />
         <Button
+          testID={"backdrop-close-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'backdropPress' })}
           title="Close on backdrop press"
         />
         <Button
+          testID={"swipeable-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'swipeable' })}
           title="Swipeable"
         />
         <Button
+          testID={"scrollable-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'scrollable' })}
           title="Scrollable"
         />
         <Button
+          testID={"custom-backdrop-modal-open-button"}
           onPress={() => this.setState({ visibleModal: 'customBackdrop' })}
           title="Custom backdrop"
         />
-        <Modal isVisible={this.state.visibleModal === 'default'}>
+        <Modal testID={"default-modal"} isVisible={this.state.visibleModal === 'default'}>
           {this.renderModalContent()}
         </Modal>
         <Modal
+          testID={"slide-modal"}
           isVisible={this.state.visibleModal === 'sliding'}
           animationIn="slideInLeft"
           animationOut="slideOutRight"
@@ -86,6 +97,7 @@ export default class Example extends Component {
           {this.renderModalContent()}
         </Modal>
         <Modal
+          testID={"slow-modal"}
           isVisible={this.state.visibleModal === 'slow'}
           animationInTiming={1000}
           animationOutTiming={1000}
@@ -95,6 +107,7 @@ export default class Example extends Component {
           {this.renderModalContent()}
         </Modal>
         <Modal
+          testID={"fancy-modal"}
           isVisible={this.state.visibleModal === 'fancy'}
           backdropColor="#B4B3DB"
           backdropOpacity={0.8}
@@ -108,6 +121,7 @@ export default class Example extends Component {
           {this.renderModalContent()}
         </Modal>
         <Modal
+          testID={"bottom-half-modal"}
           isVisible={this.state.visibleModal === 'bottom'}
           onSwipeComplete={() => this.setState({ visibleModal: null })}
           swipeDirection={['up', 'left', 'right', 'down']}
@@ -116,12 +130,14 @@ export default class Example extends Component {
           {this.renderModalContent()}
         </Modal>
         <Modal
+          testID={"backdrop-close-modal"}
           isVisible={this.state.visibleModal === 'backdropPress'}
           onBackdropPress={() => this.setState({ visibleModal: null })}
         >
           {this.renderModalContent()}
         </Modal>
         <Modal
+          testID={"swipeable-modal"}
           isVisible={this.state.visibleModal === 'swipeable'}
           onSwipeComplete={() => this.setState({ visibleModal: null })}
           swipeDirection={['down']}
@@ -129,6 +145,7 @@ export default class Example extends Component {
           {this.renderModalContent()}
         </Modal>
         <Modal
+          testID={"scrollable-modal"}
           isVisible={this.state.visibleModal === 'scrollable'}
           onSwipeComplete={() => this.setState({ visibleModal: null })}
           swipeDirection="down"
@@ -153,6 +170,7 @@ export default class Example extends Component {
           </View>
         </Modal>
         <Modal
+          testID={"custom-backdrop-modal"}
           isVisible={this.state.visibleModal === 'customBackdrop'}
           customBackdrop={
             <SafeAreaView style={styles.customBackdrop}>
