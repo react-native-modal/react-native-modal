@@ -37,6 +37,25 @@ workflows:
       - analyse_js:
           requires:
             - checkout_code
+      - rn/android_build:
+          name: build_android_release
+          project_path: "example/android"
+          build_type: release
+          requires:
+            - analyse_js
+      - rn/android_test:
+          detox_configuration: "android.emu.release"
+          requires:
+            - build_android_release
+      - rn/ios_build_and_test:
+          project_path: "example/ios/ModalExample.xcodeproj"
+          derived_data_path: "example/ios/build"
+          device: "iPhone 8"
+          build_configuration: "Release"
+          scheme: "ModalExample"
+          detox_configuration: "ios.sim.release"
+          requires:
+            - analyse_js
       - publish:
           requires:
             - analyse_js

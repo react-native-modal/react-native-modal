@@ -38,7 +38,7 @@ export default class Example extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} testID={"welcome"}>
         <Button
           onPress={() => this.setState({ visibleModal: 'default' })}
           title="Default"
