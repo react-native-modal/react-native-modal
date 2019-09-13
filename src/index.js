@@ -9,6 +9,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   View,
+  ScrollView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
@@ -666,11 +667,17 @@ class ReactNativeModal extends Component {
 
         {avoidKeyboard && (
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : null}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             pointerEvents="box-none"
             style={computedStyle.concat([{ margin: 0 }])}
           >
-            {containerView}
+            {Platform.OS === 'android' ? (
+              <ScrollView showsVerticalScrollIndicator={false}>
+                {containerView}
+              </ScrollView>
+            ) : (
+              containerView
+            )}
           </KeyboardAvoidingView>
         )}
 
