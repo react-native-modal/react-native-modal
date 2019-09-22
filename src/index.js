@@ -106,7 +106,7 @@ class ReactNativeModal extends Component {
     supportedOrientations: ['portrait', 'landscape'],
   };
 
-  static getDerivedStateFromProps(nextProps,state){
+  static getDerivedStateFromProps(nextProps, state) {
     if (!state.isVisible && nextProps.isVisible) {
       return { isVisible: true, showContent: true };
     }
@@ -149,26 +149,6 @@ class ReactNativeModal extends Component {
     }
   }
 
-  componentDidUpdate(nextProps){
-    if (
-      this.props.animationIn !== nextProps.animationIn ||
-      this.props.animationOut !== nextProps.animationOut
-    ) {
-      const { animationIn, animationOut } = buildAnimations(nextProps);
-      this.animationIn = animationIn;
-      this.animationOut = animationOut;
-    }
-    if (
-      this.props.backdropOpacity !== nextProps.backdropOpacity &&
-      this.backdropRef
-    ) {
-      this.backdropRef.transitionTo(
-        { opacity: nextProps.backdropOpacity },
-        this.props.backdropTransitionInTiming
-      );
-    }
-  }
-
   componentDidMount() {
     // Show deprecation message
     if (this.props.onSwipe) {
@@ -176,13 +156,13 @@ class ReactNativeModal extends Component {
         '`<Modal onSwipe="..." />` is deprecated. Use `<Modal onSwipeComplete="..." />` instead.'
       );
     }
-    if (this.state.isVisible) {
-      this.open();
-    }
     DeviceEventEmitter.addListener(
       'didUpdateDimensions',
       this.handleDimensionsUpdate
     );
+    if (this.state.isVisible) {
+      this.open();
+    }
   }
 
   componentWillUnmount() {
@@ -193,6 +173,26 @@ class ReactNativeModal extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // If the animations have been changed then rebuild them to make sure we're
+    // using the most up-to-date ones
+    if (
+      this.props.animationIn !== prevProps.animationIn ||
+      this.props.animationOut !== prevProps.animationOut
+    ) {
+      const { animationIn, animationOut } = buildAnimations(this.props);
+      this.animationIn = animationIn;
+      this.animationOut = animationOut;
+    }
+    // If backdrop opacity has been changed then make sure to update it
+    if (
+      this.props.backdropOpacity !== prevProps.backdropOpacity &&
+      this.backdropRef
+    ) {
+      this.backdropRef.transitionTo(
+        { opacity: this.props.backdropOpacity },
+        this.props.backdropTransitionInTiming
+      );
+    }
     // On modal open request, we slide the view up and fade in the backdrop
     if (this.props.isVisible && !prevProps.isVisible) {
       this.open();
@@ -613,8 +613,6 @@ class ReactNativeModal extends Component {
           {
             width: deviceWidth,
             height: deviceHeight,
-          },
-          {
             backgroundColor:
               this.state.showContent && !hasCustomBackdrop
                 ? backdropColor
