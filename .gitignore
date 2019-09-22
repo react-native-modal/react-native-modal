@@ -20,16 +20,15 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-project.xcworkspace
-Pods/
+xcshareddata
 
-# Android/IJ
+# Android/IntelliJ
 #
+build/
 .idea
-*.iml
 .gradle
 local.properties
-lib/android/src/main/gen
+*.iml
 
 # node.js
 #
@@ -38,9 +37,11 @@ npm-debug.log
 yarn-error.log
 package-lock.json
 
-# Rubygem bundles
-#
-bundles/
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
 
 # VS Code
 .vscode/*
@@ -48,9 +49,3 @@ bundles/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-android/gradle
-android/gradlew
-android/gradlew.bat
-
-lib/
