@@ -21,6 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 xcshareddata
+contents.xcworkspacedata
 
 # Android/IntelliJ
 #
@@ -49,3 +50,4 @@ buck-out/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+

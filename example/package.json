@@ -9,8 +9,8 @@
     "postinstall": "node ../scripts/examples_postinstall.js"
   },
   "dependencies": {
-    "react": "16.8.6",
-    "react-native": "0.60.5",
+    "react": "^16.9.0",
+    "react-native": "0.61.0",
     "react-native-modal": "file:../"
   },
   "devDependencies": {
