@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {ReactNode} from 'react';
 import {
   Animated,
   DeviceEventEmitter,
@@ -6,22 +6,33 @@ import {
   KeyboardAvoidingView,
   Modal,
   PanResponder,
+  PanResponderInstance,
   Platform,
+  StyleProp,
   TouchableWithoutFeedback,
   View,
+  ViewStyle,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
-import {initializeAnimations, buildAnimations} from './utils';
 
-import styles from './index.style.js';
+import {
+  initializeAnimations,
+  buildAnimations,
+  reversePercentage,
+} from './utils';
+import styles from './index.style';
+import {ModalProps} from './types';
 
 // Override default react-native-animatable animations
 initializeAnimations();
 
-const reversePercentage = x => -(x - 1);
+const extractAnimationFromProps = (props: ModalProps) => ({
+  animationIn: props.animationIn,
+  animationOut: props.animationOut,
+});
 
-class ReactNativeModal extends Component {
+class ReactNativeModal extends React.Component<ModalProps> {
   static propTypes = {
     animationIn: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationInTiming: PropTypes.number,
@@ -94,7 +105,7 @@ class ReactNativeModal extends Component {
     onModalWillHide: () => null,
     isVisible: false,
     hideModalContentWhileAnimating: false,
-    propagateSwipe: PropTypes.false,
+    propagateSwipe: false,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
     swipeThreshold: 100,
@@ -131,16 +142,26 @@ class ReactNativeModal extends Component {
   inSwipeClosingState = false;
   currentSwipingDirection = null;
 
-  constructor(props) {
+  animationIn: string;
+  animationOut: string;
+  backdropRef: any;
+  contentRef: any;
+  panResponder: PanResponderInstance;
+
+  constructor(props: ModalProps) {
     super(props);
-    const {animationIn, animationOut} = buildAnimations(props);
+    const {animationIn, animationOut} = buildAnimations(
+      extractAnimationFromProps(props),
+    );
+
     this.animationIn = animationIn;
     this.animationOut = animationOut;
+
     if (this.state.isSwipeable) {
       this.state = {...this.state, pan: new Animated.ValueXY()};
       this.buildPanResponder();
     }
-    if (this.props.isVisible) {
+    if (props.isVisible) {
       this.state = {
         ...this.state,
         isVisible: true,
@@ -151,9 +172,9 @@ class ReactNativeModal extends Component {
 
   componentDidMount() {
     // Show deprecation message
-    if (this.props.onSwipe) {
+    if ((this.props as any).onSwipe) {
       console.warn(
-        '`<Modal onSwipe="..." />` is deprecated. Use `<Modal onSwipeComplete="..." />` instead.',
+        '`<Modal onSwipe="..." />` is deprecated and will be removed starting from 13.0.0. Use `<Modal onSwipeComplete="..." />` instead.',
       );
     }
     DeviceEventEmitter.addListener(
@@ -179,7 +200,9 @@ class ReactNativeModal extends Component {
       this.props.animationIn !== prevProps.animationIn ||
       this.props.animationOut !== prevProps.animationOut
     ) {
-      const {animationIn, animationOut} = buildAnimations(this.props);
+      const {animationIn, animationOut} = buildAnimations(
+        extractAnimationFromProps(this.props),
+      );
       this.animationIn = animationIn;
       this.animationOut = animationOut;
     }
@@ -300,9 +323,9 @@ class ReactNativeModal extends Component {
             return;
           }
           // Deprecated. Remove later.
-          if (this.props.onSwipe) {
+          if ((this.props as any).onSwipe) {
             this.inSwipeClosingState = true;
-            this.props.onSwipe();
+            (this.props as any).onSwipe();
             return;
           }
         }

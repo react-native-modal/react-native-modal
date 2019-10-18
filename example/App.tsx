@@ -7,13 +7,22 @@ import {
   View,
   SafeAreaView,
 } from 'react-native';
+
+// @ts-ignore
 import Modal from 'react-native-modal';
 
-export default class Example extends Component {
+type State = {
+  visibleModal: string | null;
+  scrollOffset: number | null;
+};
+
+export default class Example extends Component<any, State> {
   state = {
-    visibleModalId: null,
+    visibleModal: null,
+    scrollOffset: null,
   };
 
+  scrollViewRef: any;
   renderModalContent = () => (
     <View style={styles.content}>
       <Text style={styles.contentTitle}>Hi 👋!</Text>
