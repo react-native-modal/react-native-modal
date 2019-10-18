@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -26,7 +18,7 @@ export default class Example extends Component {
     <View style={styles.content}>
       <Text style={styles.contentTitle}>Hi 👋!</Text>
       <Button
-        onPress={() => this.setState({ visibleModal: null })}
+        onPress={() => this.setState({visibleModal: null})}
         title="Close"
       />
     </View>
@@ -48,39 +40,39 @@ export default class Example extends Component {
     return (
       <View style={styles.container}>
         <Button
-          onPress={() => this.setState({ visibleModal: 'default' })}
+          onPress={() => this.setState({visibleModal: 'default'})}
           title="Default"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'sliding' })}
+          onPress={() => this.setState({visibleModal: 'sliding'})}
           title="Sliding from the sides"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'slow' })}
+          onPress={() => this.setState({visibleModal: 'slow'})}
           title="Sloooow"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'fancy' })}
+          onPress={() => this.setState({visibleModal: 'fancy'})}
           title="Fancy!"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'bottom' })}
+          onPress={() => this.setState({visibleModal: 'bottom'})}
           title="Bottom half"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'backdropPress' })}
+          onPress={() => this.setState({visibleModal: 'backdropPress'})}
           title="Close on backdrop press"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'swipeable' })}
+          onPress={() => this.setState({visibleModal: 'swipeable'})}
           title="Swipeable"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'scrollable' })}
+          onPress={() => this.setState({visibleModal: 'scrollable'})}
           title="Scrollable"
         />
         <Button
-          onPress={() => this.setState({ visibleModal: 'customBackdrop' })}
+          onPress={() => this.setState({visibleModal: 'customBackdrop'})}
           title="Custom backdrop"
         />
         <Modal isVisible={this.state.visibleModal === 'default'}>
@@ -89,8 +81,7 @@ export default class Example extends Component {
         <Modal
           isVisible={this.state.visibleModal === 'sliding'}
           animationIn="slideInLeft"
-          animationOut="slideOutRight"
-        >
+          animationOut="slideOutRight">
           {this.renderModalContent()}
         </Modal>
         <Modal
@@ -98,8 +89,7 @@ export default class Example extends Component {
           animationInTiming={1000}
           animationOutTiming={1000}
           backdropTransitionInTiming={800}
-          backdropTransitionOutTiming={800}
-        >
+          backdropTransitionOutTiming={800}>
           {this.renderModalContent()}
         </Modal>
         <Modal
@@ -111,51 +101,49 @@ export default class Example extends Component {
           animationInTiming={600}
           animationOutTiming={600}
           backdropTransitionInTiming={600}
-          backdropTransitionOutTiming={600}
-        >
+          backdropTransitionOutTiming={600}>
           {this.renderModalContent()}
         </Modal>
         <Modal
           isVisible={this.state.visibleModal === 'bottom'}
-          onSwipeComplete={() => this.setState({ visibleModal: null })}
+          onSwipeComplete={() => this.setState({visibleModal: null})}
           swipeDirection={['up', 'left', 'right', 'down']}
-          style={styles.bottomModal}
-        >
+          style={styles.bottomModal}>
           {this.renderModalContent()}
         </Modal>
         <Modal
           isVisible={this.state.visibleModal === 'backdropPress'}
-          onBackdropPress={() => this.setState({ visibleModal: null })}
-        >
+          onBackdropPress={() => this.setState({visibleModal: null})}>
           {this.renderModalContent()}
         </Modal>
         <Modal
           isVisible={this.state.visibleModal === 'swipeable'}
-          onSwipeComplete={() => this.setState({ visibleModal: null })}
-          swipeDirection={['down']}
-        >
+          onSwipeComplete={() => this.setState({visibleModal: null})}
+          swipeDirection={['down']}>
           {this.renderModalContent()}
         </Modal>
         <Modal
           isVisible={this.state.visibleModal === 'scrollable'}
-          onSwipeComplete={() => this.setState({ visibleModal: null })}
+          onSwipeComplete={() => this.setState({visibleModal: null})}
           swipeDirection="down"
           scrollTo={this.handleScrollTo}
           scrollOffset={this.state.scrollOffset}
           scrollOffsetMax={400 - 300} // content height - ScrollView height
-          style={styles.bottomModal}
-        >
+          style={styles.bottomModal}>
           <View style={styles.scrollableModal}>
             <ScrollView
               ref={ref => (this.scrollViewRef = ref)}
               onScroll={this.handleOnScroll}
-              scrollEventThrottle={16}
-            >
+              scrollEventThrottle={16}>
               <View style={styles.scrollableModalContent1}>
-                <Text style={styles.scrollableModalText1}>You can scroll me up! 👆</Text>
+                <Text style={styles.scrollableModalText1}>
+                  You can scroll me up! 👆
+                </Text>
               </View>
               <View style={styles.scrollableModalContent2}>
-                <Text style={styles.scrollableModalText2}>Same here as well! ☝</Text>
+                <Text style={styles.scrollableModalText2}>
+                  Same here as well! ☝
+                </Text>
               </View>
             </ScrollView>
           </View>
@@ -168,8 +156,7 @@ export default class Example extends Component {
                 I'm in the backdrop! 👋
               </Text>
             </SafeAreaView>
-          }
-        >
+          }>
           {this.renderModalContent()}
         </Modal>
       </View>
