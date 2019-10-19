@@ -16,8 +16,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
-import {Animation} from 'react-native-animatable';
-import {CustomAnimation} from 'react-native-animatable';
+import {Animation, CustomAnimation} from 'react-native-animatable';
 
 import {
   initializeAnimations,
@@ -188,13 +187,6 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     supportedOrientations: ['portrait', 'landscape'],
   };
 
-  static getDerivedStateFromProps(nextProps: ModalProps, state: State) {
-    if (!state.isVisible && nextProps.isVisible) {
-      return {isVisible: true, showContent: true};
-    }
-    return null;
-  }
-
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
   // the modal visible during the exit animation, even if the user has already change the
   // isVisible prop to false.
@@ -244,6 +236,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     }
   }
 
+  static getDerivedStateFromProps(nextProps: ModalProps, state: State) {
+    if (!state.isVisible && nextProps.isVisible) {
+      return {isVisible: true, showContent: true};
+    }
+    return null;
+  }
   componentDidMount() {
     // Show deprecation message
     if ((this.props as any).onSwipe) {
