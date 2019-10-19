@@ -18,14 +18,17 @@ jobs:
           at: .
       - rn/yarn_install
       - run:
-          name: Run ESLint
-          command: yarn lint
+          name: Run Tests
+          command: yarn test
   publish:
     executor: rn/linux_js
     steps:
       - attach_workspace:
           at: .
       - rn/yarn_install
+      - run:
+          name: Build the project
+          command: yarn build
       - run:
           name: Publish to NPM
           command: yarn release
