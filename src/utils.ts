@@ -1,7 +1,8 @@
 import {Dimensions} from 'react-native';
 import * as animatable from 'react-native-animatable';
 import {CustomAnimation} from 'react-native-animatable';
-import {Animations, SupportedAnimation} from './types';
+import {Animations} from './types';
+import {Animation} from 'react-native-animatable';
 
 const {height, width} = Dimensions.get('window');
 
@@ -43,8 +44,8 @@ export const buildAnimations = ({
   animationIn,
   animationOut,
 }: {
-  animationIn: SupportedAnimation;
-  animationOut: SupportedAnimation;
+  animationIn: Animation | CustomAnimation;
+  animationOut: Animation | CustomAnimation;
 }): Animations => {
   let updatedAnimationIn: string;
   let updatedAnimationOut: string;

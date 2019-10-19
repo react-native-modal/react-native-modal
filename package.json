@@ -3,13 +3,13 @@
   "version": "11.4.0",
   "description": "An enhanced React Native modal",
   "main": "dist/index.js",
-  "types": "typings/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "src/",
     "typings/"
   ],
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint \"src/**/*.{ts, tsx}\"",
     "test": "yarn run lint",
     "release": "yarn semantic-release",
     "dev": "tsc --watch"
@@ -48,8 +48,10 @@
     "@semantic-release/git": "^7.0.8",
     "@types/react": "^16.9.9",
     "@types/react-native": "^0.60.21",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
     "babel-jest": "^24.9.0",
-    "eslint": "^6.2.1",
+    "eslint": "^6.5.1",
     "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.0.9",
     "jest": "^24.9.0",

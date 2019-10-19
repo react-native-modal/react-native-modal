@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "strict": false,
+    "strict": true,
     "target": "esnext",
     "resolveJsonModule": true,
     "outDir": "./dist",
