@@ -77,8 +77,8 @@ export interface ModalProps {
   backdropTransitionOutTiming: number;
   customBackdrop: ReactNode;
   useNativeDriver: boolean;
-  deviceHeight: any;
-  deviceWidth: any;
+  deviceHeight: number;
+  deviceWidth: number;
   hideModalContentWhileAnimating: boolean;
   propagateSwipe: boolean;
   isVisible: boolean;
@@ -571,7 +571,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           if (!this.props.isVisible) {
             this.close();
           } else {
-            this.props.onModalShow!();
+            this.props.onModalShow();
           }
         },
       );
@@ -622,7 +622,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
                   isVisible: false,
                 },
                 () => {
-                  this.props.onModalHide!();
+                  this.props.onModalHide();
                 },
               );
             },

@@ -10,10 +10,11 @@
   ],
   "scripts": {
     "lint": "eslint \"src/**/*.{ts, tsx}\"",
-    "test": "yarn run lint",
+    "test": "yarn run test:ts && yarn run lint",
     "release": "yarn semantic-release",
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test:ts": "tsc --noEmit"
   },
   "husky": {
     "hooks": {
