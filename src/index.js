@@ -298,7 +298,8 @@ class ReactNativeModal extends Component {
         const accDistance = this.getAccDistancePerDirection(gestureState);
 
         if (
-          accDistance > this.getThreshold(getSwipingDirection(gestureState)) &&
+          accDistance >
+            this.getThreshold(this.getSwipingDirection(gestureState)) &&
           this.isSwipeDirectionAllowed(gestureState)
         ) {
           if (this.props.onSwipeComplete) {
