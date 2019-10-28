@@ -296,8 +296,9 @@ class ReactNativeModal extends Component {
       onPanResponderRelease: (evt, gestureState) => {
         // Call the onSwipe prop if the threshold has been exceeded on the right direction
         const accDistance = this.getAccDistancePerDirection(gestureState);
+
         if (
-          accDistance > this.props.swipeThreshold &&
+          accDistance > getThreshold(getSwipingDirection(gestureState)) &&
           this.isSwipeDirectionAllowed(gestureState)
         ) {
           if (this.props.onSwipeComplete) {
@@ -401,6 +402,15 @@ class ReactNativeModal extends Component {
     return Array.isArray(this.props.swipeDirection)
       ? this.props.swipeDirection.includes(direction)
       : this.props.swipeDirection === direction;
+  };
+
+  getThreshold = direction => {
+    //if is number return number else
+    if (typeof this.props.swipeThreshold === 'number') {
+      return this.props.swipeThreshold;
+    }
+
+    return this.props.swipeThreshold[direction];
   };
 
   isSwipeDirectionAllowed = ({dy, dx}) => {
