@@ -51,7 +51,15 @@ class ReactNativeModal extends Component {
     onSwipeMove: PropTypes.func,
     onSwipeComplete: PropTypes.func,
     onSwipeCancel: PropTypes.func,
-    swipeThreshold: PropTypes.number,
+    swipeThreshold: PropTypes.oneOfType([
+      PropTypes.shape({
+        up: PropTypes.number,
+        down: PropTypes.number,
+        left: PropTypes.number,
+        right: PropTypes.number,
+      }),
+      PropTypes.number,
+    ]),
     swipeDirection: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.oneOf(['up', 'down', 'left', 'right'])),
       PropTypes.oneOf(['up', 'down', 'left', 'right']),
