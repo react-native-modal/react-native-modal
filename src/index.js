@@ -298,7 +298,7 @@ class ReactNativeModal extends Component {
         const accDistance = this.getAccDistancePerDirection(gestureState);
 
         if (
-          accDistance > getThreshold(getSwipingDirection(gestureState)) &&
+          accDistance > this.getThreshold(getSwipingDirection(gestureState)) &&
           this.isSwipeDirectionAllowed(gestureState)
         ) {
           if (this.props.onSwipeComplete) {
@@ -405,7 +405,6 @@ class ReactNativeModal extends Component {
   };
 
   getThreshold = direction => {
-    //if is number return number else
     if (typeof this.props.swipeThreshold === 'number') {
       return this.props.swipeThreshold;
     }
