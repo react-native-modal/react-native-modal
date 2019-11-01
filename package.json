@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "src/",
-    "typings/"
+    "dist/"
   ],
   "scripts": {
     "lint": "eslint \"src/**/*.{ts, tsx}\"",
