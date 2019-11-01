@@ -3,23 +3,23 @@ describe('Example', () => {
     await device.reloadReactNative();
   });
 
-  it.skip('should open and close all the modals', async () => {
+  it('should open and close all the modals', async () => {
     const modals = [
-      "default",
-      "slide",
-      "slow",
-      "fancy",
-      "bottom-half",
-      "backdrop-close",
-      "swipeable",
-      "custom-backdrop",
+      'default',
+      'slide',
+      'slow',
+      'fancy',
+      'bottom-half',
+      'backdrop-close',
+      'swipeable',
+      'custom-backdrop',
     ];
     for (let modalName of modals) {
       const modal = element(by.id(`${modalName}-modal`));
       await expect(modal).toBeNotVisible();
       await element(by.id(`${modalName}-modal-open-button`)).tap();
       await expect(modal).toBeVisible();
-      await element(by.id("all-modal-close-button")).tap();
+      await element(by.id('all-modal-close-button')).tap();
       await expect(modal).toBeNotVisible();
     }
   });
@@ -59,5 +59,4 @@ describe('Example', () => {
       await expect(modal).toBeVisible();
     });
   });
-
 });

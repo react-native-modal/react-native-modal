@@ -1,21 +1,19 @@
 {
   "name": "react-native-modal",
-  "version": "11.3.1",
-  "description": "An enhanced React-Native modal",
-  "main": "src/index.js",
-  "types": "typings/index.d.ts",
+  "version": "11.5.1",
+  "description": "An enhanced React Native modal",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "src/",
-    "typings/"
+    "dist/"
   ],
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "start:android": "react-native run-android --root example/",
-    "start:ios": "react-native run-ios --project-path example/ios",
-    "lint": "eslint src",
-    "lint:fix": "yarn run lint -- --fix",
-    "test": "yarn run lint",
+    "lint": "eslint \"src/**/*.{ts, tsx}\"",
+    "test": "yarn run test:ts && yarn run lint",
     "release": "yarn semantic-release",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test:ts": "tsc --noEmit",
     "build:e2e:android:debug": "detox build -c android.emu.debug",
     "build:e2e:android:release": "detox build -c android.emu.release",
     "test:e2e:android:debug": "detox test -c android.emu.debug",
@@ -24,6 +22,11 @@
     "build:e2e:ios:release": "detox build -c ios.sim.release",
     "test:e2e:ios:debug": "detox test -c ios.sim.debug",
     "test:e2e:ios:release": "detox test -c ios.sim.release"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "keywords": [
     "react-native",
@@ -45,24 +48,34 @@
   },
   "dependencies": {
     "prop-types": "^15.6.2",
-    "react-native-animatable": "^1.3.1"
+    "react-native-animatable": "1.3.3"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0",
-    "@babel/runtime": "^7.4.4",
-    "@react-native-community/eslint-config": "^0.0.3",
+    "@babel/core": "^7.5.5",
+    "@babel/runtime": "^7.6.3",
+    "@react-native-community/eslint-config": "^0.0.5",
     "@semantic-release/git": "^7.0.8",
+    "@types/react": "^16.9.9",
+    "@types/react-native": "^0.60.21",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "24.1.0",
+    "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "3.1.3",
-    "detox": "^14.0.3",
-    "eslint": "5.13.0",
-    "jest": "^24.7.1",
-    "metro-react-native-babel-preset": "0.51.1",
-    "react": "16.6.3",
-    "react-native": "0.58.4",
-    "react-test-renderer": "16.6.3",
-    "semantic-release": "15.13.24"
+    "detox": "^14.5.1",
+    "eslint": "^6.5.1",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "0.56.0",
+    "postinstall": "^0.5.1",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
+    "react": "16.9.0",
+    "react-native": "0.61.0",
+    "react-test-renderer": "16.8.6",
+    "semantic-release": "15.13.24",
+    "typescript": "^3.6.4"
   },
   "peerDependencies": {
     "react": "*",
@@ -90,13 +103,13 @@
         "binaryPath": "example/android/app/build/outputs/apk/debug/app-debug.apk",
         "build": "export RCT_NO_LAUNCH_PACKAGER=true && pushd example/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && popd",
         "type": "android.emulator",
-        "name": "TestingAVD"
+        "name": "Pixel_2_API_28"
       },
       "android.emu.release": {
         "binaryPath": "example/android/app/build/outputs/apk/release/app-release.apk",
         "build": "export RCT_NO_LAUNCH_PACKAGER=true && pushd example/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && popd",
         "type": "android.emulator",
-        "name": "TestingAVD"
+        "name": "Pixel_2_API_28"
       }
     },
     "test-runner": "jest"

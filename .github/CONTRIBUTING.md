@@ -18,7 +18,8 @@ All of these are run on CircleCI for all opened pull requests, but you should us
 
 - `yarn test`: Run all tests and validations.
 - `yarn lint`: Run `eslint`.
-- `yarn lint:fix`: Run `eslint` and automatically fix issues. This is useful for correcting code formatting.
+- `yarn test:ts`: Checks TypeScript
+- `yarn lint --fix`: Run `eslint` and automatically fix issues. This is useful for correcting code formatting.
 
 ## Sending a pull request
 
