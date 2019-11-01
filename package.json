@@ -2,16 +2,19 @@
   "name": "react-native-modal",
   "version": "11.4.0",
   "description": "An enhanced React Native modal",
-  "main": "src/index.js",
-  "types": "typings/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "src/",
     "typings/"
   ],
   "scripts": {
-    "lint": "eslint src",
-    "test": "yarn run lint",
-    "release": "yarn semantic-release"
+    "lint": "eslint \"src/**/*.{ts, tsx}\"",
+    "test": "yarn run test:ts && yarn run lint",
+    "release": "yarn semantic-release",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test:ts": "tsc --noEmit"
   },
   "husky": {
     "hooks": {
@@ -45,8 +48,12 @@
     "@babel/runtime": "^7.6.3",
     "@react-native-community/eslint-config": "^0.0.5",
     "@semantic-release/git": "^7.0.8",
+    "@types/react": "^16.9.9",
+    "@types/react-native": "^0.60.21",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
     "babel-jest": "^24.9.0",
-    "eslint": "^6.2.1",
+    "eslint": "^6.5.1",
     "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
@@ -56,7 +63,8 @@
     "react": "16.9.0",
     "react-native": "0.61.0",
     "react-test-renderer": "16.8.6",
-    "semantic-release": "15.13.24"
+    "semantic-release": "15.13.24",
+    "typescript": "^3.6.4"
   },
   "peerDependencies": {
     "react": "*",

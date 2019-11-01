@@ -1,0 +1,21 @@
+{
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ],
+  "compilerOptions": {
+    "lib": ["es5", "es6", "esnext.asynciterable"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "esnext",
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "declaration": true
+  }
+}
