@@ -15,7 +15,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
 import {Animation, CustomAnimation} from 'react-native-animatable';
 
