@@ -63,7 +63,7 @@
     "react-native": "0.61.0",
     "react-test-renderer": "16.8.6",
     "semantic-release": "15.13.24",
-    "typescript": "^3.6.4"
+    "typescript": "3.7.2"
   },
   "peerDependencies": {
     "react": "*",
