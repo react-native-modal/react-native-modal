@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal",
-  "version": "11.5.1",
+  "version": "11.5.3",
   "description": "An enhanced React Native modal",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -75,7 +75,7 @@
     "react-native": "0.61.0",
     "react-test-renderer": "16.8.6",
     "semantic-release": "15.13.24",
-    "typescript": "^3.6.4"
+    "typescript": "3.7.2"
   },
   "peerDependencies": {
     "react": "*",
