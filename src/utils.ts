@@ -75,9 +75,10 @@ export const buildAnimations = ({
 export const reversePercentage = (x: number) => -(x - 1);
 
 const makeAnimation = (name: string, obj: CustomAnimation): void => {
-  animatable.registerAnimation(name, animatable.createAnimation(
-    obj,
-  ) as CustomAnimation);
+  animatable.registerAnimation(
+    name,
+    animatable.createAnimation(obj) as CustomAnimation,
+  );
 };
 
 const isObject = (obj: any): obj is Object => {
