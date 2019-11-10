@@ -10,6 +10,15 @@ All work on React Native Modal happens directly on GitHub. Contributors send pul
 2. Run `yarn` or `npm install` to install all required dependencies.
 3. Now you are ready to make your changes!
 
+### Development flow
+
+- Head into the `example` folder and do the same.
+- Head into `ios` and run `pod install` if you wish to compile under iOS
+- Get back into the root folder and launch `yarn run dev`. This will launch `ts` in watch mode.
+- Get into the `example` folder again and type `yarn run start`.
+- You can now open Android Studio or XCode directly from `example/android` or `example/ios` respectively, build
+  and run the app.
+
 ## Tests & Verifications
 
 Currently we use `eslint` with `prettier` for linting and formatting the code.  
