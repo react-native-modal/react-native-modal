@@ -27,16 +27,14 @@ export const makeSlideTranslation = (
   translationType: string,
   fromValue: number,
   toValue: number,
-) => {
-  return {
-    from: {
-      [translationType]: fromValue,
-    },
-    to: {
-      [translationType]: toValue,
-    },
-  };
-};
+) => ({
+  from: {
+    [translationType]: fromValue,
+  },
+  to: {
+    [translationType]: toValue,
+  },
+});
 
 // User can define custom react-native-animatable animations, see PR #72
 // Utility for creating our own custom react-native-animatable animations
