@@ -24,11 +24,7 @@ abstract class ModalBaseScene<P extends object = {}> extends Component<
   isVisible = () => this.state.visible;
   public renderButton(): React.ReactElement<any> {
     return (
-      <Button
-        testID={'modal-open-button'}
-        onPress={this.open}
-        title="Default"
-      />
+      <Button testID={'modal-open-button'} onPress={this.open} title="Open" />
     );
   }
   render() {
