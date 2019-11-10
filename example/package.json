@@ -11,7 +11,12 @@
     "@babel/runtime": "^7.6.3",
     "babel": "^6.23.0",
     "react": "^16.9.0",
-    "react-native": "0.61.0"
+    "react-native": "0.61.0",
+    "react-native-gesture-handler": "^1.5.0",
+    "react-native-reanimated": "^1.4.0",
+    "react-native-screens": "^1.0.0-alpha.23",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.3"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
