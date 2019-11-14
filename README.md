@@ -218,7 +218,7 @@ Note that when using `useNativeDriver={true}` the modal won't drag correctly. Th
 
 ### The modal flashes in a weird way when animating
 
-Unfortunately this is a [know issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.  
+Unfortunately this is a [known issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.  
 In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating` prop to `true`: this seems to solve the issue.
 Also, do not assign a `backgroundColor` property directly to the Modal. Prefer to set it on the child container.
 
