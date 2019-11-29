@@ -566,7 +566,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillShow && this.props.onModalWillShow();
-      this.contentRef[this.animationIn](this.props.animationInTiming).then(
+      this.contentRef.animate(this.animationIn, this.props.animationInTiming).then(
         () => {
           this.isTransitioning = false;
           if (!this.props.isVisible) {
@@ -608,7 +608,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillHide && this.props.onModalWillHide();
-      this.contentRef[animationOut](this.props.animationOutTiming).then(() => {
+      this.contentRef.animate(animationOut, this.props.animationOutTiming).then(() => {
         this.isTransitioning = false;
         if (this.props.isVisible) {
           this.open();
