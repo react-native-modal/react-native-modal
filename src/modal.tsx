@@ -323,8 +323,19 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
         return false;
       },
-      onStartShouldSetPanResponder: () => {
-        if (this.props.scrollTo && this.props.scrollOffset > 0) {
+      onStartShouldSetPanResponder: (e: any) => {
+        const hasScrollableView =
+          e._dispatchInstances &&
+          e._dispatchInstances.some((instance: any) =>
+            /scrollview|flatlist/i.test(instance.type),
+          );
+
+        if (
+          hasScrollableView &&
+          this.props.propagateSwipe &&
+          this.props.scrollTo &&
+          this.props.scrollOffset > 0
+        ) {
           return false; // user needs to be able to scroll content back up
         }
         if (this.props.onSwipeStart) {
