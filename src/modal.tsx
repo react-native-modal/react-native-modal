@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
+  ViewProps,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
@@ -50,7 +51,7 @@ type State = {
   pan: OrNull<Animated.ValueXY>;
 };
 
-export interface ModalProps {
+export interface ModalProps extends ViewProps {
   children: ReactNode;
   onSwipeStart?: () => void;
   onSwipeMove?: (percentageShown: number) => void;
