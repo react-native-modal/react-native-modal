@@ -1,8 +1,7 @@
 import {Dimensions} from 'react-native';
 import * as animatable from 'react-native-animatable';
-import {CustomAnimation} from 'react-native-animatable';
+import {CustomAnimation, Animation} from 'react-native-animatable';
 import {Animations} from './types';
-import {Animation} from 'react-native-animatable';
 
 const {height, width} = Dimensions.get('window');
 
