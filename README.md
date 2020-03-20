@@ -27,12 +27,12 @@ This library is available on npm, install it with: `npm i react-native-modal` or
 
 ## Usage
 
-Since react-native-modal is an extension of the original react native modal, it works in a similar fashion [react-native original modal](https://facebook.github.io/react-native/docs/modal.html).
+Since react-native-modal is an extension of the original react native modal, it works in a similar fashion [react-native original modal](https://reactnative.dev/docs/modal.html).
 
 1.  Import react-native-modal:
 
 ```javascript
-import Modal from "react-native-modal";
+import Modal from 'react-native-modal';
 ```
 
 2.  Create a modal and nest its content inside of it:
@@ -77,25 +77,25 @@ Pressing the button sets `isModalVisible` to true, making the modal visible.
 Inside the modal there is another button that, when pressed, sets `isModalVisible` to false, hiding the modal.
 
 ```javascript
-import React, { Component } from "react";
-import { Button, Text, View } from "react-native";
-import Modal from "react-native-modal";
+import React, {Component} from 'react';
+import {Button, Text, View} from 'react-native';
+import Modal from 'react-native-modal';
 
 export default class ModalTester extends Component {
   state = {
-    isModalVisible: false
+    isModalVisible: false,
   };
 
   toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({isModalVisible: !this.state.isModalVisible});
   };
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <Button title="Show modal" onPress={this.toggleModal} />
         <Modal isVisible={this.state.isModalVisible}>
-          <View style={{ flex: 1 }}>
+          <View style={{flex: 1}}>
             <Text>Hello!</Text>
             <Button title="Hide modal" onPress={this.toggleModal} />
           </View>
@@ -153,7 +153,7 @@ For a more complex example take a look at the `/example` directory.
 
 ### The component is not working as expected
 
-Under the hood `react-native-modal` uses react-native original [Modal component](https://facebook.github.io/react-native/docs/modal.html).  
+Under the hood `react-native-modal` uses react-native original [Modal component](https://reactnative.dev/docs/modal.html).  
 Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).
 
 ### The backdrop is not completely filled/covered on some Android devices (Galaxy, for one)
@@ -190,9 +190,8 @@ The prop `onBackdropPress` allows you to handle this situation:
 ```javascript
 <Modal
   isVisible={this.state.isVisible}
-  onBackdropPress={() => this.setState({ isVisible: false })}
->
-  <View style={{ flex: 1 }}>
+  onBackdropPress={() => this.setState({isVisible: false})}>
+  <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
 </Modal>
@@ -205,10 +204,9 @@ The prop `onSwipeComplete` allows you to handle this situation (remember to set 
 ```javascript
 <Modal
   isVisible={this.state.isVisible}
-  onSwipeComplete={() => this.setState({ isVisible: false })}
-  swipeDirection="left"
->
-  <View style={{ flex: 1 }}>
+  onSwipeComplete={() => this.setState({isVisible: false})}
+  swipeDirection="left">
+  <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
 </Modal>
@@ -228,7 +226,7 @@ Are you sure you named the `isVisible` prop correctly? Make sure it is spelled c
 
 ### The modal doesn't change orientation
 
-Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://facebook.github.io/react-native/docs/modal.html#supportedorientations).
+Add a `supportedOrientations={['portrait', 'landscape']}` prop to the component, as described [in the React Native documentation](https://reactnative.dev/docs/modal.html#supportedorientations).
 
 Also, if you're providing the `deviceHeight` and `deviceWidth` props you'll have to manually update them when the layout changes.
 
@@ -254,7 +252,7 @@ The modal style applied by default has a small margin.
 If you want the modal to cover the entire screen you can easily override it this way:
 
 ```js
-<Modal style={{ margin: 0 }}>...</Modal>
+<Modal style={{margin: 0}}>...</Modal>
 ```
 
 ### I can't scroll my ScrollView inside of the modal
@@ -280,9 +278,8 @@ You need to specify the size of your custom backdrop component. You can also mak
 ```javascript
 <Modal
   isVisible={this.state.isVisible}
-  customBackdrop={<View style={{ flex: 1 }} />}
->
-  <View style={{ flex: 1 }}>
+  customBackdrop={<View style={{flex: 1}} />}>
+  <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
 </Modal>
@@ -297,11 +294,10 @@ You can provide an event handler to the custom backdrop element to dismiss the m
   isVisible={this.state.isVisible}
   customBackdrop={
     <TouchableWithoutFeedback onPress={dismissModalHandler}>
-      <View style={{ flex: 1 }} />
+      <View style={{flex: 1}} />
     </TouchableWithoutFeedback>
   }
 />
-
 ```
 
 ## Available animations
