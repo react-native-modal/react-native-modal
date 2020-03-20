@@ -197,8 +197,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   state: State = {
     showContent: true,
     isVisible: false,
-    deviceWidth: Dimensions.get('window').width,
-    deviceHeight: Dimensions.get('window').height,
+    deviceWidth: Dimensions.get('screen').width,
+    deviceHeight: Dimensions.get('screen').height,
     isSwipeable: this.props.swipeDirection ? true : false,
     pan: null,
   };
@@ -540,8 +540,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     if (!this.props.deviceHeight && !this.props.deviceWidth) {
       // Here we update the device dimensions in the state if the layout changed
       // (triggering a render)
-      const deviceWidth = Dimensions.get('window').width;
-      const deviceHeight = Dimensions.get('window').height;
+      const deviceWidth = Dimensions.get('screen').width;
+      const deviceHeight = Dimensions.get('screen').height;
       if (
         deviceWidth !== this.state.deviceWidth ||
         deviceHeight !== this.state.deviceHeight
@@ -572,16 +572,16 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillShow && this.props.onModalWillShow();
-      this.contentRef.animate(this.animationIn, this.props.animationInTiming).then(
-        () => {
+      this.contentRef
+        .animate(this.animationIn, this.props.animationInTiming)
+        .then(() => {
           this.isTransitioning = false;
           if (!this.props.isVisible) {
             this.close();
           } else {
             this.props.onModalShow();
           }
-        },
-      );
+        });
     }
   };
 
@@ -614,28 +614,30 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillHide && this.props.onModalWillHide();
-      this.contentRef.animate(animationOut, this.props.animationOutTiming).then(() => {
-        this.isTransitioning = false;
-        if (this.props.isVisible) {
-          this.open();
-        } else {
-          this.setState(
-            {
-              showContent: false,
-            },
-            () => {
-              this.setState(
-                {
-                  isVisible: false,
-                },
-                () => {
-                  this.props.onModalHide();
-                },
-              );
-            },
-          );
-        }
-      });
+      this.contentRef
+        .animate(animationOut, this.props.animationOutTiming)
+        .then(() => {
+          this.isTransitioning = false;
+          if (this.props.isVisible) {
+            this.open();
+          } else {
+            this.setState(
+              {
+                showContent: false,
+              },
+              () => {
+                this.setState(
+                  {
+                    isVisible: false,
+                  },
+                  () => {
+                    this.props.onModalHide();
+                  },
+                );
+              },
+            );
+          }
+        });
     }
   };
 
