@@ -420,6 +420,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         Animated.spring(this.state.pan!, {
           toValue: {x: 0, y: 0},
           bounciness: 0,
+          useNativeDriver: false,
         }).start();
 
         if (this.props.scrollTo) {
@@ -485,9 +486,13 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.currentSwipingDirection === 'right' ||
       this.currentSwipingDirection === 'left'
     ) {
-      return Animated.event([null, {dx: this.state.pan!.x}]);
+      return Animated.event([null, {dx: this.state.pan!.x}], {
+        useNativeDriver: false,
+      });
     } else {
-      return Animated.event([null, {dy: this.state.pan!.y}]);
+      return Animated.event([null, {dy: this.state.pan!.y}], {
+        useNativeDriver: false,
+      });
     }
   };
 
