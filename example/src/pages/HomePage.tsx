@@ -59,6 +59,16 @@ class HomePage extends React.Component<Props> {
           title={'Close on Backdrop Press'}
           onPress={this.makeNavigationAction('BackdropCloseModal')}
         />
+        <Button
+          testID={'without-cover-screen'}
+          title={'Without coverScreen'}
+          onPress={this.makeNavigationAction('WithoutCoverScreenModal')}
+        />
+        <Button
+          testID={'without-backdrop'}
+          title={'Without backdrop'}
+          onPress={this.makeNavigationAction('WithoutBackdropModal')}
+        />
       </View>
     );
   }

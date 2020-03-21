@@ -198,7 +198,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     isVisible: false,
     deviceWidth: Dimensions.get('screen').width,
     deviceHeight: Dimensions.get('screen').height,
-    isSwipeable: this.props.swipeDirection ? true : false,
+    isSwipeable: !!this.props.swipeDirection,
     pan: null,
   };
 
@@ -297,7 +297,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.close();
     }
   }
-
+  getDeviceHeight = () => this.props.deviceHeight || this.state.deviceHeight;
+  getDeviceWidth = () => this.props.deviceWidth || this.state.deviceWidth;
   buildPanResponder = () => {
     let animEvt: OrNull<AnimationEvent> = null;
 
@@ -650,7 +651,58 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         });
     }
   };
+  makeBackdrop = () => {
+    if (!this.props.hasBackdrop) {
+      return null;
+    }
+    if (
+      this.props.customBackdrop &&
+      !React.isValidElement(this.props.customBackdrop)
+    ) {
+      console.warn(
+        'Invalid customBackdrop element passed to Modal. You must provide a valid React element.',
+      );
+    }
+    const {
+      customBackdrop,
+      backdropColor,
+      useNativeDriver,
+      onBackdropPress,
+    } = this.props;
+    const hasCustomBackdrop = !!this.props.customBackdrop;
 
+    const backdropComputedStyle = [
+      {
+        width: this.getDeviceWidth(),
+        height: this.getDeviceHeight(),
+        backgroundColor:
+          this.state.showContent && !hasCustomBackdrop
+            ? backdropColor
+            : 'transparent',
+      },
+    ];
+
+    const backdropWrapper = (
+      <animatable.View
+        ref={ref => (this.backdropRef = ref)}
+        useNativeDriver={useNativeDriver}
+        style={[styles.backdrop, backdropComputedStyle]}>
+        {hasCustomBackdrop && customBackdrop}
+      </animatable.View>
+    );
+
+    if (hasCustomBackdrop) {
+      // The user will handle backdrop presses himself
+      return backdropWrapper;
+    }
+    // If there's no custom backdrop, handle presses with
+    // TouchableWithoutFeedback
+    return (
+      <TouchableWithoutFeedback onPress={onBackdropPress}>
+        {backdropWrapper}
+      </TouchableWithoutFeedback>
+    );
+  };
   render() {
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
@@ -667,22 +719,17 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       backdropTransitionOutTiming,
       customBackdrop,
       children,
-      deviceHeight: deviceHeightProp,
-      deviceWidth: deviceWidthProp,
       isVisible,
       onModalShow,
-      onBackdropPress,
       onBackButtonPress,
       useNativeDriver,
       propagateSwipe,
       style,
       ...otherProps
     } = this.props;
-    const deviceWidth = deviceWidthProp || this.state.deviceWidth;
-    const deviceHeight = deviceHeightProp || this.state.deviceHeight;
 
     const computedStyle = [
-      {margin: deviceWidth * 0.05, transform: [{translateY: 0}]},
+      {margin: this.getDeviceWidth() * 0.05, transform: [{translateY: 0}]},
       styles.content,
       style,
     ];
@@ -701,6 +748,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       }
     }
 
+    // The user might decide not to show the modal while it is animating
+    // to enhance performance.
     const _children =
       this.props.hideModalContentWhileAnimating &&
       this.props.useNativeDriver &&
@@ -721,52 +770,18 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       </animatable.View>
     );
 
-    const hasCustomBackdrop = React.isValidElement(customBackdrop);
-
-    const backdropComputedStyle = [
-      {
-        width: deviceWidth,
-        height: deviceHeight,
-        backgroundColor:
-          this.state.showContent && !hasCustomBackdrop
-            ? backdropColor
-            : 'transparent',
-      },
-    ];
-
-    const backdropContent = (
-      <animatable.View
-        ref={ref => (this.backdropRef = ref)}
-        useNativeDriver={useNativeDriver}
-        style={[styles.backdrop, backdropComputedStyle]}>
-        {hasCustomBackdrop && customBackdrop}
-      </animatable.View>
-    );
-
-    let backdrop = null;
-    if (hasCustomBackdrop) {
-      backdrop = backdropContent;
-    } else {
-      // If there's no custom backdrop, handle presses with
-      // TouchableWithoutFeedback
-      backdrop = (
-        <TouchableWithoutFeedback onPress={onBackdropPress}>
-          {backdropContent}
-        </TouchableWithoutFeedback>
-      );
-    }
-
+    // If coverScreen is set to false by the user
+    // we render the modal inside the parent view directly
     if (!coverScreen && this.state.isVisible) {
       return (
         <View
           pointerEvents="box-none"
           style={[styles.backdrop, styles.containerBox]}>
-          {hasBackdrop && backdrop}
+          {this.makeBackdrop()}
           {containerView}
         </View>
       );
     }
-
     return (
       <Modal
         transparent={true}
@@ -774,18 +789,18 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         visible={this.state.isVisible}
         onRequestClose={onBackButtonPress}
         {...otherProps}>
-        {hasBackdrop && backdrop}
+        {this.makeBackdrop()}
 
-        {avoidKeyboard && (
+        {avoidKeyboard ? (
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             pointerEvents="box-none"
             style={computedStyle.concat([{margin: 0}])}>
             {containerView}
           </KeyboardAvoidingView>
+        ) : (
+          containerView
         )}
-
-        {!avoidKeyboard && containerView}
       </Modal>
     );
   }

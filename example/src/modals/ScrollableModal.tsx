@@ -38,6 +38,7 @@ class ScrollableModal extends ModalBaseScene<State> {
         scrollTo={this.handleScrollTo}
         scrollOffset={this.state.scrollOffset}
         scrollOffsetMax={400 - 300} // content height - ScrollView height
+        propagateSwipe={true}
         style={styles.modal}>
         <View style={styles.scrollableModal}>
           <ScrollView
