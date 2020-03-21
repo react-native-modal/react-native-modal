@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {ReactNode} from 'react';
 import {
   Animated,
   DeviceEventEmitter,
@@ -52,7 +51,7 @@ type State = {
 };
 
 export interface ModalProps extends ViewProps {
-  children: ReactNode;
+  children: React.ReactNode;
   onSwipeStart?: () => void;
   onSwipeMove?: (percentageShown: number) => void;
   onSwipeComplete?: (params: OnSwipeCompleteParams) => void;
@@ -77,7 +76,7 @@ export interface ModalProps extends ViewProps {
   backdropOpacity: number;
   backdropTransitionInTiming: number;
   backdropTransitionOutTiming: number;
-  customBackdrop: ReactNode;
+  customBackdrop: React.ReactNode;
   useNativeDriver: boolean;
   deviceHeight: number;
   deviceWidth: number;
