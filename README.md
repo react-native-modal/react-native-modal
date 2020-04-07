@@ -243,7 +243,7 @@ That said, I would strongly advice against using multiple modals at the same tim
 
 ### The StatusBar style changes when the modal shows up
 
-This issue has ben discussed [here](https://github.com/react-native-community/react-native-modal/issues/50).  
+This issue has been discussed [here](https://github.com/react-native-community/react-native-modal/issues/50).  
 The TLDR is: it's a know React-Native issue with the Modal component 😞
 
 ### The modal is not covering the entire screen
