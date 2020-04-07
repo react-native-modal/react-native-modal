@@ -94,6 +94,7 @@ export interface ModalProps extends ViewProps {
   scrollOffset: number;
   scrollOffsetMax: number;
   scrollHorizontal: boolean;
+  statusBarTranslucent?: boolean;
   supportedOrientations?: Orientation[];
 }
 
