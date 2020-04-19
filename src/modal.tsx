@@ -322,6 +322,15 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           animEvt = this.createAnimationEventForSwipe();
           return shouldSetPanResponder;
         }
+        this.currentSwipingDirection = this.getSwipingDirection(gestureState);
+        animEvt = this.createAnimationEventForSwipe();
+        const accDistance = this.getAccDistancePerDirection(gestureState);
+        if (accDistance > this.props.swipeThreshold &&
+            this.isSwipeDirectionAllowed(gestureState)) {
+            if (this.props.onSwipeComplete) {
+                return true;
+            }
+        }
 
         return false;
       },
