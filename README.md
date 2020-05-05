@@ -38,36 +38,36 @@ import Modal from 'react-native-modal';
 2.  Create a modal and nest its content inside of it:
 
 ```javascript
-render () {
-    return (
-      <View>
-        <Modal>
-          <View style={{ flex: 1 }}>
-            <Text>I am the modal content!</Text>
-          </View>
-        </Modal>
-      </View>
-    )
-  }
+function WrapperComponent() {
+  return (
+    <View>
+      <Modal>
+        <View style={{ flex: 1 }}>
+          <Text>I am the modal content!</Text>
+        </View>
+      </Modal>
+    </View>
+  )
+}
 ```
 
 3.  Then simply show it by setting the `isVisible` prop to true:
 
 ```javascript
-render () {
-    return (
-      <View>
-        <Modal isVisible={true}>
-          <View style={{ flex: 1 }}>
-            <Text>I am the modal content!</Text>
-          </View>
-        </Modal>
-      </View>
-    )
-  }
+function WrapperComponent() {
+  return (
+    <View>
+      <Modal isVisible={true}>
+        <View style={{ flex: 1 }}>
+          <Text>I am the modal content!</Text>
+        </View>
+      </Modal>
+    </View>
+  )
+}
 ```
 
-The `isVisible` prop is the only prop you'll really need to make the modal work: you should control this prop value by saving it in your state and setting it to `true` or `false` when needed.
+The `isVisible` prop is the only prop you'll really need to make the modal work: you should control this prop value by saving it in your wrapper component state and setting it to `true` or `false` when needed.
 
 ## A complete example
 
@@ -77,33 +77,35 @@ Pressing the button sets `isModalVisible` to true, making the modal visible.
 Inside the modal there is another button that, when pressed, sets `isModalVisible` to false, hiding the modal.
 
 ```javascript
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 
-export default class ModalTester extends Component {
-  state = {
-    isModalVisible: false,
-  };
-
-  toggleModal = () => {
-    this.setState({isModalVisible: !this.state.isModalVisible});
+function ModalTester() {
+  const [isModalVisible, setModalVisible] = useState(false);
+  
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
   };
 
   render() {
     return (
       <View style={{flex: 1}}>
-        <Button title="Show modal" onPress={this.toggleModal} />
-        <Modal isVisible={this.state.isModalVisible}>
+        <Button title="Show modal" onPress={toggleModal} />
+
+        <Modal isVisible={isModalVisible}>
           <View style={{flex: 1}}>
             <Text>Hello!</Text>
-            <Button title="Hide modal" onPress={this.toggleModal} />
+
+            <Button title="Hide modal" onPress={toggleModal} />
           </View>
         </Modal>
       </View>
     );
   }
 }
+
+export default ModalTester;
 ```
 
 For a more complex example take a look at the `/example` directory.
@@ -163,22 +165,24 @@ If you're experiencing this issue, you'll need to install [`react-native-extra-d
 Then, provide the real window height (obtained from `react-native-extra-dimensions-android`) to the modal:
 
 ```javascript
-render() {
-  const deviceWidth = Dimensions.get("window").width;
-  const deviceHeight = Platform.OS === "ios"
-    ? Dimensions.get("window").height
-    : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
+const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Platform.OS === "ios"
+  ? Dimensions.get("window").height
+  : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
+
+function WrapperComponent() {
+  const [isModalVisible, setModalVisible] = useState(true);
 
   return (
-  <Modal
-    isVisible={this.state.isVisible}
-    deviceWidth={deviceWidth}
-    deviceHeight={deviceHeight}
-  >
-    <View style={{ flex: 1 }}>
-      <Text>I am the modal content!</Text>
-    </View>
-  </Modal>
+    <Modal
+      isVisible={isModalVisible}
+      deviceWidth={deviceWidth}
+      deviceHeight={deviceHeight}
+    >
+      <View style={{ flex: 1 }}>
+        <Text>I am the modal content!</Text>
+      </View>
+    </Modal>
   )
 }
 ```
@@ -189,8 +193,8 @@ The prop `onBackdropPress` allows you to handle this situation:
 
 ```javascript
 <Modal
-  isVisible={this.state.isVisible}
-  onBackdropPress={() => this.setState({isVisible: false})}>
+  isVisible={isModalVisible}
+  onBackdropPress={() => setModalVisible(false)}>
   <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
@@ -203,8 +207,8 @@ The prop `onSwipeComplete` allows you to handle this situation (remember to set 
 
 ```javascript
 <Modal
-  isVisible={this.state.isVisible}
-  onSwipeComplete={() => this.setState({isVisible: false})}
+  isVisible={isModalVisible}
+  onSwipeComplete={() => setModalVisible(false)}>
   swipeDirection="left">
   <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
@@ -277,7 +281,7 @@ You need to specify the size of your custom backdrop component. You can also mak
 
 ```javascript
 <Modal
-  isVisible={this.state.isVisible}
+  isVisible={isModalVisible}
   customBackdrop={<View style={{flex: 1}} />}>
   <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
@@ -291,7 +295,7 @@ You can provide an event handler to the custom backdrop element to dismiss the m
 
 ```javascript
 <Modal
-  isVisible={this.state.isVisible}
+  isVisible={isModalVisible}
   customBackdrop={
     <TouchableWithoutFeedback onPress={dismissModalHandler}>
       <View style={{flex: 1}} />
