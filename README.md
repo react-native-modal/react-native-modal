@@ -193,7 +193,7 @@ The prop `onBackdropPress` allows you to handle this situation:
 
 ```javascript
 <Modal
-  isVisible={isVisible}
+  isVisible={isModalVisible}
   onBackdropPress={() => setModalVisible(false)}>
   <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
@@ -207,7 +207,7 @@ The prop `onSwipeComplete` allows you to handle this situation (remember to set 
 
 ```javascript
 <Modal
-  isVisible={isVisible}
+  isVisible={isModalVisible}
   onSwipeComplete={() => setModalVisible(false)}>
   swipeDirection="left">
   <View style={{flex: 1}}>
