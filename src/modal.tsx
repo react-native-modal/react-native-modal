@@ -729,6 +729,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       ...otherProps
     } = this.props;
 
+    const {testID, ...containerProps} = otherProps;
     const computedStyle = [
       {margin: this.getDeviceWidth() * 0.05, transform: [{translateY: 0}]},
       styles.content,
@@ -766,7 +767,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         style={[panPosition, computedStyle]}
         pointerEvents="box-none"
         useNativeDriver={useNativeDriver}
-        {...otherProps}>
+        {...containerProps}>
         {_children}
       </animatable.View>
     );
