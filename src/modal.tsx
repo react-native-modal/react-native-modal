@@ -431,6 +431,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
         Animated.spring(this.state.pan!, {
           toValue: {x: 0, y: 0},
+          velocity: Math.max(gestureState.vx, gestureState.vy),
           bounciness: 0,
           useNativeDriver: false,
         }).start();
