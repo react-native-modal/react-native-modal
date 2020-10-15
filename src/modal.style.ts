@@ -10,6 +10,13 @@ export default StyleSheet.create({
     opacity: 0,
     backgroundColor: 'black',
   },
+  touchableBackdropWrapper: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
   content: {
     flex: 1,
     justifyContent: 'center',

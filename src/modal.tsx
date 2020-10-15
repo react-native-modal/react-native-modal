@@ -10,6 +10,7 @@ import {
   PanResponderInstance,
   Platform,
   StyleProp,
+  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
   View,
   ViewStyle,
   ViewProps,
@@ -672,32 +673,46 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     } = this.props;
     const hasCustomBackdrop = !!customBackdrop;
 
-    const backdropComputedStyle = [
-      {
-        width: this.getDeviceWidth(),
-        height: this.getDeviceHeight(),
-        backgroundColor:
-          this.state.showContent && !hasCustomBackdrop
-            ? backdropColor
-            : 'transparent',
-      },
-    ];
+    const backdropComputedStyle = {
+      width: this.getDeviceWidth(),
+      height: this.getDeviceHeight(),
+      backgroundColor:
+        this.state.showContent && !hasCustomBackdrop
+          ? backdropColor
+          : 'transparent',
+    };
 
-    return (
+    const backdropWrapper = (
       <animatable.View
         ref={ref => (this.backdropRef = ref)}
         useNativeDriver={useNativeDriver}
-        style={styles.backdrop}
-      >
-        <TouchableWithoutFeedback
-          onPress={onBackdropPress}
-          style={backdropComputedStyle}
-        >
-          <>
-            {hasCustomBackdrop && customBackdrop}
-          </>
-        </TouchableWithoutFeedback>
+        style={[styles.backdrop, backdropComputedStyle]}>
+        {hasCustomBackdrop && customBackdrop}
       </animatable.View>
+    );
+
+    if (hasCustomBackdrop) {
+      // The user will handle backdrop presses himself
+      return backdropWrapper;
+    }
+    // If there's no custom backdrop, handle presses with
+    // RNTouchableWithoutFeedback
+    // code below is wierd but RNTouchableWithoutFeedback handles the top status bar area of iphone-x
+    // and TouchableWithoutFeedback will handle other areas.
+    return (
+      <RNTouchableWithoutFeedback onPress={onBackdropPress}>
+        <View style={styles.touchableBackdropWrapper}>
+          <TouchableWithoutFeedback 
+            onPress={onBackdropPress}
+            style={{
+              width: backdropComputedStyle.width,
+              height: backdropComputedStyle.height - 1 // don't know why this works but it works only if it is not 100%
+            }}
+          >
+            {backdropWrapper}
+          </TouchableWithoutFeedback>
+        </View>
+      </RNTouchableWithoutFeedback>
     );
   };
   render() {
