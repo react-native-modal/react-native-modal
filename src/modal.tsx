@@ -10,7 +10,6 @@ import {
   PanResponderInstance,
   Platform,
   StyleProp,
-  TouchableWithoutFeedback,
   View,
   ViewStyle,
   ViewProps,
@@ -33,6 +32,7 @@ import {
   PresentationStyle,
   OnOrientationChange,
 } from './types';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 // Override default react-native-animatable animations
 initializeAnimations();
@@ -670,7 +670,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       useNativeDriver,
       onBackdropPress,
     } = this.props;
-    const hasCustomBackdrop = !!this.props.customBackdrop;
+    const hasCustomBackdrop = !!customBackdrop;
 
     const backdropComputedStyle = [
       {
@@ -683,25 +683,21 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       },
     ];
 
-    const backdropWrapper = (
+    return (
       <animatable.View
         ref={ref => (this.backdropRef = ref)}
         useNativeDriver={useNativeDriver}
-        style={[styles.backdrop, backdropComputedStyle]}>
-        {hasCustomBackdrop && customBackdrop}
+        style={styles.backdrop}
+      >
+        <TouchableWithoutFeedback
+          onPress={onBackdropPress}
+          style={backdropComputedStyle}
+        >
+          <>
+            {hasCustomBackdrop && customBackdrop}
+          </>
+        </TouchableWithoutFeedback>
       </animatable.View>
-    );
-
-    if (hasCustomBackdrop) {
-      // The user will handle backdrop presses himself
-      return backdropWrapper;
-    }
-    // If there's no custom backdrop, handle presses with
-    // TouchableWithoutFeedback
-    return (
-      <TouchableWithoutFeedback onPress={onBackdropPress}>
-        {backdropWrapper}
-      </TouchableWithoutFeedback>
     );
   };
   render() {
