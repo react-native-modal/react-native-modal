@@ -308,6 +308,10 @@ You can provide an event handler to the custom backdrop element to dismiss the m
 />
 ```
 
+### Touchable's are not working in react-native-modal
+If you are using `Touchables` from react-native, switch it to `react-native-gesture-handler`.
+
+
 ## Available animations
 
 Take a look at [react-native-animatable](https://github.com/oblador/react-native-animatable) to see the dozens of animations available out-of-the-box. You can also pass in custom animation definitions and have them automatically register with react-native-animatable. For more information on creating custom animations, see the react-native-animatable [animation definition schema](https://github.com/oblador/react-native-animatable#animation-definition-schema).
