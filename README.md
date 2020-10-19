@@ -29,6 +29,9 @@ The goal of `react-native-modal` is expanding the original react-native `Modal` 
 
 This library is available on npm, install it with: `npm i react-native-modal` or `yarn add react-native-modal`.
 
+Additionally, you should install `react-native-gesture-handler`.
+Check [getting started](https://docs.swmansion.com/react-native-gesture-handler/docs/#installation) for react-native-gesture-handler
+
 ## Usage
 
 Since react-native-modal is an extension of the original react native modal, it works in a similar fashion [react-native original modal](https://reactnative.dev/docs/modal.html).
@@ -46,12 +49,12 @@ function WrapperComponent() {
   return (
     <View>
       <Modal>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>I am the modal content!</Text>
         </View>
       </Modal>
     </View>
-  )
+  );
 }
 ```
 
@@ -62,12 +65,12 @@ function WrapperComponent() {
   return (
     <View>
       <Modal isVisible={true}>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>I am the modal content!</Text>
         </View>
       </Modal>
     </View>
-  )
+  );
 }
 ```
 
@@ -87,7 +90,7 @@ import Modal from 'react-native-modal';
 
 function ModalTester() {
   const [isModalVisible, setModalVisible] = useState(false);
-  
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -169,10 +172,13 @@ If you're experiencing this issue, you'll need to install [`react-native-extra-d
 Then, provide the real window height (obtained from `react-native-extra-dimensions-android`) to the modal:
 
 ```javascript
-const deviceWidth = Dimensions.get("window").width;
-const deviceHeight = Platform.OS === "ios"
-  ? Dimensions.get("window").height
-  : require("react-native-extra-dimensions-android").get("REAL_WINDOW_HEIGHT");
+const deviceWidth = Dimensions.get('window').width;
+const deviceHeight =
+  Platform.OS === 'ios'
+    ? Dimensions.get('window').height
+    : require('react-native-extra-dimensions-android').get(
+        'REAL_WINDOW_HEIGHT',
+      );
 
 function WrapperComponent() {
   const [isModalVisible, setModalVisible] = useState(true);
@@ -181,13 +187,12 @@ function WrapperComponent() {
     <Modal
       isVisible={isModalVisible}
       deviceWidth={deviceWidth}
-      deviceHeight={deviceHeight}
-    >
-      <View style={{ flex: 1 }}>
+      deviceHeight={deviceHeight}>
+      <View style={{flex: 1}}>
         <Text>I am the modal content!</Text>
       </View>
     </Modal>
-  )
+  );
 }
 ```
 
@@ -284,9 +289,7 @@ Also, some users have noticed that setting backdropTransitionOutTiming={0} can f
 You need to specify the size of your custom backdrop component. You can also make it expand to fill the entire screen by adding a `flex: 1` to its style:
 
 ```javascript
-<Modal
-  isVisible={isModalVisible}
-  customBackdrop={<View style={{flex: 1}} />}>
+<Modal isVisible={isModalVisible} customBackdrop={<View style={{flex: 1}} />}>
   <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
@@ -309,8 +312,8 @@ You can provide an event handler to the custom backdrop element to dismiss the m
 ```
 
 ### Touchable's are not working in react-native-modal
-If you are using `Touchables` from react-native, switch it to `react-native-gesture-handler`.
 
+If you are using `Touchables` from react-native, switch it to `react-native-gesture-handler`.
 
 ## Available animations
 
