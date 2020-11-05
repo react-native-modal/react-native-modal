@@ -92,7 +92,6 @@ function ModalTester() {
     setModalVisible(!isModalVisible);
   };
 
-  render() {
     return (
       <View style={{flex: 1}}>
         <Button title="Show modal" onPress={toggleModal} />
@@ -106,7 +105,6 @@ function ModalTester() {
         </Modal>
       </View>
     );
-  }
 }
 
 export default ModalTester;
