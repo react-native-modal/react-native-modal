@@ -3,6 +3,7 @@ import {
   Animated,
   DeviceEventEmitter,
   Dimensions,
+  InteractionManager,
   KeyboardAvoidingView,
   Modal,
   PanResponder,
@@ -584,10 +585,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillShow && this.props.onModalWillShow();
+      const interactionHandle = InteractionManager.createInteractionHandle();
       this.contentRef
         .animate(this.animationIn, this.props.animationInTiming)
         .then(() => {
           this.isTransitioning = false;
+          InteractionManager.clearInteractionHandle(interactionHandle);
           if (!this.props.isVisible) {
             this.close();
           } else {
@@ -626,10 +629,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillHide && this.props.onModalWillHide();
+      const interactionHandle = InteractionManager.createInteractionHandle();
       this.contentRef
         .animate(animationOut, this.props.animationOutTiming)
         .then(() => {
           this.isTransitioning = false;
+          InteractionManager.clearInteractionHandle(interactionHandle);
           if (this.props.isVisible) {
             this.open();
           } else {
