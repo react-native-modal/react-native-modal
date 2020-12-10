@@ -79,6 +79,7 @@ export interface ModalProps extends ViewProps {
   backdropTransitionOutTiming: number;
   customBackdrop: React.ReactNode;
   useNativeDriver: boolean;
+  useNativeDriverForBackdrop?: boolean;
   deviceHeight: number;
   deviceWidth: number;
   hideModalContentWhileAnimating: boolean;
@@ -140,6 +141,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       PropTypes.oneOf(['up', 'down', 'left', 'right']),
     ]),
     useNativeDriver: PropTypes.bool,
+    useNativeDriverForBackdrop: PropTypes.bool,
     style: PropTypes.any,
     scrollTo: PropTypes.func,
     scrollOffset: PropTypes.number,
@@ -673,6 +675,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       customBackdrop,
       backdropColor,
       useNativeDriver,
+      useNativeDriverForBackdrop,
       onBackdropPress,
     } = this.props;
     const hasCustomBackdrop = !!this.props.customBackdrop;
@@ -691,7 +694,11 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     const backdropWrapper = (
       <animatable.View
         ref={ref => (this.backdropRef = ref)}
-        useNativeDriver={useNativeDriver}
+        useNativeDriver={
+          useNativeDriverForBackdrop !== undefined
+            ? useNativeDriverForBackdrop
+            : useNativeDriver
+        }
         style={[styles.backdrop, backdropComputedStyle]}>
         {hasCustomBackdrop && customBackdrop}
       </animatable.View>

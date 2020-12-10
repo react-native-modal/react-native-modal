@@ -12,6 +12,7 @@ class SwipeableModal extends ModalBaseScene {
         testID={'modal'}
         isVisible={this.isVisible()}
         onSwipeComplete={this.close}
+        useNativeDriverForBackdrop
         swipeDirection={['down']}>
         <DefaultModalContent onPress={this.close} />
       </Modal>
