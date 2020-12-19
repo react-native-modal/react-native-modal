@@ -54,7 +54,7 @@
     "@babel/core": "^7.5.5",
     "@babel/runtime": "^7.6.3",
     "@react-native-community/eslint-config": "^0.0.5",
-    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/git": "^9.0.0",
     "@types/react": "^16.9.9",
     "@types/react-native": "^0.60.21",
     "@typescript-eslint/eslint-plugin": "^2.4.0",
@@ -74,7 +74,7 @@
     "react": "16.9.0",
     "react-native": "0.61.0",
     "react-test-renderer": "16.8.6",
-    "semantic-release": "15.13.24",
+    "semantic-release": "17.3.0",
     "typescript": "3.7.2"
   },
   "peerDependencies": {
