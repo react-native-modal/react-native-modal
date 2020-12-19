@@ -1,0 +1,67 @@
+version: 2.1
+
+orbs:
+  rn: react-native-community/react-native@1.2.1
+
+jobs:
+  checkout_code:
+    executor: rn/linux_js
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths: .
+  analyse_js:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
+      - run:
+          name: Run Tests
+          command: yarn test
+  publish:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
+      - run:
+          name: Build the project
+          command: yarn build
+      - run:
+          name: Publish to NPM
+          command: yarn release
+
+workflows:
+  ci:
+    jobs:
+      - checkout_code
+      - analyse_js:
+          requires:
+            - checkout_code
+      #      - rn/android_build:
+      #          name: build_android_release
+      #          project_path: "example/android"
+      #          build_type: release
+      #          requires:
+      #            - analyse_js
+      #      - rn/android_test:
+      #          detox_configuration: "android.emu.release"
+      #          requires:
+      #            - build_android_release
+      #      - rn/ios_build_and_test:
+      #          project_path: "example/ios/ModalExample.xcodeproj"
+      #          derived_data_path: "example/ios/build"
+      #          device: "iPhone 8"
+      #          build_configuration: "Release"
+      #          scheme: "ModalExample"
+      #          detox_configuration: "ios.sim.release"
+      #          requires:
+      #            - analyse_js
+      - publish:
+          requires:
+            - analyse_js
+          filters:
+            branches:
+              only: master
