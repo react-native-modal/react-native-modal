@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal",
-  "version": "11.6.0",
+  "version": "11.6.1",
   "description": "An enhanced React Native modal",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
