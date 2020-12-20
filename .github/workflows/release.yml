@@ -16,6 +16,8 @@ jobs:
           node-version: '13.x'
       - name: Install dependencies
         run: yarn --pure-lockfile
+      - name: Build the project
+        run: yarn build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
