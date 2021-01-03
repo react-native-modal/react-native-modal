@@ -1,10 +1,3 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
@@ -58,7 +51,9 @@
     }];
   }
 
-  RCTSetLogFunction(RCTDefaultLogFunction);
+  #ifdef DEBUG
+    RCTSetLogFunction(RCTDefaultLogFunction);
+  #endif
 
   XCTAssertNil(redboxError, @"RedBox error: %@", redboxError);
   XCTAssertTrue(foundElement, @"Couldn't find element with text '%@' in %d seconds", TEXT_TO_LOOK_FOR, TIMEOUT_SECONDS);

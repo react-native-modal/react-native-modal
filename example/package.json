@@ -10,8 +10,8 @@
   "dependencies": {
     "@babel/runtime": "^7.6.3",
     "babel": "^6.23.0",
-    "react": "^16.9.0",
-    "react-native": "0.61.5",
+    "react": "^16.13.1",
+    "react-native": "0.63.4",
     "react-native-gesture-handler": "^1.5.0",
     "react-native-reanimated": "^1.4.0",
     "react-native-screens": "^1.0.0-alpha.23",
@@ -19,13 +19,13 @@
     "react-navigation-stack": "^1.10.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
+    "@babel/core": "^7.8.4",
     "@react-native-community/eslint-config": "^0.0.5",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^25.1.0",
     "eslint": "^6.2.1",
     "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.56.0",
-    "react-test-renderer": "16.8.6",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1",
     "typescript": "^3.6.4"
   },
   "jest": {
