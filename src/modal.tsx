@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Modal,
   PanResponder,
+  BackHandler,
   PanResponderGestureState,
   PanResponderInstance,
   Platform,
@@ -261,9 +262,11 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     if (this.state.isVisible) {
       this.open();
     }
+    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress);
   }
 
   componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPress);
     DeviceEventEmitter.removeListener(
       'didUpdateDimensions',
       this.handleDimensionsUpdate,
@@ -303,6 +306,13 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   }
   getDeviceHeight = () => this.props.deviceHeight || this.state.deviceHeight;
   getDeviceWidth = () => this.props.deviceWidth || this.state.deviceWidth;
+  onBackButtonPress = () => {
+    if (this.props.onBackButtonPress && this.props.isVisible) {
+      this.props.onBackButtonPress()
+      return true
+    }
+    return false
+  }  
   buildPanResponder = () => {
     let animEvt: OrNull<AnimationEvent> = null;
 
