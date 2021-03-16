@@ -92,6 +92,7 @@ export interface ModalProps extends ViewProps {
   onModalWillHide: () => void;
   onBackButtonPress: () => void;
   onBackdropPress: () => void;
+  panResponderThreshold: number;
   swipeThreshold: number;
   scrollTo: OrNull<(e: any) => void>;
   scrollOffset: number;
@@ -132,6 +133,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     onModalWillHide: PropTypes.func,
     onBackButtonPress: PropTypes.func,
     onBackdropPress: PropTypes.func,
+    panResponderThreshold: PropTypes.number,
     onSwipeStart: PropTypes.func,
     onSwipeMove: PropTypes.func,
     onSwipeComplete: PropTypes.func,
@@ -184,6 +186,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     onModalWillHide: () => null,
     onBackdropPress: () => null,
     onBackButtonPress: () => null,
+    panResponderThreshold: 4,
     swipeThreshold: 100,
 
     scrollTo: null,
@@ -266,7 +269,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPress);
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onBackButtonPress,
+    );
     DeviceEventEmitter.removeListener(
       'didUpdateDimensions',
       this.handleDimensionsUpdate,
@@ -308,11 +314,11 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   getDeviceWidth = () => this.props.deviceWidth || this.state.deviceWidth;
   onBackButtonPress = () => {
     if (this.props.onBackButtonPress && this.props.isVisible) {
-      this.props.onBackButtonPress()
-      return true
+      this.props.onBackButtonPress();
+      return true;
     }
-    return false
-  }  
+    return false;
+  };
   buildPanResponder = () => {
     let animEvt: OrNull<AnimationEvent> = null;
 
@@ -323,10 +329,13 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         if (!this.props.propagateSwipe) {
           // The number "4" is just a good tradeoff to make the panResponder
           // work correctly even when the modal has touchable buttons.
+          // However, if you want to overwrite this and choose for yourself,
+          // set panResponderThreshold in the props.
           // For reference:
           // https://github.com/react-native-community/react-native-modal/pull/197
           const shouldSetPanResponder =
-            Math.abs(gestureState.dx) >= 4 || Math.abs(gestureState.dy) >= 4;
+            Math.abs(gestureState.dx) >= this.props.panResponderThreshold ||
+            Math.abs(gestureState.dy) >= this.props.panResponderThreshold;
           if (shouldSetPanResponder && this.props.onSwipeStart) {
             this.props.onSwipeStart();
           }
