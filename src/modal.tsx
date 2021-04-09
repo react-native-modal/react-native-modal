@@ -54,10 +54,10 @@ type State = {
 
 export interface ModalProps extends ViewProps {
   children: React.ReactNode;
-  onSwipeStart?: () => void;
-  onSwipeMove?: (percentageShown: number) => void;
-  onSwipeComplete?: (params: OnSwipeCompleteParams) => void;
-  onSwipeCancel?: () => void;
+  onSwipeStart?: (gestureState: PanResponderGestureState) => void;
+  onSwipeMove?: (percentageShown: number, gestureState: PanResponderGestureState) => void;
+  onSwipeComplete?: (params: OnSwipeCompleteParams, gestureState: PanResponderGestureState) => void;
+  onSwipeCancel?: (gestureState: PanResponderGestureState) => void;
   style?: StyleProp<ViewStyle>;
   swipeDirection?: Direction | Array<Direction>;
   onDismiss?: () => void;
@@ -312,7 +312,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       return true
     }
     return false
-  }  
+  }
   buildPanResponder = () => {
     let animEvt: OrNull<AnimationEvent> = null;
 
@@ -328,7 +328,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           const shouldSetPanResponder =
             Math.abs(gestureState.dx) >= 4 || Math.abs(gestureState.dy) >= 4;
           if (shouldSetPanResponder && this.props.onSwipeStart) {
-            this.props.onSwipeStart();
+            this.props.onSwipeStart(gestureState);
           }
 
           this.currentSwipingDirection = this.getSwipingDirection(gestureState);
@@ -354,7 +354,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           return false; // user needs to be able to scroll content back up
         }
         if (this.props.onSwipeStart) {
-          this.props.onSwipeStart();
+          this.props.onSwipeStart(gestureState);
         }
 
         // Cleared so that onPanResponderMove can wait to have some delta
@@ -387,7 +387,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           animEvt!(evt, gestureState);
 
           if (this.props.onSwipeMove) {
-            this.props.onSwipeMove(newOpacityFactor);
+            this.props.onSwipeMove(newOpacityFactor, gestureState);
           }
         } else {
           if (this.props.scrollTo) {
@@ -420,7 +420,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
             this.inSwipeClosingState = true;
             this.props.onSwipeComplete({
               swipingDirection: this.getSwipingDirection(gestureState),
-            });
+            }, gestureState);
             return;
           }
           // Deprecated. Remove later.
@@ -433,7 +433,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
         //Reset backdrop opacity and modal position
         if (this.props.onSwipeCancel) {
-          this.props.onSwipeCancel();
+          this.props.onSwipeCancel(gestureState);
         }
 
         if (this.backdropRef) {
