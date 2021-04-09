@@ -55,8 +55,14 @@ type State = {
 export interface ModalProps extends ViewProps {
   children: React.ReactNode;
   onSwipeStart?: (gestureState: PanResponderGestureState) => void;
-  onSwipeMove?: (percentageShown: number, gestureState: PanResponderGestureState) => void;
-  onSwipeComplete?: (params: OnSwipeCompleteParams, gestureState: PanResponderGestureState) => void;
+  onSwipeMove?: (
+    percentageShown: number,
+    gestureState: PanResponderGestureState,
+  ) => void;
+  onSwipeComplete?: (
+    params: OnSwipeCompleteParams,
+    gestureState: PanResponderGestureState,
+  ) => void;
   onSwipeCancel?: (gestureState: PanResponderGestureState) => void;
   style?: StyleProp<ViewStyle>;
   swipeDirection?: Direction | Array<Direction>;
@@ -266,7 +272,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPress);
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onBackButtonPress,
+    );
     DeviceEventEmitter.removeListener(
       'didUpdateDimensions',
       this.handleDimensionsUpdate,
@@ -308,11 +317,11 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   getDeviceWidth = () => this.props.deviceWidth || this.state.deviceWidth;
   onBackButtonPress = () => {
     if (this.props.onBackButtonPress && this.props.isVisible) {
-      this.props.onBackButtonPress()
-      return true
+      this.props.onBackButtonPress();
+      return true;
     }
-    return false
-  }
+    return false;
+  };
   buildPanResponder = () => {
     let animEvt: OrNull<AnimationEvent> = null;
 
@@ -338,7 +347,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
         return false;
       },
-      onStartShouldSetPanResponder: (e: any) => {
+      onStartShouldSetPanResponder: (e: any, gestureState) => {
         const hasScrollableView =
           e._dispatchInstances &&
           e._dispatchInstances.some((instance: any) =>
@@ -418,9 +427,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         ) {
           if (this.props.onSwipeComplete) {
             this.inSwipeClosingState = true;
-            this.props.onSwipeComplete({
-              swipingDirection: this.getSwipingDirection(gestureState),
-            }, gestureState);
+            this.props.onSwipeComplete(
+              {
+                swipingDirection: this.getSwipingDirection(gestureState),
+              },
+              gestureState,
+            );
             return;
           }
           // Deprecated. Remove later.
