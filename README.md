@@ -152,7 +152,7 @@ For a more complex example take a look at the `/example` directory.
 | useNativeDriver                | bool             | false                          | Defines if animations should use native driver                                                                                             |
 | useNativeDriverForBackdrop     | bool             | null                           | Defines if animations for backdrop should use native driver (to avoid flashing on android)                                                 |
 | hideModalContentWhileAnimating | bool             | false                          | Enhances the performance by hiding the modal content until the animations complete                                                         |
-| propagateSwipe                 | bool             | false                          | Allows swipe events to propagate to children components (eg a ScrollView inside a modal)                                                   |
+| propagateSwipe                 | bool or func     | false                          | Allows swipe events to propagate to children components (eg a ScrollView inside a modal)                                                   |
 | style                          | any              | null                           | Style applied to the modal                                                                                                                 |
 
 ## Frequently Asked Questions
