@@ -34,6 +34,7 @@ import {
   AnimationEvent,
   PresentationStyle,
   OnOrientationChange,
+  GestureResponderEvent,
 } from './types';
 
 // Override default react-native-animatable animations
@@ -90,7 +91,12 @@ export interface ModalProps extends ViewProps {
   deviceHeight: number;
   deviceWidth: number;
   hideModalContentWhileAnimating: boolean;
-  propagateSwipe: boolean;
+  propagateSwipe:
+    | boolean
+    | ((
+        event: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+      ) => boolean);
   isVisible: boolean;
   onModalShow: () => void;
   onModalWillShow: () => void;
@@ -132,7 +138,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     deviceWidth: PropTypes.number,
     isVisible: PropTypes.bool.isRequired,
     hideModalContentWhileAnimating: PropTypes.bool,
-    propagateSwipe: PropTypes.bool,
+    propagateSwipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     onModalShow: PropTypes.func,
     onModalWillShow: PropTypes.func,
     onModalHide: PropTypes.func,
@@ -325,6 +331,16 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     }
     return false;
   };
+
+  shouldPropagateSwipe = (
+    evt: GestureResponderEvent,
+    gestureState: PanResponderGestureState,
+  ) => {
+    return typeof this.props.propagateSwipe === 'function'
+      ? this.props.propagateSwipe(evt, gestureState)
+      : this.props.propagateSwipe;
+  };
+
   buildPanResponder = () => {
     let animEvt: OrNull<AnimationEvent> = null;
 
@@ -332,7 +348,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         // Use propagateSwipe to allow inner content to scroll. See PR:
         // https://github.com/react-native-community/react-native-modal/pull/246
-        if (!this.props.propagateSwipe) {
+        if (!this.shouldPropagateSwipe(evt, gestureState)) {
           // The number "4" is just a good tradeoff to make the panResponder
           // work correctly even when the modal has touchable buttons.
           // However, if you want to overwrite this and choose for yourself,
@@ -362,7 +378,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
         if (
           hasScrollableView &&
-          this.props.propagateSwipe &&
+          this.shouldPropagateSwipe(e, gestureState) &&
           this.props.scrollTo &&
           this.props.scrollOffset > 0
         ) {
