@@ -234,13 +234,6 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   contentRef: any;
   panResponder: OrNull<PanResponderInstance> = null;
 
-  scrollOffset: number;
-  panResponderThreshold: number;
-  scrollOffsetMax: number;
-  swipeThreshold: number;
-  onModalShow: () => void;
-  onModalHide: () => void;
-
   constructor(props: ModalProps) {
     super(props);
     const {animationIn, animationOut} = buildAnimations(
@@ -249,16 +242,6 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     this.animationIn = animationIn;
     this.animationOut = animationOut;
-
-    this.scrollOffset = this.props.scrollOffset || defaultProps.scrollOffset;
-    this.panResponderThreshold =
-      this.props.panResponderThreshold || defaultProps.panResponderThreshold;
-    this.scrollOffsetMax =
-      this.props.scrollOffsetMax ?? defaultProps.scrollOffsetMax;
-    this.swipeThreshold =
-      this.props.swipeThreshold ?? defaultProps.swipeThreshold;
-    this.onModalShow = this.props.onModalShow ?? defaultProps.onModalShow;
-    this.onModalHide = this.props.onModalHide ?? defaultProps.onModalHide;
 
     if (this.state.isSwipeable) {
       this.state = {
@@ -375,8 +358,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           // For reference:
           // https://github.com/react-native-community/react-native-modal/pull/197
           const shouldSetPanResponder =
-            Math.abs(gestureState.dx) >= this.panResponderThreshold ||
-            Math.abs(gestureState.dy) >= this.panResponderThreshold;
+            Math.abs(gestureState.dx) >=
+              (this.props.panResponderThreshold ??
+                defaultProps.panResponderThreshold) ||
+            Math.abs(gestureState.dy) >=
+              (this.props.panResponderThreshold ??
+                defaultProps.panResponderThreshold);
           if (shouldSetPanResponder && this.props.onSwipeStart) {
             this.props.onSwipeStart(gestureState);
           }
@@ -399,7 +386,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           hasScrollableView &&
           this.shouldPropagateSwipe(e, gestureState) &&
           this.props.scrollTo &&
-          this.scrollOffset > 0
+          (this.props.scrollOffset ?? defaultProps.scrollOffset) > 0
         ) {
           return false; // user needs to be able to scroll content back up
         }
@@ -445,15 +432,29 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           if (this.props.scrollTo) {
             if (this.props.scrollHorizontal) {
               let offsetX = -gestureState.dx;
-              if (offsetX > this.scrollOffsetMax) {
-                offsetX -= (offsetX - this.scrollOffsetMax) / 2;
+              if (
+                offsetX >
+                (this.props.scrollOffsetMax ?? defaultProps.scrollOffsetMax)
+              ) {
+                offsetX -=
+                  (offsetX -
+                    (this.props.scrollOffsetMax ??
+                      defaultProps.scrollOffsetMax)) /
+                  2;
               }
 
               this.props.scrollTo({x: offsetX, animated: false});
             } else {
               let offsetY = -gestureState.dy;
-              if (offsetY > this.scrollOffsetMax) {
-                offsetY -= (offsetY - this.scrollOffsetMax) / 2;
+              if (
+                offsetY >
+                (this.props.scrollOffsetMax ?? defaultProps.scrollOffsetMax)
+              ) {
+                offsetY -=
+                  (offsetY -
+                    (this.props.scrollOffsetMax ??
+                      defaultProps.scrollOffsetMax)) /
+                  2;
               }
 
               this.props.scrollTo({y: offsetY, animated: false});
@@ -465,7 +466,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         // Call the onSwipe prop if the threshold has been exceeded on the right direction
         const accDistance = this.getAccDistancePerDirection(gestureState);
         if (
-          accDistance > this.swipeThreshold &&
+          accDistance >
+            (this.props.swipeThreshold ?? defaultProps.swipeThreshold) &&
           this.isSwipeDirectionAllowed(gestureState)
         ) {
           if (this.props.onSwipeComplete) {
@@ -504,7 +506,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         }).start();
 
         if (this.props.scrollTo) {
-          if (this.scrollOffset > this.scrollOffsetMax) {
+          if (
+            (this.props.scrollOffset ?? defaultProps.scrollOffset) >
+            (this.props.scrollOffsetMax ?? defaultProps.scrollOffsetMax)
+          ) {
             this.props.scrollTo({
               y: this.props.scrollOffsetMax,
               animated: true,
@@ -661,7 +666,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           if (!this.props.isVisible) {
             this.close();
           } else {
-            this.onModalShow();
+            this.props.onModalShow!();
           }
         });
     }
@@ -715,7 +720,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
                     isVisible: false,
                   },
                   () => {
-                    this.onModalHide();
+                    this.props.onModalHide!();
                   },
                 );
               },
