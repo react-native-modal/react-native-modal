@@ -250,15 +250,15 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     this.animationIn = animationIn;
     this.animationOut = animationOut;
 
-    this.scrollOffset = this.props?.scrollOffset || defaultProps.scrollOffset;
+    this.scrollOffset = this.props.scrollOffset || defaultProps.scrollOffset;
     this.panResponderThreshold =
-      this.props?.panResponderThreshold || defaultProps.panResponderThreshold;
+      this.props.panResponderThreshold || defaultProps.panResponderThreshold;
     this.scrollOffsetMax =
-      this.props?.scrollOffsetMax ?? defaultProps.scrollOffsetMax;
+      this.props.scrollOffsetMax ?? defaultProps.scrollOffsetMax;
     this.swipeThreshold =
-      this.props?.swipeThreshold ?? defaultProps.swipeThreshold;
-    this.onModalShow = this.props?.onModalShow ?? defaultProps.onModalShow;
-    this.onModalHide = this.props?.onModalHide ?? defaultProps.onModalHide;
+      this.props.swipeThreshold ?? defaultProps.swipeThreshold;
+    this.onModalShow = this.props.onModalShow ?? defaultProps.onModalShow;
+    this.onModalHide = this.props.onModalHide ?? defaultProps.onModalHide;
 
     if (this.state.isSwipeable) {
       this.state = {
@@ -432,7 +432,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           this.backdropRef &&
             this.backdropRef.transitionTo({
               opacity:
-                (this.props?.backdropOpacity ?? defaultProps.backdropOpacity) *
+                (this.props.backdropOpacity ?? defaultProps.backdropOpacity) *
                 newOpacityFactor,
             });
 
