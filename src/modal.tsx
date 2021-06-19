@@ -77,12 +77,6 @@ const defaultProps = {
         gestureState: PanResponderGestureState,
       ) => boolean),
   isVisible: false,
-  onModalShow: () => null,
-  onModalWillShow: () => null,
-  onModalHide: () => null,
-  onModalWillHide: () => null,
-  onBackdropPress: () => null,
-  onBackButtonPress: () => null,
   panResponderThreshold: 4,
   swipeThreshold: 100,
 
@@ -114,12 +108,12 @@ export type ModalProps = ViewProps & {
   presentationStyle?: PresentationStyle;
 
   // Default ModalProps Provided
-  onModalShow: () => void;
-  onModalWillShow: () => void;
-  onModalHide: () => void;
-  onModalWillHide: () => void;
-  onBackdropPress: () => void;
-  onBackButtonPress: () => void;
+  onModalShow?: () => void;
+  onModalWillShow?: () => void;
+  onModalHide?: () => void;
+  onModalWillHide?: () => void;
+  onBackdropPress?: () => void;
+  onBackButtonPress?: () => void;
   useNativeDriverForBackdrop?: boolean;
 } & typeof defaultProps;
 
@@ -616,7 +610,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           if (!this.props.isVisible) {
             this.close();
           } else {
-            this.props.onModalShow();
+            this.props.onModalShow!();
           }
         });
     }
@@ -670,7 +664,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
                     isVisible: false,
                   },
                   () => {
-                    this.props.onModalHide();
+                    this.props.onModalHide!();
                   },
                 );
               },
