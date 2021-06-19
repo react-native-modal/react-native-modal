@@ -80,6 +80,12 @@ const defaultProps = {
   panResponderThreshold: 4,
   swipeThreshold: 100,
 
+  onModalShow: (() => null) as () => void,
+  onModalWillShow: (() => null) as () => void,
+  onModalHide: (() => null) as () => void,
+  onModalWillHide: (() => null) as () => void,
+  onBackdropPress: (() => null) as () => void,
+  onBackButtonPress: (() => null) as () => void,
   scrollTo: null as OrNull<(e: any) => void>,
   scrollOffset: 0,
   scrollOffsetMax: 0,
@@ -108,12 +114,6 @@ export type ModalProps = ViewProps & {
   presentationStyle?: PresentationStyle;
 
   // Default ModalProps Provided
-  onModalShow?: () => void;
-  onModalWillShow?: () => void;
-  onModalHide?: () => void;
-  onModalWillHide?: () => void;
-  onBackdropPress?: () => void;
-  onBackButtonPress?: () => void;
   useNativeDriverForBackdrop?: boolean;
 } & typeof defaultProps;
 
