@@ -53,7 +53,47 @@ type State = {
   pan: OrNull<Animated.ValueXY>;
 };
 
-export interface ModalProps extends ViewProps {
+const defaultProps = {
+  animationIn: 'slideInUp' as Animation | CustomAnimation,
+  animationInTiming: 300,
+  animationOut: 'slideOutDown' as Animation | CustomAnimation,
+  animationOutTiming: 300,
+  avoidKeyboard: false,
+  coverScreen: true,
+  hasBackdrop: true,
+  backdropColor: 'black',
+  backdropOpacity: 0.7,
+  backdropTransitionInTiming: 300,
+  backdropTransitionOutTiming: 300,
+  customBackdrop: null as React.ReactNode,
+  useNativeDriver: false,
+  deviceHeight: null,
+  deviceWidth: null,
+  hideModalContentWhileAnimating: false,
+  propagateSwipe: false as
+    | boolean
+    | ((
+        event: GestureResponderEvent,
+        gestureState: PanResponderGestureState,
+      ) => boolean),
+  isVisible: false,
+  onModalShow: () => null,
+  onModalWillShow: () => null,
+  onModalHide: () => null,
+  onModalWillHide: () => null,
+  onBackdropPress: () => null,
+  onBackButtonPress: () => null,
+  panResponderThreshold: 4,
+  swipeThreshold: 100,
+
+  scrollTo: null as OrNull<(e: any) => void>,
+  scrollOffset: 0,
+  scrollOffsetMax: 0,
+  scrollHorizontal: false,
+  supportedOrientations: ['portrait', 'landscape'] as Orientation[],
+};
+
+export type ModalProps = ViewProps & {
   children: React.ReactNode;
   onSwipeStart?: (gestureState: PanResponderGestureState) => void;
   onSwipeMove?: (
@@ -74,45 +114,14 @@ export interface ModalProps extends ViewProps {
   presentationStyle?: PresentationStyle;
 
   // Default ModalProps Provided
-  animationIn: Animation | CustomAnimation;
-  animationInTiming: number;
-  animationOut: Animation | CustomAnimation;
-  animationOutTiming: number;
-  avoidKeyboard: boolean;
-  coverScreen: boolean;
-  hasBackdrop: boolean;
-  backdropColor: string;
-  backdropOpacity: number;
-  backdropTransitionInTiming: number;
-  backdropTransitionOutTiming: number;
-  customBackdrop: React.ReactNode;
-  useNativeDriver: boolean;
-  useNativeDriverForBackdrop?: boolean;
-  deviceHeight: number;
-  deviceWidth: number;
-  hideModalContentWhileAnimating: boolean;
-  propagateSwipe:
-    | boolean
-    | ((
-        event: GestureResponderEvent,
-        gestureState: PanResponderGestureState,
-      ) => boolean);
-  isVisible: boolean;
   onModalShow: () => void;
   onModalWillShow: () => void;
   onModalHide: () => void;
   onModalWillHide: () => void;
-  onBackButtonPress: () => void;
   onBackdropPress: () => void;
-  panResponderThreshold: number;
-  swipeThreshold: number;
-  scrollTo: OrNull<(e: any) => void>;
-  scrollOffset: number;
-  scrollOffsetMax: number;
-  scrollHorizontal: boolean;
-  statusBarTranslucent?: boolean;
-  supportedOrientations?: Orientation[];
-}
+  onBackButtonPress: () => void;
+  useNativeDriverForBackdrop?: boolean;
+} & typeof defaultProps;
 
 const extractAnimationFromProps = (props: ModalProps) => ({
   animationIn: props.animationIn,
@@ -173,40 +182,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     ),
   };
 
-  public static defaultProps = {
-    animationIn: 'slideInUp',
-    animationInTiming: 300,
-    animationOut: 'slideOutDown',
-    animationOutTiming: 300,
-    avoidKeyboard: false,
-    coverScreen: true,
-    hasBackdrop: true,
-    backdropColor: 'black',
-    backdropOpacity: 0.7,
-    backdropTransitionInTiming: 300,
-    backdropTransitionOutTiming: 300,
-    customBackdrop: null,
-    useNativeDriver: false,
-    deviceHeight: null,
-    deviceWidth: null,
-    hideModalContentWhileAnimating: false,
-    propagateSwipe: false,
-    isVisible: false,
-    onModalShow: () => null,
-    onModalWillShow: () => null,
-    onModalHide: () => null,
-    onModalWillHide: () => null,
-    onBackdropPress: () => null,
-    onBackButtonPress: () => null,
-    panResponderThreshold: 4,
-    swipeThreshold: 100,
-
-    scrollTo: null,
-    scrollOffset: 0,
-    scrollOffsetMax: 0,
-    scrollHorizontal: false,
-    supportedOrientations: ['portrait', 'landscape'],
-  };
+  public static defaultProps = defaultProps;
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
   // the modal visible during the exit animation, even if the user has already change the
@@ -483,7 +459,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         }).start();
 
         if (this.props.scrollTo) {
-          if (this.props.scrollOffset > this.props.scrollOffsetMax!) {
+          if (this.props.scrollOffset > this.props.scrollOffsetMax) {
             this.props.scrollTo({
               y: this.props.scrollOffsetMax,
               animated: true,
