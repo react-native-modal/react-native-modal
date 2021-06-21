@@ -90,6 +90,7 @@ const defaultProps = {
   scrollOffset: 0,
   scrollOffsetMax: 0,
   scrollHorizontal: false,
+  statusBarTranslucent: false,
   supportedOrientations: ['portrait', 'landscape'] as Orientation[],
 };
 
