@@ -203,6 +203,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   contentRef: any;
   panResponder: OrNull<PanResponderInstance> = null;
 
+  interactionHandle: OrNull<number> = null;
+
   constructor(props: ModalProps) {
     super(props);
     const {animationIn, animationOut} = buildAnimations(
@@ -260,6 +262,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       'didUpdateDimensions',
       this.handleDimensionsUpdate,
     );
+    if (this.interactionHandle) {
+      InteractionManager.clearInteractionHandle(this.interactionHandle);
+      this.interactionHandle = null;
+    }
   }
 
   componentDidUpdate(prevProps: ModalProps) {
@@ -602,12 +608,17 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillShow && this.props.onModalWillShow();
-      const interactionHandle = InteractionManager.createInteractionHandle();
+      if (this.interactionHandle == null) {
+        this.interactionHandle = InteractionManager.createInteractionHandle();
+      }
       this.contentRef
         .animate(this.animationIn, this.props.animationInTiming)
         .then(() => {
           this.isTransitioning = false;
-          InteractionManager.clearInteractionHandle(interactionHandle);
+          if (this.interactionHandle) {
+            InteractionManager.clearInteractionHandle(this.interactionHandle);
+            this.interactionHandle = null;
+          }
           if (!this.props.isVisible) {
             this.close();
           } else {
@@ -646,12 +657,17 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillHide && this.props.onModalWillHide();
-      const interactionHandle = InteractionManager.createInteractionHandle();
+      if (this.interactionHandle == null) {
+        this.interactionHandle = InteractionManager.createInteractionHandle();
+      }
       this.contentRef
         .animate(animationOut, this.props.animationOutTiming)
         .then(() => {
           this.isTransitioning = false;
-          InteractionManager.clearInteractionHandle(interactionHandle);
+          if (this.interactionHandle) {
+            InteractionManager.clearInteractionHandle(this.interactionHandle);
+            this.interactionHandle = null;
+          }
           if (this.props.isVisible) {
             this.open();
           } else {
