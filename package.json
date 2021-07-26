@@ -72,7 +72,7 @@
     "prettier": "^1.18.2",
     "pretty-quick": "^2.0.0",
     "react": "16.9.0",
-    "react-native": "0.61.0",
+    "react-native": "0.62.3",
     "react-test-renderer": "16.8.6",
     "semantic-release": "17.3.0",
     "typescript": "3.7.2"
