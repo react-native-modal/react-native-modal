@@ -353,14 +353,16 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
             /scrollview|flatlist/i.test(instance.type),
           );
 
-        if (
-          hasScrollableView &&
-          this.shouldPropagateSwipe(e, gestureState) &&
-          this.props.scrollTo &&
-          this.props.scrollOffset > 0
-        ) {
+        // when users scroll over inner scrollview/flatlist the modal shouldn't responses
+        // if propagateSwipe is set
+        if (hasScrollableView && this.shouldPropagateSwipe(e, gestureState)) {
+          return false
+        }
+
+        if (this.props.scrollTo && this.props.scrollOffset > 0) {
           return false; // user needs to be able to scroll content back up
         }
+
         if (this.props.onSwipeStart) {
           this.props.onSwipeStart(gestureState);
         }
