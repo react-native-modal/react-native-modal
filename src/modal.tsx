@@ -67,8 +67,8 @@ const defaultProps = {
   backdropTransitionOutTiming: 300,
   customBackdrop: null as React.ReactNode,
   useNativeDriver: false,
-  deviceHeight: null,
-  deviceWidth: null,
+  deviceHeight: null as OrNull<number>,
+  deviceWidth: null as OrNull<number>,
   hideModalContentWhileAnimating: false,
   propagateSwipe: false as
     | boolean
