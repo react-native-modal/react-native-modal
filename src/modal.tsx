@@ -3,6 +3,7 @@ import {
   Animated,
   DeviceEventEmitter,
   Dimensions,
+  EmitterSubscription,
   InteractionManager,
   KeyboardAvoidingView,
   Modal,
@@ -202,6 +203,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   backdropRef: any;
   contentRef: any;
   panResponder: OrNull<PanResponderInstance> = null;
+  didUpdateDimensionsEmitter: OrNull<EmitterSubscription> = null;
 
   interactionHandle: OrNull<number> = null;
 
@@ -243,7 +245,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         '`<Modal onSwipe="..." />` is deprecated and will be removed starting from 13.0.0. Use `<Modal onSwipeComplete="..." />` instead.',
       );
     }
-    DeviceEventEmitter.addListener(
+    this.didUpdateDimensionsEmitter = DeviceEventEmitter.addListener(
       'didUpdateDimensions',
       this.handleDimensionsUpdate,
     );
@@ -258,10 +260,9 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       'hardwareBackPress',
       this.onBackButtonPress,
     );
-    DeviceEventEmitter.removeListener(
-      'didUpdateDimensions',
-      this.handleDimensionsUpdate,
-    );
+    if (this.didUpdateDimensionsEmitter) {
+      this.didUpdateDimensionsEmitter.remove();
+    }
     if (this.interactionHandle) {
       InteractionManager.clearInteractionHandle(this.interactionHandle);
       this.interactionHandle = null;
