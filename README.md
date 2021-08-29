@@ -1,4 +1,7 @@
-🚧 We're looking for maintainers and contributors! See [#414](https://github.com/react-native-community/react-native-modal/issues/414)
+### Announcements 
+- 📣 We're looking for maintainers and contributors! See [#598](https://github.com/react-native-modal/react-native-modal/discussions/598)
+- 💡 We're brainstorming if/how we can make a JavaScript-only version of `react-native-modal`. See [#597](https://github.com/react-native-modal/react-native-modal/discussions/597)
+- 🙏 If you have a question, please [start a new discussion](https://github.com/react-native-modal/react-native-modal/discussions) instead of opening a new issue.
 
 <br />
 
@@ -319,7 +322,7 @@ Take a look at [react-native-animatable](https://github.com/oblador/react-native
 
 ## Alternatives
 
-- [React Native's own `<Modal>` component](https://reactnative.dev/docs/modal.html)
+- [React Native's built-in `<Modal>` component](https://reactnative.dev/docs/modal.html)
 - [React Native Paper `<Modal>` component](https://callstack.github.io/react-native-paper/modal.html)
 - [React Native Modalfy](https://github.com/colorfy-software/react-native-modalfy)
 
