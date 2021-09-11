@@ -256,10 +256,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener(
+    BackHandler.addEventListener(
       'hardwareBackPress',
       this.onBackButtonPress,
-    );
+    )?.remove();
     if (this.didUpdateDimensionsEmitter) {
       this.didUpdateDimensionsEmitter.remove();
     }
