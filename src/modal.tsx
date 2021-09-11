@@ -203,8 +203,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   backdropRef: any;
   contentRef: any;
   panResponder: OrNull<PanResponderInstance> = null;
-  didUpdateDimensionsEmitter: OrNull<EmitterSubscription> = null
-  backButtonHandler: OrNull<EmitterSubscription> = null
+  didUpdateDimensionsEmitter: OrNull<EmitterSubscription> = null;
+  backButtonHandler: OrNull<EmitterSubscription> = null;
 
   interactionHandle: OrNull<number> = null;
 
