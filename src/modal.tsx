@@ -67,6 +67,7 @@ const defaultProps = {
   backdropTransitionInTiming: 300,
   backdropTransitionOutTiming: 300,
   customBackdrop: null as React.ReactNode,
+  extraContent: null as React.ReactNode,
   useNativeDriver: false,
   deviceHeight: null as OrNull<number>,
   deviceWidth: null as OrNull<number>,
@@ -138,6 +139,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     backdropTransitionInTiming: PropTypes.number,
     backdropTransitionOutTiming: PropTypes.number,
     customBackdrop: PropTypes.node,
+    extraContent: PropTypes.node,
     children: PropTypes.node.isRequired,
     deviceHeight: PropTypes.number,
     deviceWidth: PropTypes.number,
@@ -763,6 +765,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       backdropTransitionInTiming,
       backdropTransitionOutTiming,
       customBackdrop,
+      extraContent,
       children,
       isVisible,
       onModalShow,
@@ -824,6 +827,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           pointerEvents="box-none"
           style={[styles.backdrop, styles.containerBox]}>
           {this.makeBackdrop()}
+          {extraContent}
+
           {containerView}
         </View>
       );
@@ -836,6 +841,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         onRequestClose={onBackButtonPress}
         {...otherProps}>
         {this.makeBackdrop()}
+        {extraContent}
 
         {avoidKeyboard ? (
           <KeyboardAvoidingView
