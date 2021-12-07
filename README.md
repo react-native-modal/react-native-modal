@@ -162,7 +162,7 @@ For a more complex example take a look at the `/example` directory.
 
 ### The component is not working as expected
 
-Under the hood `react-native-modal` uses react-native original [Modal component](https://reactnative.dev/docs/modal.html).  
+Under the hood `react-native-modal` uses react-native original [Modal component](https://reactnative.dev/docs/modal).  
 Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).
 
 ### The backdrop is not completely filled/covered on some Android devices (Galaxy, for one)
