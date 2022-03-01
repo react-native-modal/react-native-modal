@@ -1,27 +1,32 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
-// @ts-ignore
-import Modal from 'react-native-modal';
-import ModalBaseScene from '../utils/ModalBaseScene';
-import DefaultModalContent from '../utils/DefaultModalContent';
+import React, {useState} from 'react'
+import {SafeAreaView, StyleSheet, Text} from 'react-native'
+import Modal from 'react-native-modal'
+import DefaultModalContent from '../utils/DefaultModalContent'
 
-class CustomBackdropModal extends ModalBaseScene {
-  renderModal(): React.ReactElement<any> {
-    return (
-      <Modal
-        testID={'modal'}
-        isVisible={this.isVisible()}
-        customBackdrop={
-          <SafeAreaView style={styles.customBackdrop}>
-            <Text style={styles.customBackdropText}>
-              I'm in the backdrop! 👋
-            </Text>
-          </SafeAreaView>
-        }>
-        <DefaultModalContent onPress={this.close} />
-      </Modal>
-    );
+const CustomBackdropModal = ({navigation: {goBack}}) => {
+  const [showModal, setShowModal] = useState(true)
+
+  const onClose = () => {
+    setShowModal(false)
   }
+
+  const onModalWillHide = () => {
+    goBack()
+  }
+
+  return (
+    <Modal
+      testID={'modal'}
+      isVisible={showModal}
+      onModalWillHide={onModalWillHide}
+      customBackdrop={
+        <SafeAreaView style={styles.customBackdrop}>
+          <Text style={styles.customBackdropText}>I'm in the backdrop! 👋</Text>
+        </SafeAreaView>
+      }>
+      <DefaultModalContent onPress={onClose} />
+    </Modal>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -34,6 +39,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 17,
   },
-});
+})
 
-export default CustomBackdropModal;
+export default CustomBackdropModal

@@ -1,21 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react'
+import {StyleSheet, Text} from 'react-native'
+import Modal from 'react-native-modal'
+import DefaultModalContent from '../utils/DefaultModalContent'
 
-// @ts-ignore
-import Modal from 'react-native-modal';
-import ModalBaseScene from '../utils/ModalBaseScene';
-import DefaultModalContent from '../utils/DefaultModalContent';
+const BottomHalfModal = ({navigation: {goBack}}) => {
+  const [showModal, setShowModal] = useState(true)
 
-class BackdropCloseModal extends ModalBaseScene {
-  renderModal(): React.ReactElement<any> {
-    return (
-      <Modal
-        testID={'modal'}
-        isVisible={this.isVisible()}
-        onBackdropPress={this.close}>
-        <DefaultModalContent onPress={this.close} />
-      </Modal>
-    );
+  const onClose = () => {
+    setShowModal(false)
   }
+
+  const onModalWillHide = () => {
+    goBack()
+  }
+
+  return (
+    <Modal
+      testID={'modal'}
+      isVisible={showModal}
+      onBackdropPress={onClose}
+      onModalWillHide={onModalWillHide}
+      swipeDirection={['up', 'down']}
+      style={styles.view}>
+      <DefaultModalContent onPress={onClose} />
+    </Modal>
+  )
 }
 
-export default BackdropCloseModal;
+const styles = StyleSheet.create({
+  view: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+})
+
+export default BottomHalfModal

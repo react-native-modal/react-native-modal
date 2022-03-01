@@ -1,23 +1,29 @@
-import React from 'react';
-import {StyleSheet} from 'react-native';
-// @ts-ignore
-import Modal from 'react-native-modal';
-import ModalBaseScene from '../utils/ModalBaseScene';
-import DefaultModalContent from '../utils/DefaultModalContent';
+import React, {useState} from 'react'
+import {StyleSheet, Text} from 'react-native'
+import Modal from 'react-native-modal'
+import DefaultModalContent from '../utils/DefaultModalContent'
 
-class BottomHalfModal extends ModalBaseScene {
-  renderModal(): React.ReactElement<any> {
-    return (
-      <Modal
-        testID={'modal'}
-        isVisible={this.isVisible()}
-        onSwipeComplete={this.close}
-        swipeDirection={['up', 'left', 'right', 'down']}
-        style={styles.view}>
-        <DefaultModalContent onPress={this.close} />
-      </Modal>
-    );
+const BottomHalfModal = ({navigation: {goBack}}) => {
+  const [showModal, setShowModal] = useState(true)
+
+  const onClose = () => {
+    setShowModal(false)
   }
+
+  const onModalWillHide = () => {
+    goBack()
+  }
+
+  return (
+    <Modal
+      testID={'modal'}
+      isVisible={showModal}
+      onBackdropPress={onClose}
+      onModalWillHide={onModalWillHide}
+      style={styles.view}>
+      <DefaultModalContent onPress={onClose} />
+    </Modal>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -25,6 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     margin: 0,
   },
-});
+})
 
-export default BottomHalfModal;
+export default BottomHalfModal
