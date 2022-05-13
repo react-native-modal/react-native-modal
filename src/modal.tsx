@@ -17,6 +17,7 @@ import {
   View,
   ViewStyle,
   ViewProps,
+  KeyboardAvoidingViewProps,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
@@ -114,6 +115,7 @@ export type ModalProps = ViewProps & {
   hardwareAccelerated?: boolean;
   onOrientationChange?: OnOrientationChange;
   presentationStyle?: PresentationStyle;
+  avoidKeyboardProps?: KeyboardAvoidingViewProps;
 
   // Default ModalProps Provided
   useNativeDriverForBackdrop?: boolean;
@@ -131,6 +133,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     animationOut: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationOutTiming: PropTypes.number,
     avoidKeyboard: PropTypes.bool,
+    avoidKeyboardProps: PropTypes.object,
     coverScreen: PropTypes.bool,
     hasBackdrop: PropTypes.bool,
     backdropColor: PropTypes.string,
@@ -232,7 +235,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     }
   }
 
-  static getDerivedStateFromProps(nextProps: Readonly<ModalProps>, state: State) {
+  static getDerivedStateFromProps(
+    nextProps: Readonly<ModalProps>,
+    state: State,
+  ) {
     if (!state.isVisible && nextProps.isVisible) {
       return {isVisible: true, showContent: true};
     }
@@ -756,6 +762,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       animationOut,
       animationOutTiming,
       avoidKeyboard,
+      avoidKeyboardProps,
       coverScreen,
       hasBackdrop,
       backdropColor,
@@ -841,7 +848,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             pointerEvents="box-none"
-            style={computedStyle.concat([{margin: 0}])}>
+            style={computedStyle.concat([{margin: 0}])}
+            {...avoidKeyboardProps}>
             {containerView}
           </KeyboardAvoidingView>
         ) : (
