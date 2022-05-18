@@ -715,7 +715,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     const backdropComputedStyle = [
       {
         width: this.getDeviceWidth(),
-        height: '100%,
+        height: '100%',
         backgroundColor:
           this.state.showContent && !hasCustomBackdrop
             ? backdropColor
