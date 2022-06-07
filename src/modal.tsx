@@ -13,7 +13,7 @@ import {
   PanResponderInstance,
   Platform,
   StyleProp,
-  TouchableWithoutFeedback,
+  TouchableWithoutFeedback as RNTouchableWithoutFeedback,
   View,
   ViewStyle,
   ViewProps,
@@ -37,6 +37,7 @@ import {
   OnOrientationChange,
   GestureResponderEvent,
 } from './types';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 // Override default react-native-animatable animations
 initializeAnimations();
@@ -710,18 +711,16 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       useNativeDriverForBackdrop,
       onBackdropPress,
     } = this.props;
-    const hasCustomBackdrop = !!this.props.customBackdrop;
+    const hasCustomBackdrop = !!customBackdrop;
 
-    const backdropComputedStyle = [
-      {
-        width: this.getDeviceWidth(),
-        height: this.getDeviceHeight(),
-        backgroundColor:
-          this.state.showContent && !hasCustomBackdrop
-            ? backdropColor
-            : 'transparent',
-      },
-    ];
+    const backdropComputedStyle = {
+      width: this.getDeviceWidth(),
+      height: this.getDeviceHeight(),
+      backgroundColor:
+        this.state.showContent && !hasCustomBackdrop
+          ? backdropColor
+          : 'transparent',
+    };
 
     const backdropWrapper = (
       <animatable.View
@@ -741,11 +740,23 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       return backdropWrapper;
     }
     // If there's no custom backdrop, handle presses with
-    // TouchableWithoutFeedback
+    // RNTouchableWithoutFeedback
+    // code below is wierd but RNTouchableWithoutFeedback handles the top status bar area of iphone-x
+    // and TouchableWithoutFeedback will handle other areas.
     return (
-      <TouchableWithoutFeedback onPress={onBackdropPress}>
-        {backdropWrapper}
-      </TouchableWithoutFeedback>
+      <RNTouchableWithoutFeedback onPress={onBackdropPress}>
+        <View style={styles.touchableBackdropWrapper}>
+          <TouchableWithoutFeedback 
+            onPress={onBackdropPress}
+            style={{
+              width: backdropComputedStyle.width,
+              height: backdropComputedStyle.height - 1 // don't know why this works but it works only if it is not 100%
+            }}
+          >
+            {backdropWrapper}
+          </TouchableWithoutFeedback>
+        </View>
+      </RNTouchableWithoutFeedback>
     );
   };
   render() {
