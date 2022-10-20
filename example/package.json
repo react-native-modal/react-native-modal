@@ -13,7 +13,7 @@
     "react": "^16.9.0",
     "react-native": "0.61.5",
     "react-native-gesture-handler": "^1.5.0",
-    "react-native-reanimated": "^1.4.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-screens": "^1.0.0-alpha.23",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3"
