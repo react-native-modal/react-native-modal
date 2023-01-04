@@ -672,19 +672,17 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           if (this.props.isVisible) {
             this.open();
           } else {
+            // animation is done here, so just need to actualize state
+            // if set state by 1 prop (showContent: false and then isVisible: false),
+            // then when showContent set false, render is called with isVisible: true
+            // and this leads to blinking when user closes modal (it is seen on ios devices)
             this.setState(
               {
                 showContent: false,
+                isVisible: false,
               },
               () => {
-                this.setState(
-                  {
-                    isVisible: false,
-                  },
-                  () => {
-                    this.props.onModalHide();
-                  },
-                );
+                this.props.onModalHide();
               },
             );
           }
