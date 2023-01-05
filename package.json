@@ -1,5 +1,5 @@
 {
-  "name": "react-native-modal",
+  "name": "react-native-modal-fixed",
   "version": "13.0.1",
   "description": "An enhanced React Native modal",
   "main": "dist/index.js",
@@ -41,10 +41,10 @@
   ],
   "author": "Mazzarolo Matteo",
   "license": "MIT",
-  "homepage": "https://github.com/react-native-community/react-native-modal",
+  "homepage": "https://github.com/ShepelE/react-native-modal",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-community/react-native-modal"
+    "url": "https://github.com/ShepelE/react-native-modal"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
@@ -62,7 +62,6 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "3.1.3",
-    "detox": "14.7.0",
     "eslint": "^6.5.1",
     "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.0.9",
