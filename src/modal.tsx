@@ -81,6 +81,7 @@ const defaultProps = {
   panResponderThreshold: 4,
   swipeThreshold: 100,
 
+  onModalMount: (() => null) as () => void,
   onModalShow: (() => null) as () => void,
   onModalWillShow: (() => null) as () => void,
   onModalHide: (() => null) as () => void,
@@ -144,6 +145,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     isVisible: PropTypes.bool.isRequired,
     hideModalContentWhileAnimating: PropTypes.bool,
     propagateSwipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    onModalMount: PropTypes.func,
     onModalShow: PropTypes.func,
     onModalWillShow: PropTypes.func,
     onModalHide: PropTypes.func,
@@ -253,6 +255,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.open();
     }
     BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress);
+    this.props.onModalMount?.();
   }
 
   componentWillUnmount() {
