@@ -1,4 +1,5 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+
 /**
  * Metro configuration for React Native
  * https://github.com/facebook/react-native
@@ -8,7 +9,6 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const path = require('path');
 
 const reactNativeModalRoot = path.resolve(__dirname, '..');
-
 const config = {
   transformer: {
     getTransformOptions: async () => ({
@@ -23,6 +23,9 @@ const config = {
     extraNodeModules: {
       'react-native': path.resolve(__dirname, 'node_modules/react-native'),
     },
+    blacklistRE: [
+      new RegExp(`${reactNativeModalRoot}/node_modules/react-native/.*`),
+    ],
   },
 };
 

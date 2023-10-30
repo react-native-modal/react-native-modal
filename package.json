@@ -55,6 +55,7 @@
     "@babel/runtime": "^7.6.3",
     "@react-native-community/eslint-config": "^3.2.0",
     "@semantic-release/git": "^9.0.0",
+    "@types/jest": "^29.5.6",
     "@types/react": "^18.2.33",
     "@types/react-native": "^0.72.5",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
@@ -73,7 +74,7 @@
     "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-native": "^0.72.6",
-    "react-test-renderer": "16.8.6",
+    "react-test-renderer": "^18.2.0",
     "semantic-release": "17.3.0",
     "typescript": "^5.2.2"
   },

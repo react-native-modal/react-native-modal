@@ -13,7 +13,6 @@
     "@babel/runtime": "^7.20.0",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.16",
-    "and": "^0.0.3",
     "react": "^18.2.0",
     "react-native": "^0.72.6",
     "react-native-gesture-handler": "~2.12.0",
@@ -23,13 +22,11 @@
     "react-native-screens": "^3.22.0"
   },
   "devDependencies": {
-    "@react-native-community/eslint-config": "^0.0.5",
     "@react-native/metro-config": "^0.72.11",
     "@tsconfig/react-native": "^3.0.0",
     "@types/react": "^18.2.33",
     "@types/react-native": "^0.72.5",
     "metro-react-native-babel-preset": "^0.77.0",
-    "react-test-renderer": "^18.2.0",
     "typescript": "latest"
   },
   "jest": {

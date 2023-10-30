@@ -2713,6 +2713,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jest@npm:^29.5.6":
+  version: 29.5.6
+  resolution: "@types/jest@npm:29.5.6"
+  dependencies:
+    expect: ^29.0.0
+    pretty-format: ^29.0.0
+  checksum: fa13a27bd1c8efd0381a419478769d0d6d3a8e93e1952d7ac3a16274e8440af6f73ed6f96ac1ff00761198badf2ee226b5ab5583a5d87a78d609ea78da5c5a24
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.12, @types/json-schema@npm:^7.0.9":
   version: 7.0.14
   resolution: "@types/json-schema@npm:7.0.14"
@@ -6338,7 +6348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expect@npm:^29.7.0":
+"expect@npm:^29.0.0, expect@npm:^29.7.0":
   version: 29.7.0
   resolution: "expect@npm:29.7.0"
   dependencies:
@@ -12413,7 +12423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:^29.7.0":
+"pretty-format@npm:^29.0.0, pretty-format@npm:^29.7.0":
   version: 29.7.0
   resolution: "pretty-format@npm:29.7.0"
   dependencies:
@@ -12713,7 +12723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.12.0 || ^17.0.0 || ^18.0.0, react-is@npm:^18.0.0":
+"react-is@npm:^16.12.0 || ^17.0.0 || ^18.0.0, react-is@npm:^18.0.0, react-is@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
@@ -12727,7 +12737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.8.1, react-is@npm:^16.8.6":
+"react-is@npm:^16.8.1":
   version: 16.11.0
   resolution: "react-is@npm:16.11.0"
   checksum: 2bfb2a7f5a9ad87dbed796adee60e79e5aab8a1d5b83761d4496b97c512e1c1927165af4e122d819c4396bf93501eff46f0a16986020902e196934f8667fe4ae
@@ -12758,6 +12768,7 @@ __metadata:
     "@babel/runtime": ^7.6.3
     "@react-native-community/eslint-config": ^3.2.0
     "@semantic-release/git": ^9.0.0
+    "@types/jest": ^29.5.6
     "@types/react": ^18.2.33
     "@types/react-native": ^0.72.5
     "@typescript-eslint/eslint-plugin": ^6.9.0
@@ -12778,12 +12789,12 @@ __metadata:
     react: ^18.2.0
     react-native: ^0.72.6
     react-native-animatable: 1.4.0
-    react-test-renderer: 16.8.6
+    react-test-renderer: ^18.2.0
     semantic-release: 17.3.0
     typescript: ^5.2.2
   peerDependencies:
     react: "*"
-    react-native: ">=0.65.0"
+    react-native: ">=0.70.0"
   languageName: unknown
   linkType: soft
 
@@ -12854,17 +12865,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-test-renderer@npm:16.8.6":
-  version: 16.8.6
-  resolution: "react-test-renderer@npm:16.8.6"
+"react-test-renderer@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react-test-renderer@npm:18.2.0"
   dependencies:
-    object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    react-is: ^16.8.6
-    scheduler: ^0.13.6
+    react-is: ^18.2.0
+    react-shallow-renderer: ^16.15.0
+    scheduler: ^0.23.0
   peerDependencies:
-    react: ^16.0.0
-  checksum: b35014a515ee8c90432a9bf677e6d3a59af9ac7fb2ae8b59e54278596bb34e22a13788b7bc4348aa19acdfac48cf40d514d2dfa53fe972d92c4c4194e4f2b7c9
+    react: ^18.2.0
+  checksum: 6b6980ced93fa2b72662d5e4ab3b4896833586940047ce52ca9aca801e5432adf05fcbe28289b0af3ce6a2a7c590974e25dcc8aa43d0de658bfe8bbcd686f958
   languageName: node
   linkType: hard
 
@@ -13646,13 +13656,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.13.6":
-  version: 0.13.6
-  resolution: "scheduler@npm:0.13.6"
+"scheduler@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "scheduler@npm:0.23.0"
   dependencies:
     loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: c82c705f6d0d6df87b26bf2cca33f427e91889438c0435ade3ee7f41860eda4dd7f3171ca2d93e8fe9431f3bd831ca0e267a401a0296e4b14de05e389f82d320
+  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
   languageName: node
   linkType: hard
 

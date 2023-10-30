@@ -19,17 +19,17 @@ const StackNavigator = createNativeStackNavigator();
 
 const components = {
   Home: HomePage,
-  // BackdropCloseModal: BackdropCloseModal,
-  // BottomHalfModal: BottomHalfModal,
-  // CustomBackdropModal: CustomBackdropModal,
-  // DefaultModal: DefaultModal,
-  // FancyModal: FancyModal,
-  // ScrollableModal: ScrollableModal,
-  // SlideModal: SlideModal,
-  // SlowModal: SlowModal,
-  // SwipeableModal: SwipeableModal,
-  // WithoutCoverScreenModal: WithoutCoverScreenModal,
-  // WithoutBackdropModal: WithoutBackdropModal,
+  BackdropCloseModal: BackdropCloseModal,
+  BottomHalfModal: BottomHalfModal,
+  CustomBackdropModal: CustomBackdropModal,
+  DefaultModal: DefaultModal,
+  FancyModal: FancyModal,
+  ScrollableModal: ScrollableModal,
+  SlideModal: SlideModal,
+  SlowModal: SlowModal,
+  SwipeableModal: SwipeableModal,
+  WithoutCoverScreenModal: WithoutCoverScreenModal,
+  WithoutBackdropModal: WithoutBackdropModal,
 };
 
 const config = {
