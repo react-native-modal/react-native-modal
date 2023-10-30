@@ -1,6 +1,5 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-// @ts-ignore
 import Modal from 'react-native-modal';
 import ModalBaseScene from '../utils/ModalBaseScene';
 
@@ -10,19 +9,19 @@ type State = {
 
 class ScrollableModal extends ModalBaseScene<State> {
   public scrollViewRef: React.RefObject<ScrollView>;
-  constructor(props) {
+  constructor(props: any) {
     super(props, {
       scrollOffset: null,
     });
 
     this.scrollViewRef = React.createRef();
   }
-  handleOnScroll = event => {
+  handleOnScroll = (event: any) => {
     this.setState({
       scrollOffset: event.nativeEvent.contentOffset.y,
     });
   };
-  handleScrollTo = p => {
+  handleScrollTo = (p: any) => {
     if (this.scrollViewRef.current) {
       this.scrollViewRef.current.scrollTo(p);
     }
@@ -36,7 +35,7 @@ class ScrollableModal extends ModalBaseScene<State> {
         onSwipeComplete={this.close}
         swipeDirection={['down']}
         scrollTo={this.handleScrollTo}
-        scrollOffset={this.state.scrollOffset}
+        scrollOffset={this.state.scrollOffset || undefined}
         scrollOffsetMax={400 - 300} // content height - ScrollView height
         propagateSwipe={true}
         style={styles.modal}>

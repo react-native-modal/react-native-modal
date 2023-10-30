@@ -1,6 +1,5 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
-// @ts-ignore
 import Modal from 'react-native-modal';
 import ModalBaseScene from '../utils/ModalBaseScene';
 import DefaultModalContent from '../utils/DefaultModalContent';

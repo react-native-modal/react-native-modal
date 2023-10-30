@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type Props = NativeStackScreenProps<any>;
@@ -12,6 +12,11 @@ class HomePage extends React.Component<Props> {
   makeNavigationAction = (to: string) => () =>
     this.props.navigation.navigate(to);
   render() {
+    return (
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <Text>test hogehoge</Text>
+      </View>
+    );
     return (
       <View style={styles.view}>
         <Button

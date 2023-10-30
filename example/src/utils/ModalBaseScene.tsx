@@ -11,9 +11,9 @@ abstract class ModalBaseScene<P extends object = {}> extends Component<
 > {
   abstract renderModal(): React.ReactElement<any>;
 
-  constructor(props, state?: P) {
+  constructor(props: any, state?: P) {
     super(props);
-    this.state = {
+    (this.state as any) = {
       ...state,
       visible: false,
     };

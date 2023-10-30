@@ -1,9 +1,10 @@
 import React from 'react';
 
-// @ts-ignore
 import Modal from 'react-native-modal';
 import ModalBaseScene from '../utils/ModalBaseScene';
 import DefaultModalContent from '../utils/DefaultModalContent';
+
+console.log(Modal);
 
 class BackdropCloseModal extends ModalBaseScene {
   renderModal(): React.ReactElement<any> {
