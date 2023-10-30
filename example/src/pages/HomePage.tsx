@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, StyleSheet, View} from 'react-native';
-import {NavigationInjectedProps} from 'react-navigation';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type Props = NavigationInjectedProps;
+type Props = NativeStackScreenProps<any>;
 
 class HomePage extends React.Component<Props> {
   static navigationOptions = {

@@ -16,6 +16,7 @@
     "target": "esnext",
     "resolveJsonModule": true,
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   }
 }

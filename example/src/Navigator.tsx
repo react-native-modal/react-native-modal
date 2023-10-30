@@ -1,6 +1,6 @@
-import {createAppContainer, NavigationScreenComponent} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import {SceneInterpolatorProps} from 'react-navigation-stack/lib/typescript/types';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomePage from './pages/HomePage';
 import BackdropCloseModal from './modals/BackdropCloseModal';
 import BottomHalfModal from './modals/BottomHalfModal';
@@ -15,47 +15,66 @@ import SlowModal from './modals/SlowModal';
 import WithoutBackdropModal from './modals/WithoutBackdropModal';
 import {Animated, Easing} from 'react-native';
 
-const makeScene = (screen: NavigationScreenComponent<any, any>) => ({screen});
+const StackNavigator = createNativeStackNavigator();
 
-const StackNavigator = createStackNavigator(
-  {
-    Home: makeScene(HomePage),
-    BackdropCloseModal: makeScene(BackdropCloseModal),
-    BottomHalfModal: makeScene(BottomHalfModal),
-    CustomBackdropModal: makeScene(CustomBackdropModal),
-    DefaultModal: makeScene(DefaultModal),
-    FancyModal: makeScene(FancyModal),
-    ScrollableModal: makeScene(ScrollableModal),
-    SlideModal: makeScene(SlideModal),
-    SlowModal: makeScene(SlowModal),
-    SwipeableModal: makeScene(SwipeableModal),
-    WithoutCoverScreenModal: makeScene(WithoutCoverScreenModal),
-    WithoutBackdropModal: makeScene(WithoutBackdropModal),
-  },
-  {
-    initialRouteName: 'Home',
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 300,
-        easing: Easing.out(Easing.poly(5)),
-        timing: Animated.timing,
-        useNativeDriver: true,
-      },
-      screenInterpolator: (sceneProps: SceneInterpolatorProps) => {
-        const {layout, position, scene} = sceneProps;
+const components = {
+  Home: HomePage,
+  BackdropCloseModal: BackdropCloseModal,
+  BottomHalfModal: BottomHalfModal,
+  CustomBackdropModal: CustomBackdropModal,
+  DefaultModal: DefaultModal,
+  FancyModal: FancyModal,
+  ScrollableModal: ScrollableModal,
+  SlideModal: SlideModal,
+  SlowModal: SlowModal,
+  SwipeableModal: SwipeableModal,
+  WithoutCoverScreenModal: WithoutCoverScreenModal,
+  WithoutBackdropModal: WithoutBackdropModal,
+};
 
-        const thisSceneIndex = scene.index;
-        const width = layout.initWidth;
+const config = {
+  initialRouteName: 'Home',
+};
 
-        const translateX = position.interpolate({
-          inputRange: [thisSceneIndex - 1, thisSceneIndex],
-          outputRange: [width, 0],
-        });
+export default function Navigator() {
+  return (
+    <NavigationContainer>
+      <StackNavigator.Navigator
+        {...config}
+        screenOptions={
+          {
+            transitionSpec: {
+              duration: 300,
+              easing: Easing.out(Easing.poly(5)),
+              timing: Animated.timing,
+              useNativeDriver: true,
+            },
+            cardStyleInterpolator: (sceneProps: any) => {
+              const {layout, position, scene} = sceneProps;
 
-        return {transform: [{translateX}]};
-      },
-    }),
-  },
-);
+              const thisSceneIndex = scene.index;
+              const width = layout.initWidth;
 
-export default createAppContainer(StackNavigator);
+              const translateX = position.interpolate({
+                inputRange: [thisSceneIndex - 1, thisSceneIndex],
+                outputRange: [width, 0],
+              });
+
+              return {transform: [{translateX}]};
+            },
+          } as any
+        }
+      >
+        {Object.entries(components).map(([name, component]) => {
+          return (
+            <StackNavigator.Screen
+              key={name}
+              name={name}
+              component={component}
+            />
+          );
+        })}
+      </StackNavigator.Navigator>
+    </NavigationContainer>
+  );
+}

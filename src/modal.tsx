@@ -232,7 +232,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     }
   }
 
-  static getDerivedStateFromProps(nextProps: Readonly<ModalProps>, state: State) {
+  static getDerivedStateFromProps(
+    nextProps: Readonly<ModalProps>,
+    state: State,
+  ) {
     if (!state.isVisible && nextProps.isVisible) {
       return {isVisible: true, showContent: true};
     }
@@ -725,13 +728,14 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     const backdropWrapper = (
       <animatable.View
-        ref={ref => (this.backdropRef = ref)}
+        ref={(ref) => (this.backdropRef = ref)}
         useNativeDriver={
           useNativeDriverForBackdrop !== undefined
             ? useNativeDriverForBackdrop
             : useNativeDriver
         }
-        style={[styles.backdrop, backdropComputedStyle]}>
+        style={[styles.backdrop, backdropComputedStyle]}
+      >
         {hasCustomBackdrop && customBackdrop}
       </animatable.View>
     );
@@ -807,11 +811,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     const containerView = (
       <animatable.View
         {...panHandlers}
-        ref={ref => (this.contentRef = ref)}
+        ref={(ref) => (this.contentRef = ref)}
         style={[panPosition, computedStyle]}
         pointerEvents="box-none"
         useNativeDriver={useNativeDriver}
-        {...containerProps}>
+        {...containerProps}
+      >
         {_children}
       </animatable.View>
     );
@@ -822,7 +827,8 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       return (
         <View
           pointerEvents="box-none"
-          style={[styles.backdrop, styles.containerBox]}>
+          style={[styles.backdrop, styles.containerBox]}
+        >
           {this.makeBackdrop()}
           {containerView}
         </View>
@@ -834,14 +840,16 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         animationType={'none'}
         visible={this.state.isVisible}
         onRequestClose={onBackButtonPress}
-        {...otherProps}>
+        {...otherProps}
+      >
         {this.makeBackdrop()}
 
         {avoidKeyboard ? (
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             pointerEvents="box-none"
-            style={computedStyle.concat([{margin: 0}])}>
+            style={computedStyle.concat([{margin: 0}])}
+          >
             {containerView}
           </KeyboardAvoidingView>
         ) : (
