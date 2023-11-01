@@ -1,6 +1,6 @@
-import {ReactNativeModal} from './modal';
+import ReactNativeModal from './modal';
 
-export {ModalProps, ReactNativeModal, OnSwipeCompleteParams} from './modal';
+export {default as ReactNativeModal} from './modal';
 export {
   AnimationEvent,
   Animations,
@@ -10,6 +10,8 @@ export {
   PresentationStyle,
   OnOrientationChange,
   GestureResponderEvent,
-} from './types';
+  ModalProps,
+  OnSwipeCompleteParams,
+} from './modal/types';
 
 export default ReactNativeModal;

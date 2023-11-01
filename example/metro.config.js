@@ -22,9 +22,11 @@ const config = {
   resolver: {
     extraNodeModules: {
       'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+      'react': path.resolve(__dirname, 'node_modules/react'),
     },
     blacklistRE: [
       new RegExp(`${reactNativeModalRoot}/node_modules/react-native/.*`),
+      new RegExp(`${reactNativeModalRoot}/node_modules/react/.*`)
     ],
   },
 };

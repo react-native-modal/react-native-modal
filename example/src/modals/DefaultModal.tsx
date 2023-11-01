@@ -1,17 +1,24 @@
 import React from 'react';
 
 import Modal from 'react-native-modal';
-import ModalBaseScene from '../utils/ModalBaseScene';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import ModalBaseScene, {useModalBaseScensState} from '../utils/ModalBase';
 import DefaultModalContent from '../utils/DefaultModalContent';
 
-class DefaultModal extends ModalBaseScene {
-  renderModal(): React.ReactElement<any> {
-    return (
-      <Modal testID={'modal'} isVisible={this.isVisible()}>
-        <DefaultModalContent onPress={this.close} />
+function DefaultModal() {
+  const {close, open, visible} = useModalBaseScensState();
+  return (
+    <ModalBaseScene onPress={open}>
+      <Modal testID={'modal'} isVisible={visible}>
+        <DefaultModalContent
+          onPress={() => {
+            close();
+          }}
+        />
       </Modal>
-    );
-  }
+    </ModalBaseScene>
+  );
 }
 
 export default DefaultModal;
