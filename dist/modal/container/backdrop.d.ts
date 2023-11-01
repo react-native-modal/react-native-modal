@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as animatable from 'react-native-animatable';
-declare const _default: React.ForwardRefExoticComponent<
-  {
+declare const _default: React.ForwardRefExoticComponent<{
     hasBackdrop?: boolean | undefined;
     customBackdrop: React.ReactNode;
     deviceWidth: number;
@@ -11,6 +10,5 @@ declare const _default: React.ForwardRefExoticComponent<
     useNativeDriver: boolean;
     useNativeDriverForBackdrop?: boolean | undefined;
     onBackdropPress: () => void;
-  } & React.RefAttributes<animatable.View>
->;
+} & React.RefAttributes<animatable.View>>;
 export default _default;
