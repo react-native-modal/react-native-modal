@@ -44,7 +44,7 @@ export type ModalProps = ViewProps & {
   onModalHide?: () => void;
   onModalWillHide?: () => void;
   onBackdropPress?: () => void;
-  onBackButtonPress?: () => boolean | null | undefined;
+  onBackButtonPress?: () => boolean | null | undefined | void;
   scrollTo?: (_e: any) => void;
   scrollOffset?: number;
   scrollOffsetMax?: number;
