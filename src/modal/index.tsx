@@ -3,13 +3,15 @@ import {Modal, View, useWindowDimensions} from 'react-native';
 import {ModalProps, defaultProps} from './types';
 
 import {initializeAnimations} from '../utils';
-import ReactNativeModalContainer from './container';
+import ReactNativeModalContainer, {ContainerRef} from './container';
 import styles from './modal.style';
 
 // Override default react-native-animatable animations
 initializeAnimations();
 
-function ReactNativeModal(props: ModalProps) {
+export {ContainerRef as ReactNativeModalRef};
+
+function ReactNativeModal(props: ModalProps, ref: React.Ref<ContainerRef>) {
   const {height: windowDeviceHeight, width: windowDeviceWidth} =
     useWindowDimensions();
 
@@ -64,6 +66,7 @@ function ReactNativeModal(props: ModalProps) {
           {...mergedProps}
           isVisible={isVisible}
           onToggleModal={setIsModalVisible}
+          ref={ref}
         />
       </View>
     );
@@ -82,9 +85,10 @@ function ReactNativeModal(props: ModalProps) {
         {...mergedProps}
         isVisible={isVisible}
         onToggleModal={setIsModalVisible}
+        ref={ref}
       />
     </Modal>
   );
 }
 
-export default ReactNativeModal;
+export default React.forwardRef(ReactNativeModal);

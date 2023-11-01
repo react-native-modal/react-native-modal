@@ -53,3 +53,6 @@ buck-out/
 !.vscode/extensions.json
 
 .yarn
+
+# temporally public this library from github
+!/dist

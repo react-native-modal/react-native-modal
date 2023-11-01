@@ -1,4 +1,7 @@
-### Announcements 
+### Announcements
+
+temporally extension about https://github.com/react-native-modal/react-native-modal.
+
 - 📣 We're looking for maintainers and contributors! See [#598](https://github.com/react-native-modal/react-native-modal/discussions/598)
 - 💡 We're brainstorming if/how we can make a JavaScript-only version of `react-native-modal`. See [#597](https://github.com/react-native-modal/react-native-modal/discussions/597)
 - 🙏 If you have a question, please [start a new discussion](https://github.com/react-native-modal/react-native-modal/discussions) instead of opening a new issue.
@@ -79,8 +82,8 @@ The `isVisible` prop is the only prop you'll really need to make the modal work:
 ## A complete example
 
 The following example consists in a component (`ModalTester`) with a button and a modal.
-The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.  
-Pressing the button sets `isModalVisible` to true, making the modal visible.  
+The modal is controlled by the `isModalVisible` state variable and it is initially hidden, since its value is `false`.
+Pressing the button sets `isModalVisible` to true, making the modal visible.
 Inside the modal there is another button that, when pressed, sets `isModalVisible` to false, hiding the modal.
 
 ```javascript
@@ -162,13 +165,13 @@ For a more complex example take a look at the `/example` directory.
 
 ### The component is not working as expected
 
-Under the hood `react-native-modal` uses react-native original [Modal component](https://reactnative.dev/docs/modal).  
+Under the hood `react-native-modal` uses react-native original [Modal component](https://reactnative.dev/docs/modal).
 Before reporting a bug, try swapping `react-native-modal` with react-native original Modal component and, if the issue persists, check if it has already been reported as a [react-native issue](https://github.com/facebook/react-native/issues).
 
 ### The backdrop is not completely filled/covered on some Android devices (Galaxy, for one)
 
-React-Native has a few issues detecting the correct device width/height of some devices.  
-If you're experiencing this issue, you'll need to install [`react-native-extra-dimensions-android`](https://github.com/Sunhat/react-native-extra-dimensions-android).  
+React-Native has a few issues detecting the correct device width/height of some devices.
+If you're experiencing this issue, you'll need to install [`react-native-extra-dimensions-android`](https://github.com/Sunhat/react-native-extra-dimensions-android).
 Then, provide the real window height (obtained from `react-native-extra-dimensions-android`) to the modal:
 
 ```javascript
@@ -232,7 +235,7 @@ Note that when using `useNativeDriver={true}` the modal won't drag correctly. Th
 
 ### The modal flashes in a weird way when animating
 
-Unfortunately this is a [known issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.  
+Unfortunately this is a [known issue](https://github.com/react-native-community/react-native-modal/issues/92) that happens when `useNativeDriver=true` and must still be solved.
 In the meanwhile as a workaround you can set the `hideModalContentWhileAnimating` prop to `true`: this seems to solve the issue.
 Also, do not assign a `backgroundColor` property directly to the Modal. Prefer to set it on the child container.
 
@@ -259,12 +262,12 @@ That said, I would strongly advice against using multiple modals at the same tim
 
 ### The StatusBar style changes when the modal shows up
 
-This issue has been discussed [here](https://github.com/react-native-community/react-native-modal/issues/50).  
+This issue has been discussed [here](https://github.com/react-native-community/react-native-modal/issues/50).
 The TLDR is: it's a know React-Native issue with the Modal component 😞
 
 ### The modal is not covering the entire screen
 
-The modal style applied by default has a small margin.  
+The modal style applied by default has a small margin.
 If you want the modal to cover the entire screen you can easily override it this way:
 
 ```js
@@ -283,7 +286,7 @@ Please notice that this is still a WIP fix and might not fix your issue yet, see
 
 ### The modal enter/exit animation flickers
 
-Make sure your `animationIn` and `animationOut` are set correctly.  
+Make sure your `animationIn` and `animationOut` are set correctly.
 We noticed that, for example, using `fadeIn` as an exit animation makes the modal flicker (it should be `fadeOut`!).
 Also, some users have noticed that setting backdropTransitionOutTiming={0} can fix the flicker without affecting the animation.
 

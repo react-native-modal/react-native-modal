@@ -1,5 +1,4 @@
 import ReactNativeModal from './modal';
-
 export {default as ReactNativeModal, ReactNativeModalRef} from './modal';
 export {
   AnimationEvent,
@@ -13,5 +12,4 @@ export {
   ModalProps,
   OnSwipeCompleteParams,
 } from './modal/types';
-
 export default ReactNativeModal;

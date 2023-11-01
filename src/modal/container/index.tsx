@@ -1,5 +1,13 @@
 import * as React from 'react';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import {
   BackHandler,
   InteractionManager,
@@ -18,10 +26,16 @@ type State = {
   showContent: boolean;
 };
 
+export type ContainerRef = {
+  open: () => Promise<void>;
+  close: (args?: {immediate?: boolean}) => Promise<void>;
+};
+
 function ReactNativeModalContainer(
   props: MergedModalProps & {
     onToggleModal: React.Dispatch<React.SetStateAction<boolean>>;
   },
+  ref: React.Ref<ContainerRef>,
 ) {
   const {
     animationIn: animationInFromProps,
@@ -137,26 +151,23 @@ function ReactNativeModalContainer(
     pan,
   ]);
 
-  const close = useCallback(async () => {
-    if (isTransitioning.current) {
-      return;
-    }
-    isTransitioning.current = true;
-
-    backdropRef.current?.transitionTo(
-      {opacity: 0},
-      backdropTransitionOutTiming,
-    );
-
-    if (contentRef.current) {
-      onModalWillHide();
-      if (interactionHandle.current === null) {
-        interactionHandle.current =
-          InteractionManager.createInteractionHandle();
+  const close = useCallback(
+    async (args?: {immediate?: boolean}) => {
+      const {immediate} = args || {};
+      if (isTransitioning.current) {
+        return;
       }
-      return contentRef.current
-        .animate(animationOut, animationOutTiming)
-        .then(() => {
+      isTransitioning.current = true;
+
+      backdropRef.current?.transitionTo(
+        {opacity: 0},
+        backdropTransitionOutTiming,
+      );
+
+      if (contentRef.current) {
+        onModalWillHide();
+
+        if (immediate) {
           isTransitioning.current = false;
           if (interactionHandle.current) {
             InteractionManager.clearInteractionHandle(
@@ -167,16 +178,39 @@ function ReactNativeModalContainer(
           setIsVisible(false);
           setShowContent(false);
           onModalHide();
-        });
-    }
-  }, [
-    animationOut,
-    animationOutTiming,
-    backdropTransitionOutTiming,
-    isVisible,
-    onModalHide,
-    onModalWillHide,
-  ]);
+          return;
+        }
+
+        if (interactionHandle.current === null) {
+          interactionHandle.current =
+            InteractionManager.createInteractionHandle();
+        }
+
+        return contentRef.current
+          .animate(animationOut, animationOutTiming)
+          .then(() => {
+            isTransitioning.current = false;
+            if (interactionHandle.current) {
+              InteractionManager.clearInteractionHandle(
+                interactionHandle.current,
+              );
+              interactionHandle.current = null;
+            }
+            setIsVisible(false);
+            setShowContent(false);
+            onModalHide();
+          });
+      }
+    },
+    [
+      animationOut,
+      animationOutTiming,
+      backdropTransitionOutTiming,
+      isVisible,
+      onModalHide,
+      onModalWillHide,
+    ],
+  );
 
   useEffect(
     function componentDidMount() {
@@ -244,6 +278,11 @@ function ReactNativeModalContainer(
     </animatable.View>
   );
 
+  useImperativeHandle(ref, () => ({
+    open,
+    close,
+  }));
+
   return (
     <>
       <Backdrop {...props} showContent={showContent} ref={backdropRef} />
@@ -262,4 +301,4 @@ function ReactNativeModalContainer(
   );
 }
 
-export default ReactNativeModalContainer;
+export default forwardRef(ReactNativeModalContainer);
