@@ -1,0 +1,21 @@
+name: test when pull requested update
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - run: corepack enable
+      - run: yarn install
+      - run: yarn run build
+      - run: yarn run test

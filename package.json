@@ -2,6 +2,7 @@
   "name": "@tkow/react-native-modal",
   "version": "14.0.0",
   "description": "An enhanced React Native modal",
+  "packageManager": "yarn@3.6.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "react-native": "src/index.ts",
@@ -12,7 +13,6 @@
   "scripts": {
     "lint": "eslint \"src/**/*.{ts, tsx}\"",
     "test": "yarn run test:ts && yarn run lint",
-    "release": "yarn semantic-release",
     "build": "tsc",
     "dev": "tsc --watch",
     "test:ts": "tsc --noEmit",
@@ -56,7 +56,6 @@
     "@babel/core": "^7.5.5",
     "@babel/runtime": "^7.6.3",
     "@react-native-community/eslint-config": "^3.2.0",
-    "@semantic-release/git": "^9.0.0",
     "@types/jest": "^29.5.6",
     "@types/react": "^18.2.33",
     "@types/react-native": "^0.72.5",

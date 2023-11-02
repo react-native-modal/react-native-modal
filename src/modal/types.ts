@@ -69,7 +69,6 @@ export type ModalProps = ViewProps & {
   hardwareAccelerated?: boolean;
   onOrientationChange?: OnOrientationChange;
   presentationStyle?: PresentationStyle;
-
   // Default ModalProps Provided
   useNativeDriverForBackdrop?: boolean;
 };

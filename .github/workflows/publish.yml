@@ -1,0 +1,42 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: push events
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - run: corepack enable
+      - run: yarn install
+      - run: yarn run build
+      - name: Github config
+        run: |
+          git config --local user.email ${{ secrets.BOT_MAIL }}
+          git config --local user.name ${{ secrets.BOT_NAME }}
+      - name: Setup npm config
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' '${NPM_TOKEN}'
+        shell: bash
+
+      - name: create and publish versions
+        uses: changesets/action@v1
+        with:
+          commit: "chore: update versions"
+          title: "chore: update versions"
+          publish: npm publish --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

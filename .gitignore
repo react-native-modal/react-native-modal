@@ -55,4 +55,3 @@ buck-out/
 .yarn
 
 # temporally public this library from github
-!/dist

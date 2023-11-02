@@ -36,7 +36,7 @@ function ReactNativeModal(props: ModalProps, ref: React.Ref<ContainerRef>) {
     backdropTransitionOutTiming,
     customBackdrop,
     children,
-    isVisible,
+    isVisible: isVisibleFromProps,
     onModalShow,
     onBackButtonPress,
     useNativeDriver,
@@ -56,7 +56,9 @@ function ReactNativeModal(props: ModalProps, ref: React.Ref<ContainerRef>) {
 
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
-  if (!coverScreen && (isModalVisible || isVisible)) {
+  const currentVisibility = Boolean(isModalVisible || isVisibleFromProps);
+
+  if (!coverScreen && currentVisibility) {
     return (
       <View
         pointerEvents="box-none"
@@ -64,7 +66,7 @@ function ReactNativeModal(props: ModalProps, ref: React.Ref<ContainerRef>) {
       >
         <ReactNativeModalContainer
           {...mergedProps}
-          isVisible={isVisible}
+          isVisible={isVisibleFromProps}
           onToggleModal={setIsModalVisible}
           ref={ref}
         />
@@ -77,13 +79,13 @@ function ReactNativeModal(props: ModalProps, ref: React.Ref<ContainerRef>) {
     <Modal
       transparent={true}
       animationType={'none'}
-      visible={isModalVisible || isVisible}
+      visible={currentVisibility}
       onRequestClose={onBackButtonPress}
       {...otherProps}
     >
       <ReactNativeModalContainer
         {...mergedProps}
-        isVisible={isVisible}
+        isVisible={isVisibleFromProps}
         onToggleModal={setIsModalVisible}
         ref={ref}
       />
