@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {ReactNativeModal} from 'react-native-modal';
+import {ReactNativeModal} from '@tkow/react-native-modal';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 type Props = NativeStackScreenProps<any>;

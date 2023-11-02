@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import Modal from 'react-native-modal';
+import Modal from '@tkow/react-native-modal';
 import ModalBaseScene from '../utils/ModalBaseScene';
 import DefaultModalContent from '../utils/DefaultModalContent';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Modal from 'react-native-modal';
+import Modal from '@tkow/react-native-modal';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import ModalBaseScene, {useModalBaseScensState} from '../utils/ModalBase';
