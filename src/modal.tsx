@@ -823,7 +823,6 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         <View
           pointerEvents="box-none"
           style={[styles.backdrop, styles.containerBox]}>
-          {this.makeBackdrop()}
           {containerView}
         </View>
       );
