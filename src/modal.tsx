@@ -3,7 +3,6 @@ import {
   Animated,
   DeviceEventEmitter,
   Dimensions,
-  EmitterSubscription,
   InteractionManager,
   KeyboardAvoidingView,
   Modal,
@@ -17,6 +16,8 @@ import {
   View,
   ViewStyle,
   ViewProps,
+  EmitterSubscription,
+  NativeEventSubscription,
 } from 'react-native';
 import * as PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
@@ -204,6 +205,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   contentRef: any;
   panResponder: OrNull<PanResponderInstance> = null;
   didUpdateDimensionsEmitter: OrNull<EmitterSubscription> = null;
+  backHandlerEventSubscription: OrNull<NativeEventSubscription> = null;
 
   interactionHandle: OrNull<number> = null;
 
@@ -232,7 +234,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     }
   }
 
-  static getDerivedStateFromProps(nextProps: Readonly<ModalProps>, state: State) {
+  static getDerivedStateFromProps(
+    nextProps: Readonly<ModalProps>,
+    state: State,
+  ) {
     if (!state.isVisible && nextProps.isVisible) {
       return {isVisible: true, showContent: true};
     }
@@ -252,14 +257,16 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     if (this.state.isVisible) {
       this.open();
     }
-    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener(
+    this.backHandlerEventSubscription = BackHandler.addEventListener(
       'hardwareBackPress',
       this.onBackButtonPress,
     );
+  }
+
+  componentWillUnmount() {
+    if (this.backHandlerEventSubscription) {
+      this.backHandlerEventSubscription.remove();
+    }
     if (this.didUpdateDimensionsEmitter) {
       this.didUpdateDimensionsEmitter.remove();
     }
