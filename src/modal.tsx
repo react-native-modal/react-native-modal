@@ -427,12 +427,13 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         ) {
           if (this.props.onSwipeComplete) {
             this.inSwipeClosingState = true;
-            this.props.onSwipeComplete(
-              {
-                swipingDirection: this.getSwipingDirection(gestureState),
-              },
-              gestureState,
-            );
+            // this.props.onSwipeComplete(
+            //   {
+            //     swipingDirection: this.getSwipingDirection(gestureState),
+            //   },
+            //   gestureState,
+            // );
+             this.close();
             return;
           }
           // Deprecated. Remove later.
@@ -615,6 +616,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.contentRef
         .animate(this.animationIn, this.props.animationInTiming)
         .then(() => {
+           if (this.props.onSwipeComplete) {
+            this.props.onSwipeComplete();
+            this.inSwipeClosingState = false;
+          }
           this.isTransitioning = false;
           if (this.interactionHandle) {
             InteractionManager.clearInteractionHandle(this.interactionHandle);
@@ -644,7 +649,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     let animationOut = this.animationOut;
 
     if (this.inSwipeClosingState) {
-      this.inSwipeClosingState = false;
+      // this.inSwipeClosingState = false;
       if (this.currentSwipingDirection === 'up') {
         animationOut = 'slideOutUp';
       } else if (this.currentSwipingDirection === 'down') {
