@@ -1,7 +1,0 @@
-# Exclude everything else
-/*
-
-# Include dist folder and package.json
-!dist/
-!/package.json
-
