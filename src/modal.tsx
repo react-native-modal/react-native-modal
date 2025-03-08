@@ -117,7 +117,7 @@ export type ModalProps = ViewProps & {
 
   // Default ModalProps Provided
   useNativeDriverForBackdrop?: boolean;
-} & Partial<typeof defaultProps>;
+} & typeof defaultProps;
 
 const extractAnimationFromProps = (props: ModalProps) => ({
   animationIn: props.animationIn,
