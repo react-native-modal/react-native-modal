@@ -20,11 +20,8 @@ jobs:
       - run: |
           corepack enable
           yarn --immutable
-      - uses: actions/cache@v4
-        id: cache-build
-        with:
-          path: '.'
-          key: ${{ github.sha }}
+      - name: Build the project
+        run: yarn build
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -43,4 +40,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --provenance --access public
+        run: |
+          npm ci
+          npm publish --provenance --access public
