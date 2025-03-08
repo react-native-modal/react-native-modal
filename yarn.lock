@@ -7069,7 +7069,7 @@ __metadata:
     typescript: "npm:5.8.2"
   peerDependencies:
     react: "*"
-    react-native: ">=0.65.0"
+    react-native: ">=0.70.0"
   languageName: unknown
   linkType: soft
 
