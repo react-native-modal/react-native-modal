@@ -52,10 +52,6 @@ We prefix our commit messages with one of the following to signify the kind of c
 - **style**: Changes that do not affect the meaning of the code.
 - **test**: Adding missing tests or correcting existing tests.
 
-## Release process
-
-We use [Semantic Release](http://semantic-release.org) to automatically release new versions of the library when changes are merged into master. Using the commit message convention described above, it will detect if we need to release a patch, minor, or major version of the library.
-
 ## Reporting issues
 
 You can report issues on our [bug tracker](https://github.com/react-native-community/react-native-modal/issues). Please search for existing issues and follow the issue template when opening an issue.

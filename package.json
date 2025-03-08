@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal",
-  "version": "13.0.2",
+  "version": "14.0.0-rc.0",
   "description": "An enhanced React Native modal",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,7 +9,6 @@
   ],
   "scripts": {
     "test": "yarn run lint",
-    "release": "yarn semantic-release",
     "build": "tsc",
     "dev": "tsc --watch",
     "test:ts": "tsc --noEmit"
@@ -44,7 +43,6 @@
     "react-native-animatable": "1.4.0"
   },
   "devDependencies": {
-    "@semantic-release/git": "^10.0.1",
     "@types/react": "^19.0.10",
     "husky": "^3.0.9",
     "postinstall": "^0.5.1",
@@ -52,7 +50,6 @@
     "pretty-quick": "^2.0.0",
     "react": "19.0.0",
     "react-native": "0.78.0",
-    "semantic-release": "24.2.3",
     "typescript": "5.8.2"
   },
   "peerDependencies": {
