@@ -1,6 +1,6 @@
-### Announcements 
+### Announcements
+
 - 📣 We're looking for maintainers and contributors! See [#598](https://github.com/react-native-modal/react-native-modal/discussions/598)
-- 💡 We're brainstorming if/how we can make a JavaScript-only version of `react-native-modal`. See [#597](https://github.com/react-native-modal/react-native-modal/discussions/597)
 - 🙏 If you have a question, please [start a new discussion](https://github.com/react-native-modal/react-native-modal/discussions) instead of opening a new issue.
 
 # react-native-modal
@@ -39,7 +39,7 @@ Since `react-native-modal` is an extension of the [original React Native modal](
 1.  Import `react-native-modal`:
 
 ```javascript
-import Modal from "react-native-modal";
+import Modal from 'react-native-modal';
 ```
 
 2.  Create a `<Modal>` component and nest its content inside of it:
@@ -49,7 +49,7 @@ function WrapperComponent() {
   return (
     <View>
       <Modal>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>I am the modal content!</Text>
         </View>
       </Modal>
@@ -65,7 +65,7 @@ function WrapperComponent() {
   return (
     <View>
       <Modal isVisible={true}>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>I am the modal content!</Text>
         </View>
       </Modal>
@@ -84,9 +84,9 @@ Pressing the button sets `isModalVisible` to true, making the modal visible.
 Inside the modal there is another button that, when pressed, sets `isModalVisible` to false, hiding the modal.
 
 ```javascript
-import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
-import Modal from "react-native-modal";
+import React, {useState} from 'react';
+import {Button, Text, View} from 'react-native';
+import Modal from 'react-native-modal';
 
 function ModalTester() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -96,11 +96,11 @@ function ModalTester() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <Button title="Show modal" onPress={toggleModal} />
 
       <Modal isVisible={isModalVisible}>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>Hello!</Text>
 
           <Button title="Hide modal" onPress={toggleModal} />
@@ -117,8 +117,8 @@ For a more complex example take a look at the `/example` directory.
 
 ## Available props
 
-| Name                             | Type                 | Default                        | Description                                                                                                                                |
-| -------------------------------- | -------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Name                             | Type                 | Default                          | Description                                                                                                                                |
+| -------------------------------- | -------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | `animationIn`                    | `string` or `object` | `"slideInUp"`                    | Modal show animation                                                                                                                       |
 | `animationInTiming`              | `number`             | `300`                            | Timing for the modal show animation (in ms)                                                                                                |
 | `animationOut`                   | `string` or `object` | `"slideOutDown"`                 | Modal hide animation                                                                                                                       |
@@ -131,10 +131,10 @@ For a more complex example take a look at the `/example` directory.
 | `backdropTransitionInTiming`     | `number`             | `300`                            | The backdrop show timing (in ms)                                                                                                           |
 | `backdropTransitionOutTiming`    | `number`             | `300`                            | The backdrop hide timing (in ms)                                                                                                           |
 | `customBackdrop`                 | `node`               | `null`                           | The custom backdrop element                                                                                                                |
-| `children`                       | `node`               | **REQUIRED**                   | The modal content                                                                                                                          |
+| `children`                       | `node`               | **REQUIRED**                     | The modal content                                                                                                                          |
 | `deviceHeight`                   | `number`             | `null`                           | Device height (useful on devices that can hide the navigation bar)                                                                         |
 | `deviceWidth`                    | `number`             | `null`                           | Device width (useful on devices that can hide the navigation bar)                                                                          |
-| `isVisible`                      | `bool`               | **REQUIRED**                   | Show the modal?                                                                                                                            |
+| `isVisible`                      | `bool`               | **REQUIRED**                     | Show the modal?                                                                                                                            |
 | `onBackButtonPress`              | `func`               | `() => null`                     | Called when the Android back button is pressed                                                                                             |
 | `onBackdropPress`                | `func`               | `() => null`                     | Called when the backdrop is pressed                                                                                                        |
 | `onModalWillHide`                | `func`               | `() => null`                     | Called before the modal hide animation begins                                                                                              |
@@ -172,12 +172,12 @@ If you're experiencing this issue, you'll need to install [`react-native-extra-d
 Then, provide the real window height (obtained from `react-native-extra-dimensions-android`) to the modal:
 
 ```javascript
-const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get('window').width;
 const deviceHeight =
-  Platform.OS === "ios"
-    ? Dimensions.get("window").height
-    : require("react-native-extra-dimensions-android").get(
-        "REAL_WINDOW_HEIGHT"
+  Platform.OS === 'ios'
+    ? Dimensions.get('window').height
+    : require('react-native-extra-dimensions-android').get(
+        'REAL_WINDOW_HEIGHT',
       );
 
 function WrapperComponent() {
@@ -187,9 +187,8 @@ function WrapperComponent() {
     <Modal
       isVisible={isModalVisible}
       deviceWidth={deviceWidth}
-      deviceHeight={deviceHeight}
-    >
-      <View style={{ flex: 1 }}>
+      deviceHeight={deviceHeight}>
+      <View style={{flex: 1}}>
         <Text>I am the modal content!</Text>
       </View>
     </Modal>
@@ -204,9 +203,8 @@ The prop `onBackdropPress` allows you to handle this situation:
 ```javascript
 <Modal
   isVisible={isModalVisible}
-  onBackdropPress={() => setModalVisible(false)}
->
-  <View style={{ flex: 1 }}>
+  onBackdropPress={() => setModalVisible(false)}>
+  <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
 </Modal>
@@ -220,9 +218,8 @@ The prop `onSwipeComplete` allows you to handle this situation (remember to set 
 <Modal
   isVisible={isModalVisible}
   onSwipeComplete={() => setModalVisible(false)}
-  swipeDirection="left"
->
-  <View style={{ flex: 1 }}>
+  swipeDirection="left">
+  <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
 </Modal>
@@ -268,7 +265,7 @@ The modal style applied by default has a small margin.
 If you want the modal to cover the entire screen you can easily override it this way:
 
 ```js
-<Modal style={{ margin: 0 }}>...</Modal>
+<Modal style={{margin: 0}}>...</Modal>
 ```
 
 ### I can't scroll my ScrollView inside of the modal
@@ -292,8 +289,8 @@ Also, some users have noticed that setting backdropTransitionOutTiming={0} can f
 You need to specify the size of your custom backdrop component. You can also make it expand to fill the entire screen by adding a `flex: 1` to its style:
 
 ```javascript
-<Modal isVisible={isModalVisible} customBackdrop={<View style={{ flex: 1 }} />}>
-  <View style={{ flex: 1 }}>
+<Modal isVisible={isModalVisible} customBackdrop={<View style={{flex: 1}} />}>
+  <View style={{flex: 1}}>
     <Text>I am the modal content!</Text>
   </View>
 </Modal>
@@ -308,7 +305,7 @@ You can provide an event handler to the custom backdrop element to dismiss the m
   isVisible={isModalVisible}
   customBackdrop={
     <TouchableWithoutFeedback onPress={dismissModalHandler}>
-      <View style={{ flex: 1 }} />
+      <View style={{flex: 1}} />
     </TouchableWithoutFeedback>
   }
 />
