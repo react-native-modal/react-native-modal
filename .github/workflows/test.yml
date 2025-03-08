@@ -17,7 +17,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-      - run: yarn --pure-lockfile
+      - run: |
+          corepack enable
+          yarn --immutable
       - uses: actions/cache@v4
         id: cache-build
         with:
