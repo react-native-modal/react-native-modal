@@ -17,8 +17,8 @@ import {
   View,
   ViewStyle,
   ViewProps,
+  NativeEventSubscription,
 } from 'react-native';
-import * as PropTypes from 'prop-types';
 import * as animatable from 'react-native-animatable';
 import {Animation, CustomAnimation} from 'react-native-animatable';
 
@@ -125,60 +125,8 @@ const extractAnimationFromProps = (props: ModalProps) => ({
 });
 
 export class ReactNativeModal extends React.Component<ModalProps, State> {
-  static propTypes = {
-    animationIn: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    animationInTiming: PropTypes.number,
-    animationOut: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    animationOutTiming: PropTypes.number,
-    avoidKeyboard: PropTypes.bool,
-    coverScreen: PropTypes.bool,
-    hasBackdrop: PropTypes.bool,
-    backdropColor: PropTypes.string,
-    backdropOpacity: PropTypes.number,
-    backdropTransitionInTiming: PropTypes.number,
-    backdropTransitionOutTiming: PropTypes.number,
-    customBackdrop: PropTypes.node,
-    children: PropTypes.node.isRequired,
-    deviceHeight: PropTypes.number,
-    deviceWidth: PropTypes.number,
-    isVisible: PropTypes.bool.isRequired,
-    hideModalContentWhileAnimating: PropTypes.bool,
-    propagateSwipe: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    onModalShow: PropTypes.func,
-    onModalWillShow: PropTypes.func,
-    onModalHide: PropTypes.func,
-    onModalWillHide: PropTypes.func,
-    onBackButtonPress: PropTypes.func,
-    onBackdropPress: PropTypes.func,
-    panResponderThreshold: PropTypes.number,
-    onSwipeStart: PropTypes.func,
-    onSwipeMove: PropTypes.func,
-    onSwipeComplete: PropTypes.func,
-    onSwipeCancel: PropTypes.func,
-    swipeThreshold: PropTypes.number,
-    swipeDirection: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.oneOf(['up', 'down', 'left', 'right'])),
-      PropTypes.oneOf(['up', 'down', 'left', 'right']),
-    ]),
-    useNativeDriver: PropTypes.bool,
-    useNativeDriverForBackdrop: PropTypes.bool,
-    style: PropTypes.any,
-    scrollTo: PropTypes.func,
-    scrollOffset: PropTypes.number,
-    scrollOffsetMax: PropTypes.number,
-    scrollHorizontal: PropTypes.bool,
-    supportedOrientations: PropTypes.arrayOf(
-      PropTypes.oneOf([
-        'portrait',
-        'portrait-upside-down',
-        'landscape',
-        'landscape-left',
-        'landscape-right',
-      ]),
-    ),
-  };
-
   public static defaultProps = defaultProps;
+  private backHandler: NativeEventSubscription | null = null;
 
   // We use an internal state for keeping track of the modal visibility: this allows us to keep
   // the modal visible during the exit animation, even if the user has already change the
@@ -232,7 +180,10 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     }
   }
 
-  static getDerivedStateFromProps(nextProps: Readonly<ModalProps>, state: State) {
+  static getDerivedStateFromProps(
+    nextProps: Readonly<ModalProps>,
+    state: State,
+  ) {
     if (!state.isVisible && nextProps.isVisible) {
       return {isVisible: true, showContent: true};
     }
@@ -252,17 +203,23 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     if (this.state.isVisible) {
       this.open();
     }
-    BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress);
-  }
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener(
+    this.backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       this.onBackButtonPress,
     );
+  }
+
+  componentWillUnmount() {
+    if (this.backHandler) {
+      this.backHandler.remove();
+      this.backHandler = null;
+    }
+
     if (this.didUpdateDimensionsEmitter) {
       this.didUpdateDimensionsEmitter.remove();
     }
+
     if (this.interactionHandle) {
       InteractionManager.clearInteractionHandle(this.interactionHandle);
       this.interactionHandle = null;
@@ -725,6 +682,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     const backdropWrapper = (
       <animatable.View
+        // @ts-expect-error TODO fix it
         ref={ref => (this.backdropRef = ref)}
         useNativeDriver={
           useNativeDriverForBackdrop !== undefined
@@ -807,6 +765,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     const containerView = (
       <animatable.View
         {...panHandlers}
+        // @ts-expect-error TODO fix it
         ref={ref => (this.contentRef = ref)}
         style={[panPosition, computedStyle]}
         pointerEvents="box-none"
