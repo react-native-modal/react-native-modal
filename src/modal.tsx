@@ -1,41 +1,41 @@
 import * as React from 'react';
 import {
   Animated,
+  BackHandler,
   DeviceEventEmitter,
   Dimensions,
   EmitterSubscription,
   InteractionManager,
   KeyboardAvoidingView,
   Modal,
+  NativeEventSubscription,
   PanResponder,
-  BackHandler,
   PanResponderGestureState,
   PanResponderInstance,
   Platform,
   StyleProp,
   TouchableWithoutFeedback,
   View,
-  ViewStyle,
   ViewProps,
-  NativeEventSubscription,
+  ViewStyle,
 } from 'react-native';
 import * as animatable from 'react-native-animatable';
 import {Animation, CustomAnimation} from 'react-native-animatable';
 
 import {
-  initializeAnimations,
   buildAnimations,
+  initializeAnimations,
   reversePercentage,
 } from './utils';
 import styles from './modal.style';
 import {
+  AnimationEvent,
   Direction,
+  GestureResponderEvent,
+  OnOrientationChange,
   Orientation,
   OrNull,
-  AnimationEvent,
   PresentationStyle,
-  OnOrientationChange,
-  GestureResponderEvent,
 } from './types';
 
 // Override default react-native-animatable animations
