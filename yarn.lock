@@ -3815,9 +3815,9 @@ __metadata:
   linkType: hard
 
 "minimist@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "minimist@npm:1.2.0"
-  checksum: 10c0/0c9e882a4d31d217e12223a2881a2cc76a4659c20893c82c92b9355bace60b4a4d52d5fb412755212674765c4dd471e19de85458a400029fdd5d96cb18054aee
+  version: 1.2.8
+  resolution: "minimist@npm:1.2.8"
+  checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
   languageName: node
   linkType: hard
 
