@@ -1,9 +1,9 @@
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import * as animatable from 'react-native-animatable';
-import {CustomAnimation, Animation} from 'react-native-animatable';
-import {Animations} from './types';
+import { Animation, CustomAnimation } from 'react-native-animatable';
+import { Animations } from './types';
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 export const initializeAnimations = () => {
   // Since react-native-animatable applies by default a margin of 100 to its

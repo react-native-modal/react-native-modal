@@ -1,5 +1,5 @@
-import {Animation, CustomAnimation} from 'react-native-animatable';
-import {NativeSyntheticEvent, NativeTouchEvent} from 'react-native';
+import { Animation, CustomAnimation } from 'react-native-animatable';
+import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 
 export type OrNull<T> = null | T;
 

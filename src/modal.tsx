@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   Animated,
-  BackHandler,
   DeviceEventEmitter,
   Dimensions,
   EmitterSubscription,
@@ -20,7 +19,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import * as animatable from 'react-native-animatable';
-import {Animation, CustomAnimation} from 'react-native-animatable';
+import { Animation, CustomAnimation } from 'react-native-animatable';
 
 import {
   buildAnimations,
@@ -37,6 +36,7 @@ import {
   OrNull,
   PresentationStyle,
 } from './types';
+import { BackHandler } from './back-handler.js';
 
 // Override default react-native-animatable animations
 initializeAnimations();
@@ -157,7 +157,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
   constructor(props: ModalProps) {
     super(props);
-    const {animationIn, animationOut} = buildAnimations(
+    const { animationIn, animationOut } = buildAnimations(
       extractAnimationFromProps(props),
     );
 
@@ -185,7 +185,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     state: State,
   ) {
     if (!state.isVisible && nextProps.isVisible) {
-      return {isVisible: true, showContent: true};
+      return { isVisible: true, showContent: true };
     }
     return null;
   }
@@ -233,7 +233,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.props.animationIn !== prevProps.animationIn ||
       this.props.animationOut !== prevProps.animationOut
     ) {
-      const {animationIn, animationOut} = buildAnimations(
+      const { animationIn, animationOut } = buildAnimations(
         extractAnimationFromProps(this.props),
       );
       this.animationIn = animationIn;
@@ -245,7 +245,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.backdropRef
     ) {
       this.backdropRef.transitionTo(
-        {opacity: this.props.backdropOpacity},
+        { opacity: this.props.backdropOpacity },
         this.props.backdropTransitionInTiming,
       );
     }
@@ -363,14 +363,14 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
                 offsetX -= (offsetX - this.props.scrollOffsetMax) / 2;
               }
 
-              this.props.scrollTo({x: offsetX, animated: false});
+              this.props.scrollTo({ x: offsetX, animated: false });
             } else {
               let offsetY = -gestureState.dy;
               if (offsetY > this.props.scrollOffsetMax) {
                 offsetY -= (offsetY - this.props.scrollOffsetMax) / 2;
               }
 
-              this.props.scrollTo({y: offsetY, animated: false});
+              this.props.scrollTo({ y: offsetY, animated: false });
             }
           }
         }
@@ -412,7 +412,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         }
 
         Animated.spring(this.state.pan!, {
-          toValue: {x: 0, y: 0},
+          toValue: { x: 0, y: 0 },
           bounciness: 0,
           useNativeDriver: false,
         }).start();
@@ -480,11 +480,11 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.currentSwipingDirection === 'right' ||
       this.currentSwipingDirection === 'left'
     ) {
-      return Animated.event([null, {dx: this.state.pan!.x}], {
+      return Animated.event([null, { dx: this.state.pan!.x }], {
         useNativeDriver: false,
       });
     } else {
-      return Animated.event([null, {dy: this.state.pan!.y}], {
+      return Animated.event([null, { dy: this.state.pan!.y }], {
         useNativeDriver: false,
       });
     }
@@ -496,7 +496,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       : this.props.swipeDirection === direction;
   };
 
-  isSwipeDirectionAllowed = ({dy, dx}: PanResponderGestureState) => {
+  isSwipeDirectionAllowed = ({ dy, dx }: PanResponderGestureState) => {
     const draggedDown = dy > 0;
     const draggedUp = dy < 0;
     const draggedLeft = dx < 0;
@@ -540,7 +540,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
         deviceWidth !== this.state.deviceWidth ||
         deviceHeight !== this.state.deviceHeight
       ) {
-        this.setState({deviceWidth, deviceHeight});
+        this.setState({ deviceWidth, deviceHeight });
       }
     }
   };
@@ -552,7 +552,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     this.isTransitioning = true;
     if (this.backdropRef) {
       this.backdropRef.transitionTo(
-        {opacity: this.props.backdropOpacity},
+        { opacity: this.props.backdropOpacity },
         this.props.backdropTransitionInTiming,
       );
     }
@@ -561,7 +561,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     // at the last released position when you try to open it.
     // TODO: Could certainly be improved - no idea for the moment.
     if (this.state.isSwipeable) {
-      this.state.pan!.setValue({x: 0, y: 0});
+      this.state.pan!.setValue({ x: 0, y: 0 });
     }
 
     if (this.contentRef) {
@@ -593,7 +593,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     this.isTransitioning = true;
     if (this.backdropRef) {
       this.backdropRef.transitionTo(
-        {opacity: 0},
+        { opacity: 0 },
         this.props.backdropTransitionOutTiming,
       );
     }
@@ -731,9 +731,9 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       ...otherProps
     } = this.props;
 
-    const {testID, ...containerProps} = otherProps;
+    const { testID, ...containerProps } = otherProps;
     const computedStyle = [
-      {margin: this.getDeviceWidth() * 0.05, transform: [{translateY: 0}]},
+      { margin: this.getDeviceWidth() * 0.05, transform: [{ translateY: 0 }] },
       styles.content,
       style,
     ];
@@ -741,7 +741,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
     let panHandlers = {};
     let panPosition = {};
     if (this.state.isSwipeable) {
-      panHandlers = {...this.panResponder!.panHandlers};
+      panHandlers = { ...this.panResponder!.panHandlers };
 
       if (useNativeDriver) {
         panPosition = {
@@ -800,7 +800,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             pointerEvents="box-none"
-            style={computedStyle.concat([{margin: 0}])}>
+            style={computedStyle.concat([{ margin: 0 }])}>
             {containerView}
           </KeyboardAvoidingView>
         ) : (
