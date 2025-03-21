@@ -639,7 +639,14 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
                     isVisible: false,
                   },
                   () => {
-                    this.props.onModalHide();
+                    // Delay onModalHide by 2 cycles to ensure that:
+                    // 1. RN ModalContent has been unmounted
+                    // 2. RN ModalFocusTrap has been executed and no longer active
+                    this.setState({}, () => {
+                      this.setState({}, () => {
+                        this.props.onModalHide();
+                      });
+                    });
                   },
                 );
               },
