@@ -677,6 +677,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
           this.state.showContent && !hasCustomBackdrop
             ? backdropColor
             : 'transparent',
+        opacity: this.props.backdropOpacity,
       },
     ];
 
