@@ -706,6 +706,9 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       </TouchableWithoutFeedback>
     );
   };
+
+  private stableAnimatedValueZero = new Animated.Value(0);
+
   render() {
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
@@ -733,7 +736,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     const { testID, ...containerProps } = otherProps;
     const computedStyle = [
-      { margin: this.getDeviceWidth() * 0.05, transform: [{ translateY: 0 }] },
+      { margin: this.getDeviceWidth() * 0.05, transform: [{ translateY: this.stableAnimatedValueZero }] },
       styles.content,
       style,
     ];
