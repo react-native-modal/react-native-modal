@@ -1,59 +1,59 @@
 {
-    "name": "react-native-modal",
-    "version": "14.0.0-rc.2",
-    "description": "An enhanced React Native modal",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist/"
-    ],
-    "scripts": {
-        "test": "yarn run lint",
-        "build": "tsc",
-        "dev": "tsc --watch",
-        "test:ts": "tsc --noEmit"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged"
-        }
-    },
-    "keywords": [
-        "react-native",
-        "react",
-        "native",
-        "modal",
-        "android",
-        "ios",
-        "backdrop",
-        "simple",
-        "animated"
-    ],
-    "authors": [
-        "Mazzarolo Matteo",
-        "Anthony Cyrille"
-    ],
-    "license": "MIT",
-    "homepage": "https://github.com/react-native-modal/react-native-modal",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/react-native-modal/react-native-modal"
-    },
-    "dependencies": {
-        "react-native-animatable": "1.4.0"
-    },
-    "devDependencies": {
-        "@types/react": "19.1.5",
-        "husky": "9.1.7",
-        "postinstall": "0.11.2",
-        "prettier": "3.5.3",
-        "pretty-quick": "4.1.1",
-        "react": "19.1.0",
-        "react-native": "0.79.2",
-        "typescript": "5.8.3"
-    },
-    "peerDependencies": {
-        "react": "*",
-        "react-native": ">=0.70.0"
+  "name": "react-native-modal",
+  "version": "14.0.1",
+  "description": "An enhanced React Native modal",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "test": "yarn run lint",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test:ts": "tsc --noEmit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
     }
+  },
+  "keywords": [
+    "react-native",
+    "react",
+    "native",
+    "modal",
+    "android",
+    "ios",
+    "backdrop",
+    "simple",
+    "animated"
+  ],
+  "authors": [
+    "Mazzarolo Matteo",
+    "Anthony Cyrille"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/react-native-modal/react-native-modal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-native-modal/react-native-modal"
+  },
+  "dependencies": {
+    "react-native-animatable": "1.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.5",
+    "husky": "9.1.7",
+    "postinstall": "0.11.2",
+    "prettier": "3.5.3",
+    "pretty-quick": "4.1.1",
+    "react": "19.1.0",
+    "react-native": "0.79.2",
+    "typescript": "5.8.3"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": ">=0.70.0"
+  }
 }
