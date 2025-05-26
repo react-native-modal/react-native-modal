@@ -13,8 +13,8 @@ const noopBackHandler: BackHandlerStatic = {
   ): NativeEventSubscription {
     return { remove: () => {} };
   },
-  removeEventListener: () => {},
+  //removeEventListener: () => {},
 };
 
 export const BackHandler: BackHandlerStatic =
-  Platform.OS === 'web' ? noopBackHandler : require('react-native').BackHandler;
+  Platform.OS !== "android" ? noopBackHandler : require('react-native').BackHandler;
