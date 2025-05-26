@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal",
-  "version": "14.0.0-rc.1",
+  "version": "14.0.1",
   "description": "An enhanced React Native modal",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -43,18 +43,17 @@
     "react-native-animatable": "1.4.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.10",
-    "husky": "^3.0.9",
-    "postinstall": "^0.5.1",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^2.0.0",
-    "react": "19.0.0",
-    "react-native": "0.76.7",
-    "typescript": "5.8.2"
+    "@types/react": "19.1.5",
+    "husky": "9.1.7",
+    "postinstall": "0.11.2",
+    "prettier": "3.5.3",
+    "pretty-quick": "4.1.1",
+    "react": "19.1.0",
+    "react-native": "0.79.2",
+    "typescript": "5.8.3"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": ">=0.70.0"
-  },
-  "packageManager": "yarn@4.7.0"
+  }
 }
