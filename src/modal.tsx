@@ -215,7 +215,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.backHandler.remove();
       this.backHandler = null;
     }
-
+    
     if (this.didUpdateDimensionsEmitter) {
       this.didUpdateDimensionsEmitter.remove();
     }
@@ -812,3 +812,4 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 }
 
 export default ReactNativeModal;
+
