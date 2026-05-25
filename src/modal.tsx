@@ -4,7 +4,6 @@ import {
   DeviceEventEmitter,
   Dimensions,
   EmitterSubscription,
-  InteractionManager,
   KeyboardAvoidingView,
   Modal,
   NativeEventSubscription,
@@ -153,7 +152,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
   panResponder: OrNull<PanResponderInstance> = null;
   didUpdateDimensionsEmitter: OrNull<EmitterSubscription> = null;
 
-  interactionHandle: OrNull<number> = null;
+  interactionHandle: boolean = false;
 
   constructor(props: ModalProps) {
     super(props);
@@ -220,10 +219,7 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
       this.didUpdateDimensionsEmitter.remove();
     }
 
-    if (this.interactionHandle) {
-      InteractionManager.clearInteractionHandle(this.interactionHandle);
-      this.interactionHandle = null;
-    }
+    this.interactionHandle = false;
   }
 
   componentDidUpdate(prevProps: ModalProps) {
@@ -566,17 +562,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillShow && this.props.onModalWillShow();
-      if (this.interactionHandle == null) {
-        this.interactionHandle = InteractionManager.createInteractionHandle();
-      }
+      this.interactionHandle = true;
       this.contentRef
         .animate(this.animationIn, this.props.animationInTiming)
         .then(() => {
           this.isTransitioning = false;
-          if (this.interactionHandle) {
-            InteractionManager.clearInteractionHandle(this.interactionHandle);
-            this.interactionHandle = null;
-          }
+          this.interactionHandle = false;
           if (!this.props.isVisible) {
             this.close();
           } else {
@@ -615,17 +606,12 @@ export class ReactNativeModal extends React.Component<ModalProps, State> {
 
     if (this.contentRef) {
       this.props.onModalWillHide && this.props.onModalWillHide();
-      if (this.interactionHandle == null) {
-        this.interactionHandle = InteractionManager.createInteractionHandle();
-      }
+      this.interactionHandle = true;
       this.contentRef
         .animate(animationOut, this.props.animationOutTiming)
         .then(() => {
           this.isTransitioning = false;
-          if (this.interactionHandle) {
-            InteractionManager.clearInteractionHandle(this.interactionHandle);
-            this.interactionHandle = null;
-          }
+          this.interactionHandle = false;
           if (this.props.isVisible) {
             this.open();
           } else {
